@@ -1,0 +1,53 @@
+/* __________________ Thème Principale __________________ */
+
+/* Blanc */
+:root {
+  --text-color: #444;
+
+  /* Background */
+  --background-color: #fff;
+
+  --primary-color: #1d9bf0;
+  --primary-color-hover: #4daff0;
+  --primary-color-active: #65b8f0;
+  --primary-color-text: #fff;
+
+  --blue-light-color: #00CCFF;
+  --blue-dark-color: #16A2B7;
+  --orange-color: #FFC108;
+  --red-color: #D73546;
+  --red-pastel-color: #F4C5CA;
+  --green-color: #28A745;
+  --green-fuchsia-color: #9EFF61;
+  --green-pastel-color: #C3E6CB;
+  --grey-dark-color: #D7D7D7;
+  --grey-light-color: #494949;
+
+  --grey-light: #CFD9DE;
+  --grey-dark: #9aa2a6;
+}
+
+/*____________________________ Noir ____________________________*/
+.dark-mode {
+  --text-color: #fff;
+
+  /* Background */
+  --background-color: #383838;
+
+  --primary-color: #1d9bf0;
+  --primary-color-text: #fff;
+
+  --grey-light: #4e5154;
+  --grey-dark: #6b7073;
+
+  --blue-light-color: #19d1ff;
+  --blue-dark-color: #19bdd6;
+  --orange-color: #ffcf41;
+  --red-color: #e02437;
+  --red-pastel-color: #eec9cc;
+  --green-color: #18bb3e;
+  --green-fuchsia-color: #9EFF61;
+  --green-pastel-color: #C3E6CB;
+  --grey-dark-color: #505050;
+  --grey-light-color: #eee;
+}

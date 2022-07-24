@@ -1,0 +1,33 @@
+:root {
+// Global
+--outline-focus: 4px solid #269FCF;
+  --transition-duration: .2s;
+  --transition-duration-long: .5s;
+  --background-dark-color: #282828;
+  --border-radius: 20px;
+
+// Module
+--module-height: 430px;
+  --module-height-navbar: 55.5px;
+  --module-spacing-between: 50px;
+
+// Section
+--spacing-large: 100px;
+  --spacing-medium: 50px;
+
+// Color
+--color-youtube: #C4302C;
+  --color-facebook: #3B5898;
+  --color-reddit: #C5C5C5;
+  --color-discord: #7289DA;
+  --color-forum: #E4B21B;
+  --color-twitter: #1d9bf0;
+  --color-twitch: #9147ff;
+  --color-soundcloud: #f76c0f;
+  --color-linkedin: #0a66c2;
+
+  /* Shadow */
+  --shadow-material-2dp: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+  --shadow-material-5dp: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 5px 8px 0 rgb(0 0 0 / 14%), 0 1px 14px 0 rgb(0 0 0 / 12%);
+  --shadow-material-24dp: 0 11px 15px -7px rgb(0 0 0 / 20%), 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%);
+}
