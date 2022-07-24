@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     submitLogin () {
-      console.log(this.username, this.email, this.password)
+      console.log(this.email, this.password)
     }
   }
 }
