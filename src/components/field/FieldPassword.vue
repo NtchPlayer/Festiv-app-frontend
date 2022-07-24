@@ -43,7 +43,7 @@
           v-text="'avoir au moins un nombre'"
         />
         <li
-          v-show="passwordHasSpecialCarac"
+          v-show="passwordHasSpecialCharacter"
           class="item-list-warning"
           v-text="'avoir un caractère spécial'"
         />
@@ -71,16 +71,16 @@ export default {
       return !(/[A-Z]/.test(this.password))
     },
     passwordHasNumber () {
-      return !(/[\d]/.test(this.password))
+      return !(/\d/.test(this.password))
     },
-    passwordHasSpecialCarac () {
+    passwordHasSpecialCharacter () {
       return !(/[&#@!?§%€$="+_:/,;'.-]/.test(this.password))
     },
     passwordHasSpace () {
       return (/\s+/.test(this.password))
     },
     error () {
-      return (this.passwordLengthMet || this.passwordHasCap || this.passwordHasNumber || this.passwordHasSpace || this.passwordHasSpecialCarac) && this.password !== ''
+      return (this.passwordLengthMet || this.passwordHasCap || this.passwordHasNumber || this.passwordHasSpace || this.passwordHasSpecialCharacter) && this.password !== ''
     },
     passwordIsValid () {
       return !this.error && this.password !== ''
