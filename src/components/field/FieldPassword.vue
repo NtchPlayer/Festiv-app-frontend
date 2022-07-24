@@ -13,7 +13,7 @@
       placeholder="Votre mot de passe"
       :disabled="disabled"
       name="Field Password"
-      minlength="8"
+      :minlength="errorChecker === false ? false : 8"
       :autocomplete="autocomplete"
     >
     <div v-if="errorChecker" v-show="error" id="container-warning-field">
