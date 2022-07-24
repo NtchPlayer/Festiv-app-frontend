@@ -4,6 +4,7 @@
     <form @submit.prevent="submitLogin">
       <FieldEmail
         v-model="email"
+        :focus="true"
       />
       <FieldPassword
         v-model="password"
