@@ -65,6 +65,10 @@ body{
   &:active{
     background-color: var(--primary-color-active);
   }
+  &:disabled{
+    background-color: var(--grey-light);
+    cursor: not-allowed;
+  }
 }
 
 // Input CSS
@@ -86,6 +90,10 @@ body{
   transition-duration: var(--transition-duration);
   &:hover{
     border-color: var(--grey-dark);
+  }
+  &:disabled{
+    background-color: var(--grey-light);
+    border-color: var(--grey-light);
   }
 }
 
