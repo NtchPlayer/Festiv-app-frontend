@@ -57,7 +57,7 @@ export default {
       return this.username.trim().length < 2
     },
     usernameHasSpace () {
-      return (/\s+/.test(this.username))
+      return (/\s+/.test(this.username.toString()))
     },
     nameIsValid () {
       return (!this.error && this.username !== '')

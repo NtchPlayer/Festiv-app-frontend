@@ -60,7 +60,7 @@ export default {
     autocomplete: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     focus: { type: Boolean, default: false },
-    modelValue: { type: String, default: false },
+    modelValue: { type: String, default: '' },
     errorChecker: { type: Boolean, default: false }
   },
   computed: {
@@ -68,16 +68,16 @@ export default {
       return (this.password.trim().length < 8)
     },
     passwordHasCap () {
-      return !(/[A-Z]/.test(this.password))
+      return !(/[A-Z]/.test(this.password.toString()))
     },
     passwordHasNumber () {
-      return !(/\d/.test(this.password))
+      return !(/\d/.test(this.password.toString()))
     },
     passwordHasSpecialCharacter () {
-      return !(/[&#@!?§%€$="+_:/,;'.-]/.test(this.password))
+      return !(/[&#@!?§%€$="+_:/,;'.-]/.test(this.password.toString()))
     },
     passwordHasSpace () {
-      return (/\s+/.test(this.password))
+      return (/\s+/.test(this.password.toString()))
     },
     error () {
       return (this.passwordLengthMet || this.passwordHasCap || this.passwordHasNumber || this.passwordHasSpace || this.passwordHasSpecialCharacter) && this.password !== ''
