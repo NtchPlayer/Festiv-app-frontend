@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     submitLogin () {
-      console.log(this.email, this.password)
       this.loading = true
       this.$store
         .dispatch('auth/login', { email: this.email, password: this.password })
