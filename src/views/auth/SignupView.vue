@@ -1,24 +1,26 @@
 <template>
   <section class="modale">
     <h1 class="main-title">Se créer un compte</h1>
-    <form @submit.prevent="submitLogin">
-      <FieldUsername
-        v-model="username"
-        :focus="true"
-        :errorChecker="true"
-        @usernameIsValid="updateUsernameIsValid"
-      />
-      <FieldEmail
-        v-model="email"
-        :errorChecker="true"
-        @emailIsValid="updateEmailIsValid"
-      />
-      <FieldPassword
-        v-model="password"
-        :errorChecker="true"
-        @passwordIsValid="updatePasswordIsValid"
-      />
-      <input class="button-primary" type="submit" value="Suivant">
+    <form @submit.prevent="submitSignup">
+      <fieldset :disabled="loading">
+        <FieldUsername
+          v-model="username"
+          :focus="true"
+          :errorChecker="true"
+          @usernameIsValid="updateUsernameIsValid"
+        />
+        <FieldEmail
+          v-model="email"
+          :errorChecker="true"
+          @emailIsValid="updateEmailIsValid"
+        />
+        <FieldPassword
+          v-model="password"
+          :errorChecker="true"
+          @passwordIsValid="updatePasswordIsValid"
+        />
+        <input :disabled="!isValidForm" class="button-primary" type="submit" value="Suivant">
+      </fieldset>
     </form>
     <p class="auth-link">
       Vous avez déjà un compte ?
@@ -48,7 +50,13 @@ export default {
       email: '',
       emailIsValid: false,
       password: '',
-      passwordIsValid: false
+      passwordIsValid: false,
+      loading: false
+    }
+  },
+  computed: {
+    isValidForm () {
+      return this.usernameIsValid && this.emailIsValid && this.passwordIsValid
     }
   },
   methods: {
@@ -61,8 +69,18 @@ export default {
     updateEmailIsValid (value) {
       this.emailIsValid = value
     },
-    submitLogin () {
-      console.log(this.username, this.email, this.password)
+    submitSignup () {
+      this.loading = true
+      this.$store
+        .dispatch('auth/signup', { username: this.username, email: this.email, password: this.password })
+        .then(() => {
+          this.$router.push({ name: 'login' })
+          this.loading = false
+        })
+        .catch((error) => {
+          this.loading = false
+          throw error
+        })
     }
   }
 }
