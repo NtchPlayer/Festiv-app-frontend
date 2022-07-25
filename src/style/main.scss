@@ -24,10 +24,21 @@ body{
   direction: ltr;
 }
 
+//#app{
+//  display: flex;
+//}
+
+.main-container{
+  width: 600px;
+  margin: auto;
+  height: 100vh;
+  border-left: 1px solid var(--grey-light);
+  border-right: 1px solid var(--grey-light);
+}
+
 // Title
 .main-title{
   font-size: 2rem;
-  margin-bottom: 20px;
 }
 
 // Class Modal
