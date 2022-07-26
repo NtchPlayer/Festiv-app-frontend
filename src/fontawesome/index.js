@@ -8,14 +8,26 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
   faCircleExclamation,
   faHouse,
-  faBullhorn
+  faBullhorn,
+  faUser,
+  faMessage,
+  faMagnifyingGlass,
+  faPlus,
+  faXmark,
+  faImage
 } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(
   faCircleExclamation,
   faHouse,
-  faBullhorn
+  faBullhorn,
+  faUser,
+  faMessage,
+  faMagnifyingGlass,
+  faPlus,
+  faXmark,
+  faImage
 )
 
 export default FontAwesomeIcon
