@@ -1,13 +1,13 @@
 <template>
   <article class="post">
     <div class="post-profile-picture">
-      <ProfilePicture name="IcePlayer" />
+      <ProfilePicture :name="publication.user.username" />
     </div>
     <div class="post-content">
       <header class="post-header">
-        <h1 v-text="user.username" />•<time>10 min</time>
+        <h1 v-text="publication.user.username" />•<time>10 min</time>
       </header>
-      <body class="post-body" v-text="content" />
+      <main class="post-body" v-html="publication.content" />
     </div>
   </article>
 </template>
@@ -16,13 +16,12 @@
 import ProfilePicture from '@/components/ProfilePicture'
 
 export default {
-  name: 'PostItem',
+  name: 'ItemPublication',
   components: {
     ProfilePicture
   },
   props: {
-    user: { type: Object, required: true },
-    content: { type: Object, required: true }
+    publication: { type: Object, required: true }
   }
 }
 </script>
