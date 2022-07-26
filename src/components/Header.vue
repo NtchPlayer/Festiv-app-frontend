@@ -1,6 +1,14 @@
 <template>
   <header class="header-section">
     <h1 class="main-title" v-text="title" />
+    <button
+      v-if="button"
+      class="button-round"
+      :title="button.label"
+      @click.prevent="$emit('emitClick')"
+    >
+      <font-awesome-icon :icon="`fa-solid ${button.icon}`" />
+    </button>
   </header>
 </template>
 
@@ -8,13 +16,17 @@
 export default {
   name: 'HeaderSection',
   props: {
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    button: { type: Object, required: false }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .header-section{
-  padding: 20px 30px;
+  padding: 10px 20px;
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
