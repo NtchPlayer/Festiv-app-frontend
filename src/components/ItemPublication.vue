@@ -1,13 +1,24 @@
 <template>
-  <article class="post">
-    <div class="post-profile-picture">
-      <ProfilePicture :name="publication.user.username" />
-    </div>
-    <div class="post-content">
-      <header class="post-header">
-        <h1 v-text="publication.user.username" />•<time>10 min</time>
+  <article class="publication-container publication-body publication-hover">
+    <ProfilePicture :name="publication.user.username" />
+    <div class="publication-content">
+      <header class="publication-header">
+        <h1
+          class="publication-header-username"
+          v-text="publication.user.username"
+        />
+        •
+        <time
+          class="publication-header-time"
+          v-text="$filters.timeFilter(publication.createdAt)"
+        />
       </header>
-      <main class="post-body" v-html="publication.content" />
+      <main class="publication-body" v-html="publication.content" />
+      <footer class="publication-footer">
+        <button class="button-round button-heart">
+          <font-awesome-icon icon="fa-regular fa-heart" />
+        </button>
+      </footer>
     </div>
   </article>
 </template>

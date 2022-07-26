@@ -1,15 +1,15 @@
 <template>
-  <div class="create-publication-container">
-    <header class="create-publication-header">
+  <div class="publication-container">
+    <header class="modale-header">
       <button class="button-round" @click.prevent="$emit('emitClose')">
         <font-awesome-icon icon="fa-solid fa-xmark" />
       </button>
     </header>
-    <main class="create-publication-body">
+    <main class="publication-body">
       <ProfilePicture :name="$store.state.auth.user.username" />
-      <div class="create-publication-fields">
+      <div class="publication-content">
         <TipTap v-model="content" />
-        <div class="create-publication-footer">
+        <div class="publication-footer">
           <input id="file-publication" type="file">
           <label class="button-round" for="file-publication">
             <font-awesome-icon icon="fa-solid fa-image" />
@@ -56,58 +56,34 @@ export default {
 </script>
 
 <style lang="scss">
-.create-publication-container{
-  padding: 20px;
-}
-
 .modale {
-  .create-publication-container{
+  .publication-container{
     padding: 0;
+    border-bottom: none;
   }
 
-  .create-publication-header{
+  .modale-header{
     display: block;
+    margin-bottom: 20px;
   }
 
   .ProseMirror{
     min-height: 100px;
   }
 
-  .create-publication-footer{
+  .publication-footer{
     margin-top: 10px;
     border-top: 1px solid var(--grey-light);
   }
 }
-.create-publication-header{
+.modale-header{
   display: none;
-  margin-bottom: 20px;
 }
 
-.create-publication-body{
-  display: flex;
-}
-
-.create-publication-fields{
-  margin-left: 20px;
-  width: 100%;
+.publication-content{
   .ProseMirror{
     width: 100%;
     min-height: 50px;
-  }
-}
-
-.create-publication-footer{
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  .button-primary{
-    width: auto;
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-  #file-publication{
-    display: none;
-    visibility: hidden;
   }
 }
 </style>

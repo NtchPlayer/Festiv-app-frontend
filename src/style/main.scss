@@ -33,20 +33,6 @@ body{
   border-right: 1px solid var(--grey-light);
 }
 
-.button-round{
-  transition-duration: var(--transition-duration);
-  border-radius: 50px;
-  width: 40px;
-  font-size: 1.2rem;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover{
-    background-color: var(--grey-light);
-  }
-}
-
 // Title
 .main-title{
   font-size: 2rem;
@@ -94,6 +80,25 @@ body{
     background-color: var(--grey-light);
     cursor: not-allowed;
   }
+}
+
+.button-round{
+  transition-duration: var(--transition-duration);
+  border-radius: 50px;
+  width: 40px;
+  font-size: 1.2rem;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover{
+    background-color: var(--grey-light);
+  }
+}
+
+.button-heart:hover{
+  background-color: var(--red-hover-color);
+  color: var(--red-color);
 }
 
 // Input CSS
@@ -149,6 +154,54 @@ a{
 .item-list-warning{
   margin: 10px 0 10px 20px;
   list-style: inside;
+}
+
+// Publication
+.publication-container{
+  padding: 20px;
+  border-bottom: 1px solid var(--grey-light);
+}
+
+.publication-hover{
+  transition-duration: var(--transition-duration);
+  cursor: pointer;
+  &:hover{
+    background-color: var(--hover-color);
+  }
+}
+
+.publication-header{
+  display: flex;
+  &-username{
+    margin-right: 5px;
+  }
+  &-time{
+    margin-left: 5px;
+  }
+}
+
+.publication-body{
+  display: flex;
+}
+
+.publication-content{
+  margin-left: 20px;
+  width: 100%;
+}
+
+.publication-footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  .button-primary{
+    width: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  #file-publication{
+    display: none;
+    visibility: hidden;
+  }
 }
 
 // Class Color
