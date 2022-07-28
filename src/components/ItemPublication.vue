@@ -27,7 +27,13 @@
           <div v-show="optionsMenu" class="publication-options-mask" @click.prevent="optionsMenu = false"/>
         </div>
       </header>
-      <main v-html="publication.content" />
+      <main>
+        <div
+          class="publication-main"
+          v-html="publication.content"
+        />
+        <PublicationGalerie :medias="publication.medias" />
+      </main>
       <footer class="publication-footer">
         <button type="button" class="button-round button-heart">
           <font-awesome-icon icon="fa-regular fa-heart" />
@@ -39,10 +45,12 @@
 
 <script>
 import ProfilePicture from '@/components/ProfilePicture'
+import PublicationGalerie from '@/components/PublicationGalerie'
 
 export default {
   name: 'ItemPublication',
   components: {
+    PublicationGalerie,
     ProfilePicture
   },
   props: {
