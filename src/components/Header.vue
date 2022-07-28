@@ -26,7 +26,10 @@ export default {
 .header-section{
   padding: 10px 20px;
   position: sticky;
+  z-index: 7;
+  top: 0;
   display: flex;
   justify-content: space-between;
+  background-color: var(--header-color);
 }
 </style>
