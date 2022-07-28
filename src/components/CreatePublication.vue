@@ -20,9 +20,9 @@
             class="publication-medias-item"
           >
             <PublicationImage
-              button-title="Retirer l'image"
+              button="Retirer l'image"
               :image="{
-                src: __create_url(media),
+                url: __create_url(media),
                 alt: media.name
               }"
               @emitButton="__remove_media(media)"
@@ -87,6 +87,7 @@ export default {
         )
           .then(() => {
             this.content = ''
+            this.medias = []
             this.$emit('fetchPublications')
             this.$emit('emitClose')
           })
