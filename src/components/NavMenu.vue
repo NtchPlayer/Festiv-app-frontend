@@ -40,6 +40,7 @@ export default {
   width: inherit;
   bottom: 0;
   display: flex;
+  background-color: var(--background-color);
   &-nav{
     //display: flex;
  }
