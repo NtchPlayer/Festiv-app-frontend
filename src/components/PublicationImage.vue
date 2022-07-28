@@ -1,17 +1,18 @@
 <template>
   <div class="publication-media-item">
     <button
+      v-if="button"
       type="button"
-      :title="buttonTitle"
+      :title="button"
       class="publication-media-button"
       @click.prevent="$emit('emitButton')"
     >
       <font-awesome-icon icon="fa-solid fa-xmark" />
     </button>
-    <figure class="publication-media-thumb">
+    <figure class="publication-media-thumb" @click.prevent="$emit('galerie', { url: image.url, alt: image.alt })">
       <img
         class="publication-media-image"
-        :src="image.src"
+        :src="image.url"
         :alt="image.alt"
       />
     </figure>
@@ -22,7 +23,7 @@
 export default {
   name: 'PublicationImage',
   props: {
-    buttonTitle: { type: String, default: 'Fermer' },
+    button: { type: [String, Boolean], default: false },
     image: { type: Object, required: true }
   }
 }
