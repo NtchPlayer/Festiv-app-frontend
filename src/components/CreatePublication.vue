@@ -74,20 +74,11 @@ export default {
   },
   methods: {
     __post_publication () {
-      // if (this.medias.length > 0) {
-      //   this.__post_medias()
-      // }
       const formData = new FormData()
       this.medias.forEach((file) => {
         formData.append('files[]', file, file.name)
       })
       formData.append('content', this.content)
-      // const files = []
-      // this.medias.forEach((media) => {
-      //   files.append('files', new File([media], media.name, { type: media.type }))
-      //   // files.push(new File([media], media.name, { type: media.type }))
-      // })
-      // console.log(files)
       if (this.content) {
         this.axios.post(
           'publications/add',
@@ -113,20 +104,6 @@ export default {
     __create_url (media) {
       return URL.createObjectURL(media)
     }
-    // __post_medias () {
-    //   this.medias.forEach(async (media) => {
-    //     const file = new File([media], media.name, { type: media.type })
-    //     await this.axios
-    //       .post('medias/upload', {
-    //         file
-    //       }, {
-    //         headers: { 'Content-Type': 'multipart/form-data' }
-    //       })
-    //       .catch((e) => {
-    //         return console.log(e)
-    //       })
-    //   })
-    // }
   }
 }
 </script>
