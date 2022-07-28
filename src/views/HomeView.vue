@@ -13,9 +13,7 @@
         <CreatePublication @emitClose="newPostModal = false" @fetchPublications="fetchPublications" />
       </div>
     </section>
-    <section>
-      <CreatePublication @fetchPublications="fetchPublications" />
-    </section>
+    <CreatePublication @fetchPublications="fetchPublications" />
     <section>
       <ItemPublication
         v-for="publication of publications"
