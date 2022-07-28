@@ -1,5 +1,5 @@
 <template>
-  <div class="publication-container">
+  <section class="publication-container">
     <header class="modale-header">
       <button class="button-round" @click.prevent="$emit('emitClose')">
         <font-awesome-icon icon="fa-solid fa-xmark" />
@@ -51,7 +51,7 @@
         </div>
       </div>
     </main>
-  </div>
+  </section>
 </template>
 
 <script>
