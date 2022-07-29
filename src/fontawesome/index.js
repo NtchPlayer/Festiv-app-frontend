@@ -16,7 +16,9 @@ import {
   faXmark,
   faImage,
   faHeart as fasHeart,
-  faEllipsis
+  faEllipsis,
+  faArrowLeft,
+  faArrowRightFromBracket
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -38,7 +40,9 @@ library.add(
   fasHeart,
   farHeart,
   faTrashCan,
-  faEllipsis
+  faEllipsis,
+  faArrowLeft,
+  faArrowRightFromBracket
 )
 
 export default FontAwesomeIcon
