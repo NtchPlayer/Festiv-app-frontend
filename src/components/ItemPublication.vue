@@ -1,5 +1,5 @@
 <template>
-  <article class="publication-container publication-body publication-hover">
+  <article class="item-container publication-body publication-hover">
     <ProfilePicture :name="publication.user.username" />
     <div class="publication-content">
       <header class="publication-header">
@@ -14,18 +14,15 @@
             v-text="$filters.timeFilter(publication.createdAt)"
           />
         </div>
-        <div class="publication-options-container">
-          <button class="button-round" type="button" @click.prevent="optionsMenu = true">
-            <font-awesome-icon icon="fa-solid fa-ellipsis" />
-          </button>
-          <div v-show="optionsMenu" class="publication-options-button-container">
-            <button type="button" class="red publication-options-button" @click.prevent="deletePost">
-              <font-awesome-icon class="publication-options-button-icon" icon="fa-regular fa-trash-can" />
-              <span class="publication-options-button-label">Supprimer la publication</span>
-            </button>
-          </div>
-          <div v-show="optionsMenu" class="publication-options-mask" @click.prevent="optionsMenu = false"/>
-        </div>
+        <OptionMenu
+          :actions="[{
+            class: 'red',
+            icon: 'fa-regular fa-trash-can',
+            label: 'Supprimer la publication',
+            function: 'deletePost'
+          }]"
+          @deletePost="__deletePost"
+        />
       </header>
       <main>
         <div
@@ -46,23 +43,20 @@
 <script>
 import ProfilePicture from '@/components/ProfilePicture'
 import PublicationGalerie from '@/components/PublicationGalerie'
+import OptionMenu from '@/components/OptionMenu'
 
 export default {
   name: 'ItemPublication',
   components: {
+    OptionMenu,
     PublicationGalerie,
     ProfilePicture
   },
   props: {
     publication: { type: Object, required: true }
   },
-  data () {
-    return {
-      optionsMenu: false
-    }
-  },
   methods: {
-    deletePost () {
+    __deletePost () {
       this.axios.delete(`publications/${this.publication.id}`)
         .then(() => {
           this.$emit('fetchPublications')
