@@ -1,8 +1,8 @@
 <template>
   <header class="header-section">
     <div>
-      <button v-if="buttonBackward" class="ro" @click.prevent="$router.back()">
-        <font-awesome-icon icon="icon-solid fa-arrow-left" />
+      <button v-if="buttonBackward" class="button-round" @click.prevent="$router.back()">
+        <font-awesome-icon icon="fa-solid fa-arrow-left" />
       </button>
       <h1 class="main-title" v-text="title" />
     </div>
