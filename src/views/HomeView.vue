@@ -6,6 +6,7 @@
         label: 'Nouveau Post',
         icon: 'fa-plus'
       }"
+      :button-backward="false"
       @emitClick="newPost"
     />
     <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
