@@ -1,6 +1,11 @@
 <template>
   <header class="header-section">
-    <h1 class="main-title" v-text="title" />
+    <div>
+      <button v-if="buttonBackward" class="ro" @click.prevent="$router.back()">
+        <font-awesome-icon icon="icon-solid fa-arrow-left" />
+      </button>
+      <h1 class="main-title" v-text="title" />
+    </div>
     <button
       v-if="button"
       class="button-round"
@@ -17,7 +22,8 @@ export default {
   name: 'HeaderSection',
   props: {
     title: { type: String, required: true },
-    button: { type: Object, required: false }
+    button: { type: Object, required: false },
+    buttonBackward: { type: Boolean, default: true }
   }
 }
 </script>
@@ -31,5 +37,11 @@ export default {
   display: flex;
   justify-content: space-between;
   background-color: var(--header-color);
+  > div{
+    display: flex;
+    button{
+      margin-right: 20px;
+    }
+  }
 }
 </style>
