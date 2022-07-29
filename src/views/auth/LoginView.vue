@@ -40,9 +40,9 @@ export default {
     }
   },
   methods: {
-    submitLogin () {
+    async submitLogin () {
       this.loading = true
-      this.$store
+      await this.$store
         .dispatch('auth/login', { email: this.email, password: this.password })
         .then(() => {
           this.$router.push({ name: 'home' })
