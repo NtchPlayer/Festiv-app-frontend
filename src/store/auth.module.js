@@ -20,6 +20,12 @@ export const auth = {
         }
       )
     },
+    checkUserSession ({ dispatch }) {
+      return AuthService.getCurrentUser()
+        .catch(() => {
+          dispatch('logout')
+        })
+    },
     logout ({ commit }) {
       AuthService.logout()
       commit('logout')
