@@ -1,12 +1,14 @@
 <template>
-  <div class="container-profile-picture">
+  <div class="container-profile-picture" :class="{ 'profile-picture-large': largeIcon }">
 <!--    <router-link :to="{ name: 'profile', params: { user: name } }">-->
     <a href="/">
-      <img
-        class="profile-picture"
-        alt="Photo de profile de l'utilisateur"
-        :src="require('@/assets/default-profile-picture.jpg')"
-      >
+      <figure>
+        <img
+          class="profile-picture"
+          alt="Photo de profile de l'utilisateur"
+          :src="require('@/assets/default-profile-picture.jpg')"
+        >
+      </figure>
     </a>
 <!--    </router-link>-->
   </div>
@@ -17,7 +19,8 @@ export default {
   name: 'ProfilePicture',
   props: {
     src: { type: String, default: '@/assets/default-profile-picture.jpg' },
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    largeIcon: { type: Boolean, default: false }
   }
 }
 </script>
@@ -39,6 +42,14 @@ export default {
   object-fit: contain;
   width: 100%;
   transition-duration: var(--transition-duration);
+  &-large{
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    height: 100px;
+    min-height: 100px;
+    max-height: 100px;
+  }
   &:hover{
     filter: brightness(.8);
   }
