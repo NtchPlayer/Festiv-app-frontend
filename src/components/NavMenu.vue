@@ -18,7 +18,7 @@
         Messages
       </span>
     </router-link>
-    <router-link class="nav-item" :to="{ name: 'home' }">
+    <router-link class="nav-item" :to="{ name: 'profile', params: { username: $store.state.auth.user.username } }">
       <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-user" />
       <span class="nav-item-label">
         Profile
