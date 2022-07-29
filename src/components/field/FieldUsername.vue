@@ -20,7 +20,7 @@
       minlength="2"
       maxlength="32"
     >
-    <div v-if="errorChecker" v-show="error" id="container-warning-field">
+    <div v-if="errorChecker" v-show="error" class="container-warning-field">
       <span aria-hidden="true" class="red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>

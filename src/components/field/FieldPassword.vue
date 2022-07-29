@@ -16,7 +16,7 @@
       :minlength="errorChecker === false ? false : 8"
       :autocomplete="autocomplete"
     >
-    <div v-if="errorChecker" v-show="error" id="container-warning-field">
+    <div v-if="errorChecker" v-show="error" class="container-warning-field">
       <span class="red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>
