@@ -24,11 +24,21 @@ class AuthService {
   }
 
   register (user) {
-    return axiosInstance.post('/users/signup', {
+    return axiosInstance.post('users/signup', {
       username: user.username,
       email: user.email,
       password: user.password
     })
+  }
+
+  getCurrentUser () {
+    return axiosInstance.get('profile')
+      .then((res) => {
+        return res.data
+      })
+      .catch((e) => {
+        throw e
+      })
   }
 }
 
