@@ -33,6 +33,11 @@ body{
   border-right: 1px solid var(--grey-light);
 }
 
+.item-container{
+  padding: 20px;
+  border-bottom: 1px solid var(--grey-light);
+}
+
 // Title
 .main-title{
   font-size: 2rem;
@@ -157,11 +162,6 @@ a{
 }
 
 // Publication
-.publication-container{
-  padding: 20px;
-  border-bottom: 1px solid var(--grey-light);
-}
-
 .publication-hover{
   transition-duration: var(--transition-duration);
   cursor: pointer;
@@ -182,47 +182,6 @@ a{
   &-time{
     margin-left: 5px;
   }
-}
-
-.publication-options{
-  &-container{
-    position: relative;
-  }
-  &-mask{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-  &-button-container{
-    position: absolute;
-    background-color: var(--background-color);
-    box-shadow: rgba(101, 119, 134, 0.2) 0 0 15px, rgba(101, 119, 134, 0.15) 0 0 3px 1px;
-    border-radius: 5px;
-    z-index: 5;
-    min-width: 280px;
-    right: 0;
-    top: 0;
-    overflow: hidden;
-  }
-  &-button{
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    transition-duration: var(--transition-duration);
-    width: 100%;
-    &:hover{
-      background-color: var(--hover-color);
-    }
-    &-icon{
-      margin-right: 10px;
-    }
-  }
-}
-
-.publication-options-container{
-
 }
 
 .publication-body{
