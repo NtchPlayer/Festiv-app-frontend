@@ -19,6 +19,14 @@
           :errorChecker="true"
           @passwordIsValid="updatePasswordIsValid"
         />
+        <div class="container-input">
+          <input type="checkbox" v-model="isFestivalAccount" id="festival-account" @keydown.enter.prevent="isFestivalAccount = !isFestivalAccount">
+          <label for="festival-account">Créer un compte pour un festival.</label>
+        </div>
+        <FielsTags
+          v-show="isFestivalAccount"
+          :tags="tags"
+        />
         <input :disabled="!isValidForm" class="button-primary" type="submit" value="Suivant">
       </fieldset>
     </form>
@@ -35,10 +43,12 @@
 import FieldUsername from '@/components/field/FieldUsername'
 import FieldEmail from '@/components/field/FieldEmail'
 import FieldPassword from '@/components/field/FieldPassword'
+import FielsTags from '@/components/field/FielsTags'
 
 export default {
   name: 'SignupView',
   components: {
+    FielsTags,
     FieldUsername,
     FieldEmail,
     FieldPassword
@@ -51,6 +61,8 @@ export default {
       emailIsValid: false,
       password: '',
       passwordIsValid: false,
+      isFestivalAccount: false,
+      tags: [],
       loading: false
     }
   },
@@ -72,7 +84,13 @@ export default {
     submitSignup () {
       this.loading = true
       this.$store
-        .dispatch('auth/signup', { username: this.username, email: this.email, password: this.password })
+        .dispatch('auth/signup', {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+          isProfessional: this.isFestivalAccount,
+          tags: this.tags
+        })
         .then(() => {
           this.$router.push({ name: 'login' })
           this.loading = false
