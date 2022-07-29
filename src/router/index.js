@@ -9,6 +9,11 @@ const routes = [{
   meta: { requireAuth: true },
   component: HomeView
 }, {
+  path: '/:username',
+  name: 'profile',
+  meta: { requireAuth: true },
+  component: () => import(/* webpackChunkName: "profile" */ '../views/ProfileView.vue')
+}, {
   path: '/about',
   name: 'about',
   meta: { requireAuth: false },
