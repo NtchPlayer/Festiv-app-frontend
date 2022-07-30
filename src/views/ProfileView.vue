@@ -1,6 +1,6 @@
 <template>
   <main class="main-container profile-view">
-    <template v-if="!loading">
+    <template v-if="!initLoading">
       <Header :title="userData.username" />
       <section class="item-container">
         <div>
@@ -8,11 +8,27 @@
             :name="userData.username"
             :large-icon="true"
           />
-          <h2 class="profile-username" v-text="userData.username" />
-          <div v-html="userData.biography" />
+          <h2 class="profile-username">
+            <span v-text="userData.username" />
+            <span v-if="userData.isProfessional" class="text-label">Festival</span>
+          </h2>
+          <p class="profile-name" v-text="`@${userData.name}`" />
+          <div class="publication-main" v-html="userData.biography" />
+          <div v-if="userData.isProfessional" class="profile-tags">
+            <p class="profile-tags-label">Hashtag de ce festival:</p>
+            <ul class="profile-tags-container">
+              <li v-for="tag of userData.tags" :key="tag.id">
+                <span class="text-label" v-text="tag.content" />
+              </li>
+            </ul>
+          </div>
         </div>
         <OptionMenu
           :actions="[{
+            icon: 'fa-solid fa-user-pen',
+            label: 'Éditer votre profile',
+            function: 'editAccount'
+          }, {
             icon: 'fa-solid fa-arrow-right-from-bracket',
             label: 'Se déconnecter',
             function: 'logout'
@@ -22,16 +38,23 @@
             label: 'Supprimer votre compte',
             function: 'deleteAccount'
           }]"
+          @editAccount="__editAccount"
           @logout="__logout"
           @deleteAccount="__deleteAccount"
         />
       </section>
+      <ProfileEdit
+        v-if="editAccount"
+        :user-data="userData"
+        @close="editAccount = false"
+        @getUser="__fetchUser"
+      />
       <section>
         <ItemPublication
           v-for="publication of publications"
           :key="publication.id"
           :publication="publication"
-          @fetchPublications="fetchPublications"
+          @fetchPublications="__fetchUserPost(this.userData.username)"
         />
       </section>
     </template>
@@ -48,10 +71,12 @@ import NavMenu from '@/components/NavMenu'
 import Header from '@/components/Header'
 import OptionMenu from '@/components/OptionMenu'
 import ItemPublication from '@/components/ItemPublication'
+import ProfileEdit from '@/components/ProfileEdit'
 
 export default {
   name: 'ProfileView',
   components: {
+    ProfileEdit,
     Header,
     NavMenu,
     ProfilePicture,
@@ -62,13 +87,17 @@ export default {
     return {
       userData: null,
       publications: null,
-      loading: true
+      initLoading: true,
+      editAccount: false
     }
   },
   async mounted () {
     await this.__fetchUser()
   },
   methods: {
+    __editAccount () {
+      this.editAccount = true
+    },
     __logout () {
       this.$store
         .dispatch('auth/logout')
@@ -80,16 +109,15 @@ export default {
       console.log('delete Account')
     },
     __fetchUser () {
-      this.loading = true
-      return this.axios.get(`users/${this.$route.params.username}`)
+      return this.axios.get(`users/${this.$route.params.name}`)
         .then((res) => {
-          this.loading = false
+          this.initLoading = false
           this.userData = res.data
-          this.__fetchUserPost(res.data.username)
+          this.__fetchUserPost(res.data.name)
         })
     },
-    __fetchUserPost (username) {
-      return this.axios.get(`publications?username=${username}`)
+    __fetchUserPost (name) {
+      return this.axios.get(`publications?name=${name}`)
         .then((res) => {
           this.publications = res.data
         })
@@ -110,5 +138,21 @@ export default {
   font-size: 1.5rem;
   font-weight: 700;
   margin-top: 15px;
+}
+
+.profile-tags{
+  margin-top: 20px;
+  &-label{
+    margin-bottom: 5px;
+    font-size: .8rem;
+    color: var(--grey-dark);
+  }
+  &-container{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  li:first-child .text-label{
+    margin-left: 0;
+  }
 }
 </style>
