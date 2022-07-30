@@ -1,5 +1,11 @@
 <template>
-  <editor-content :editor="editor" />
+  <div class="container-input">
+    <p v-if="label" class="label" v-text="label" />
+    <editor-content
+      :class="{'input': label}"
+      :editor="editor"
+    />
+  </div>
 </template>
 
 <script>
@@ -16,6 +22,10 @@ export default {
     modelValue: {
       type: String,
       default: ''
+    },
+    label: {
+      type: [String, Boolean],
+      default: false
     }
   },
 
