@@ -6,15 +6,20 @@
         <div class="publication-header-meta">
           <h1
             class="publication-header-username"
-            v-text="publication.user.username"
-          />
-          •
-          <time
-            class="publication-header-time"
-            v-text="$filters.timeFilter(publication.createdAt)"
-          />
+          >
+            <router-link :to="{name: 'profile', params: { name: publication.user.name }}" v-text="publication.user.username" />
+          </h1>
+          <p class="publication-header-extra">
+            <span class="profile-name" v-text="`@${publication.user.name}`" />
+            •
+            <time
+              class="publication-header-time"
+              v-text="$filters.timeFilter(publication.createdAt)"
+            />
+          </p>
         </div>
         <OptionMenu
+          v-if="publication.user.id === $store.state.auth.user.id"
           :actions="[{
             class: 'red',
             icon: 'fa-regular fa-trash-can',
