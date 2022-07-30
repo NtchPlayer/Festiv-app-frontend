@@ -7,12 +7,18 @@
       v-model="email"
       class="input"
       :class="{'input-error': error && email !== ''}"
-      type="email"
+      :type="errorChecker ? 'email' : 'text'"
       :disabled="disabled"
       name="Field Email"
       placeholder="E-mail"
       :autocomplete="autocomplete"
     >
+    <p
+      v-show="isUse"
+      class="error-message"
+    >
+      Cet email est déjà utilisé.
+    </p>
     <p
       v-if="errorChecker"
       v-show="error && (email !== '')"
@@ -36,7 +42,8 @@ export default {
     disabled: { type: Boolean, default: false },
     focus: { type: Boolean, default: false },
     modelValue: { type: String, default: '' },
-    errorChecker: { type: Boolean, default: false }
+    errorChecker: { type: Boolean, default: false },
+    isUse: { type: Boolean, default: false }
   },
   computed: {
     emailIsValid () {
