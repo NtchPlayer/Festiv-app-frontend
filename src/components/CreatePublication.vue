@@ -6,7 +6,7 @@
       </button>
     </header>
     <main class="publication-body">
-      <ProfilePicture :name="$store.state.auth.user.username" />
+      <ProfilePicture :name="$store.state.auth.user.name" />
       <div class="publication-content">
         <TipTap v-model="content" />
         <ul
