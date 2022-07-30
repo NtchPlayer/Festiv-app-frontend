@@ -1,7 +1,7 @@
 <template>
-  <section class="modale">
+  <section class="modale item-container">
     <h1 class="main-title">Se connecter</h1>
-    <form @submit.prevent="submitLogin">
+    <form @submit.prevent="__submitLogin">
       <fieldset :disabled="loading">
         <FieldEmail
           v-model="email"
@@ -10,6 +10,7 @@
         <FieldPassword
           v-model="password"
         />
+        <p v-show="error" class="error-message" v-text="error"/>
         <input class="button-primary" type="submit" value="Suivant">
       </fieldset>
     </form>
@@ -36,12 +37,14 @@ export default {
     return {
       email: '',
       password: '',
-      loading: false
+      loading: false,
+      error: null
     }
   },
   methods: {
-    async submitLogin () {
+    async __submitLogin () {
       this.loading = true
+      this.error = null
       await this.$store
         .dispatch('auth/login', { email: this.email, password: this.password })
         .then(() => {
@@ -50,8 +53,11 @@ export default {
         })
         .catch((error) => {
           this.loading = false
-          throw error
+          this.__handleError(error.response.data)
         })
+    },
+    __handleError (error) {
+      this.error = error.message
     }
   }
 }
