@@ -38,9 +38,35 @@ body{
   border-bottom: 1px solid var(--grey-light);
 }
 
+.text-label{
+  display: inline-block;
+  font-size: .8rem;
+  background-color: var(--grey-light);
+  padding: 5px 10px;
+  border-radius: var(--border-radius);
+  vertical-align: middle;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.profile-name{
+  color: var(--grey-dark);
+  font-size: .9rem;
+}
+
 // Title
 .main-title{
   font-size: 2rem;
+}
+
+.second-title{
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--grey-light);
+  color: var(--grey-dark);
+  margin-top: 50px;
+  &:first-child{
+    margin-top: 0;
+  }
 }
 
 // Class Modal
@@ -62,20 +88,21 @@ body{
   min-width: 600px;
   width: 600px;
   border-radius: var(--border-radius);
-  padding: 20px;
+  overflow: scroll;
+  max-height: calc(100% - 100px);
 }
 
 // Button
 .button-primary{
-  padding: 10px;
+  padding: 8px 15px;
   background-color: var(--primary-color);
-  width: 100%;
-  border-radius: var(--border-radius);
+  border-radius: 100px;
   color: var(--primary-color-text);
   cursor: pointer;
   font-weight: bold;
   font-size: .9rem;
   transition-duration: var(--transition-duration);
+  height: max-content;
   &:hover{
     background-color: var(--primary-color-hover);
   }
@@ -85,6 +112,12 @@ body{
   &:disabled{
     background-color: var(--grey-light);
     cursor: not-allowed;
+  }
+}
+
+form{
+  .button-primary{
+    width: 100%;
   }
 }
 
@@ -124,7 +157,7 @@ body{
   padding: 10px;
   border: 1px solid var(--grey-light);
   border-radius: 5px;
-  transition-duration: var(--transition-duration);
+  transition: var(--transition-duration) border;
   &:hover{
     border-color: var(--grey-dark);
   }
@@ -132,6 +165,12 @@ body{
     background-color: var(--grey-light);
     border-color: var(--grey-light);
   }
+}
+
+.error-message{
+  font-size: .8rem;
+  margin: 5px 0;
+  color: red;
 }
 
 // Link
@@ -176,12 +215,24 @@ a{
   justify-content: space-between;
   &-meta{
     display: flex;
+    align-items: center;
   }
   &-username{
-    margin-right: 5px;
+    font-size: 1rem;
+    a{
+      color: var(--text-color);
+      &:hover{
+        text-decoration: underline .1rem;
+      }
+    }
   }
-  &-time{
-    margin-left: 5px;
+  &-extra{
+    color: var(--grey-dark);
+    margin: 0 5px;
+    font-size: .9rem;
+  }
+  &-time:hover{
+    text-decoration: underline 1px;
   }
 }
 
@@ -190,7 +241,7 @@ a{
 }
 
 .publication-main{
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .publication-content{
