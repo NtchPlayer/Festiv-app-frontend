@@ -27,7 +27,10 @@ class AuthService {
     return axiosInstance.post('users/signup', {
       username: user.username,
       email: user.email,
-      password: user.password
+      name: user.name,
+      password: user.password,
+      isProfessional: user.isProfessional,
+      tags: user.tags
     })
   }
 
@@ -35,9 +38,6 @@ class AuthService {
     return axiosInstance.get('profile')
       .then((res) => {
         return res.data
-      })
-      .catch((e) => {
-        throw e
       })
   }
 }
