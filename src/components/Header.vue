@@ -4,7 +4,7 @@
       <button v-if="buttonBackward" class="button-round" @click.prevent="$router.back()">
         <font-awesome-icon icon="fa-solid fa-arrow-left" />
       </button>
-      <h1 class="main-title" v-text="title" />
+      <h1 class="header-title" v-text="title" />
     </div>
     <button
       v-if="button"
@@ -38,10 +38,17 @@ export default {
   justify-content: space-between;
   background-color: var(--header-color);
   > div{
+    align-self: center;
     display: flex;
-    button{
-      margin-right: 20px;
+    &:first-child{
+      button{
+        margin-right: 20px;
+      }
     }
   }
+}
+.header-title{
+  font-size: 1.3rem;
+  align-self: center;
 }
 </style>
