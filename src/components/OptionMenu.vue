@@ -9,7 +9,8 @@
         :key="i"
         class="options-menu-button"
         :class="action.class"
-        @click.prevent="$emit(action.function)"
+        type="button"
+        @click.prevent="emitFunction(action.function)"
       >
         <font-awesome-icon class="options-menu-button-icon" :icon="action.icon" />
         <span class="options-menu-button-label" v-text="action.label" />
@@ -28,6 +29,12 @@ export default {
   data () {
     return {
       optionsMenu: false
+    }
+  },
+  methods: {
+    emitFunction (value) {
+      this.optionsMenu = false
+      this.$emit(value)
     }
   }
 }
