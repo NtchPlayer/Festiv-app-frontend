@@ -18,7 +18,7 @@
         Messages
       </span>
     </router-link>
-    <router-link class="nav-item" :to="{ name: 'profile', params: { username: $store.state.auth.user.username } }">
+    <router-link class="nav-item" :to="{ name: 'profile', params: { name: $store.state.auth.user.name } }">
       <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-user" />
       <span class="nav-item-label">
         Profile
@@ -47,11 +47,10 @@ export default {
 }
 
 .nav-item{
-  display: block;
+  display: flex;
   padding: 10px 20px;
   width: 25%;
   transition-duration: var(--transition-duration);
-  display: flex;
   align-items: center;
   flex-direction: column;
   &.router-link-exact-active{
