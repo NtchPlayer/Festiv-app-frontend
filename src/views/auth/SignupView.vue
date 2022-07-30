@@ -1,23 +1,30 @@
 <template>
-  <section class="modale">
+  <section class="modale item-container">
     <h1 class="main-title">Se créer un compte</h1>
-    <form @submit.prevent="submitSignup">
+    <form @submit.prevent="__submitSignup">
       <fieldset :disabled="loading">
         <FieldUsername
           v-model="username"
           :focus="true"
           :errorChecker="true"
-          @usernameIsValid="updateUsernameIsValid"
+          @usernameIsValid="__updateUsernameIsValid"
         />
         <FieldEmail
           v-model="email"
           :errorChecker="true"
-          @emailIsValid="updateEmailIsValid"
+          :is-use="emailIsUse"
+          @emailIsValid="__updateEmailIsValid"
+        />
+        <FieldName
+          v-model="name"
+          :error-checker="true"
+          :is-use="nameIsUse"
+          @nameIsValid="__updateNameIsValid"
         />
         <FieldPassword
           v-model="password"
           :errorChecker="true"
-          @passwordIsValid="updatePasswordIsValid"
+          @passwordIsValid="__updatePasswordIsValid"
         />
         <div class="container-input">
           <input type="checkbox" v-model="isFestivalAccount" id="festival-account" @keydown.enter.prevent="isFestivalAccount = !isFestivalAccount">
@@ -25,8 +32,14 @@
         </div>
         <FielsTags
           v-show="isFestivalAccount"
-          :tags="tags"
+          :model-value="tags"
         />
+        <p
+          v-show="errorServer"
+          class="error-message"
+        >
+          Oops, une erreur c'est produite ! Veuillez ressayer plus tard.
+        </p>
         <input :disabled="!isValidForm" class="button-primary" type="submit" value="Suivant">
       </fieldset>
     </form>
@@ -44,10 +57,12 @@ import FieldUsername from '@/components/field/FieldUsername'
 import FieldEmail from '@/components/field/FieldEmail'
 import FieldPassword from '@/components/field/FieldPassword'
 import FielsTags from '@/components/field/FielsTags'
+import FieldName from '@/components/field/FieldName'
 
 export default {
   name: 'SignupView',
   components: {
+    FieldName,
     FielsTags,
     FieldUsername,
     FieldEmail,
@@ -59,37 +74,49 @@ export default {
       usernameIsValid: false,
       email: '',
       emailIsValid: false,
+      emailIsUse: false,
+      name: '',
+      nameIsValid: false,
+      nameIsUse: false,
       password: '',
       passwordIsValid: false,
       isFestivalAccount: false,
       tags: [],
-      loading: false
+      loading: false,
+      errorServer: false
     }
   },
   computed: {
     isValidForm () {
-      return this.usernameIsValid && this.emailIsValid && this.passwordIsValid
+      return this.usernameIsValid && this.emailIsValid && this.nameIsValid && this.passwordIsValid
     }
   },
   methods: {
-    updateUsernameIsValid (value) {
+    __updateUsernameIsValid (value) {
       this.usernameIsValid = value
     },
-    updatePasswordIsValid (value) {
+    __updatePasswordIsValid (value) {
       this.passwordIsValid = value
     },
-    updateEmailIsValid (value) {
+    __updateEmailIsValid (value) {
       this.emailIsValid = value
     },
-    submitSignup () {
+    __updateNameIsValid (value) {
+      this.nameIsValid = value
+    },
+    __submitSignup () {
       this.loading = true
+      this.emailIsUse = false
+      this.nameIsUse = false
+      this.errorServer = false
       this.$store
         .dispatch('auth/signup', {
           username: this.username,
           email: this.email,
+          name: this.name,
           password: this.password,
           isProfessional: this.isFestivalAccount,
-          tags: this.tags
+          tags: this.tags.length === 0 ? null : this.tags
         })
         .then(() => {
           this.$router.push({ name: 'login' })
@@ -97,8 +124,17 @@ export default {
         })
         .catch((error) => {
           this.loading = false
-          throw error
+          this.__handleError(error.response.data)
         })
+    },
+    __handleError (error) {
+      if (error.statusCode === 422 && error.message.includes('Email')) {
+        this.emailIsUse = true
+      } else if (error.statusCode === 422 && error.message.includes('Name')) {
+        this.nameIsUse = true
+      } else {
+        this.errorServer = true
+      }
     }
   }
 }
