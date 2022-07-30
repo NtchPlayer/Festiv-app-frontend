@@ -19,12 +19,11 @@
       <ul class="tags" ref="tagsUl">
         <li
           v-for="(tag, index) in tags"
-          :key="tag" class="tag"
+          :key="tag.content" class="tag"
           :class="{
-            duplicate: tag === duplicate,
-            invalid: tag === invalid
+            duplicate: tag.content === duplicate
           }">
-          {{ tag }}
+          {{ tag.content }}
           <button type="button" class="delete" @click="removeTag(index)">
             <font-awesome-icon icon="fa-solid fa-xmark" />
           </button>
@@ -81,7 +80,7 @@ export default {
         handleInvalid(tag)
         return
       }
-      tags.value.push(tag) // add the new tag to the tags array
+      tags.value.push({ content: tag }) // add the new tag to the tags array
       newTag.value = ''
     }
 
@@ -197,10 +196,6 @@ export default {
       }
     }
     .tag.duplicate {
-      background: var(--red-color);
-      animation: shake 1s;
-    }
-    .tag.invalid {
       background: var(--red-color);
       animation: shake 1s;
     }
