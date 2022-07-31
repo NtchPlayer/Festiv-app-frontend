@@ -28,7 +28,7 @@ import { useModelWrapper } from '@/utils/modelWrapper'
 export default {
   name: 'FieldBirthday',
   props: {
-    modelValue: { type: [Date, null], required: true }
+    modelValue: { type: [String, null], required: true }
   },
   computed: {
     minAge () {
