@@ -91,8 +91,13 @@ export default {
       editAccount: false
     }
   },
-  async mounted () {
-    await this.__fetchUser()
+  mounted () {
+    this.__fetchUser()
+  },
+  watch: {
+    '$route.query' () {
+      this.__fetchUser()
+    }
   },
   methods: {
     __editAccount () {
