@@ -14,8 +14,8 @@
         <input
           type="search"
           placeholder="Recherche sur festiv'app"
-          v-model="search"
-          @keydown.enter.prevent="__search"
+          v-model="q"
+          @keydown.enter.prevent="__makeSearch"
         >
       </div>
     </section>
@@ -51,7 +51,8 @@ export default {
   },
   data () {
     return {
-      search: '',
+      q: '',
+      isHashtagSearch: false,
       results: [],
       festivals: [],
       loading: false
@@ -59,22 +60,31 @@ export default {
   },
   computed: {
     hashtag () {
-      return this.$route.query.hashtag ? `#${this.$route.query.hashtag}` : undefined
+      return this.$route.query.hashtag ?? null
     },
     name () {
-      return this.$route.query.name
+      return this.$route.query.name ?? null
     },
     content () {
-      return this.$route.query.q
+      return this.$route.query.q ?? null
     },
     defaultView () {
       return !this.name && !this.content && !this.hashtag
+    },
+    searchUrl () {
+      const name = this.name ? `name=${this.name}` : ''
+      const hashtag = this.hashtag ? `&hashtag=%23${this.hashtag}` : ''
+      const q = this.q && !this.isHashtagSearch ? `&q=${this.q}` : ''
+      return `publications?${name}${hashtag}${q}`
     }
   },
   async mounted () {
     await this.__fetchFestivals()
+    this.q = this.content
     if (!this.defaultView) {
       await this.__search()
+    } else {
+      this.$router.push({ name: 'search' })
     }
   },
   watch: {
@@ -97,9 +107,21 @@ export default {
         })
     },
     async __search () {
+      if (!this.hashtag && !this.name && !this.content) {
+        this.results = []
+        return
+      }
       this.loading = true
+      this.isHashtagSearch = false
+      if (this.hashtag) {
+        this.q = `#${this.hashtag}`
+        this.isHashtagSearch = true
+      }
+      if (this.name) {
+        this.q = ''
+      }
       await this.axios
-        .get(`publications?name=${this.name}`)
+        .get(this.searchUrl)
         .then((e) => {
           this.loading = false
           this.results = e.data
@@ -108,6 +130,12 @@ export default {
           console.log(e)
           this.results = null
         })
+    },
+    __makeSearch () {
+      if (!this.q) {
+        return
+      }
+      this.$router.push({ query: { q: this.q } })
     }
   }
 }
