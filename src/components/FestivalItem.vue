@@ -1,6 +1,6 @@
 <template>
   <router-link
-    :to="{name: 'search', query: { name: festival.name}}"
+    :to="{name: 'search', query: { name: festival.name, q: undefined, hashtag: undefined}}"
     class="festival-item item-container"
   >
     <span class="festival-title" v-text="festival.username" />
