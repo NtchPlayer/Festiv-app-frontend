@@ -35,6 +35,7 @@ export default {
   z-index: 7;
   top: 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: var(--header-color);
   > div{
@@ -45,6 +46,9 @@ export default {
         margin-right: 20px;
       }
     }
+  }
+  .button-round{
+    margin-right: 20px;
   }
 }
 .header-title{
