@@ -1,13 +1,14 @@
 <template>
   <article class="item-container publication-body publication-hover">
-    <ProfilePicture :name="publication.user.username" />
+    <ProfilePicture :name="publication.user.name" />
     <div class="publication-content">
       <header class="publication-header">
         <div class="publication-header-meta">
-          <h1
-            class="publication-header-username"
-          >
-            <router-link :to="{name: 'profile', params: { name: publication.user.name }}" v-text="publication.user.username" />
+          <h1 class="publication-header-username">
+            <router-link
+              :to="{name: 'profile', params: { name: publication.user.name }}"
+              v-text="publication.user.username"
+            />
           </h1>
           <p class="publication-header-extra">
             <span class="profile-name" v-text="`@${publication.user.name}`" />
@@ -32,7 +33,7 @@
       <main>
         <div
           class="publication-main"
-          v-html="publication.content"
+          v-html="contentFormatted"
         />
         <PublicationGalerie :medias="publication.medias" />
       </main>
@@ -59,6 +60,22 @@ export default {
   },
   props: {
     publication: { type: Object, required: true }
+  },
+  computed: {
+    contentFormatted () {
+      let formatted = this.publication.content
+      if (!this.hashtagsArray) {
+        return this.publication.content
+      }
+      this.hashtagsArray.forEach((hashtag) => {
+        formatted = formatted.replace(new RegExp(`\\s${hashtag}`, 'g'), () => ` <span class="red"><a href="/search?hastag=${hashtag}">${hashtag}</a></span>`)
+      })
+      return formatted
+    },
+    hashtagsArray () {
+      const regexp = /\B#\w+\b/g
+      return this.publication.content.match(regexp)
+    }
   },
   methods: {
     __deletePost () {
