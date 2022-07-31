@@ -117,7 +117,7 @@ export default {
         })
     },
     __fetchUserPost (name) {
-      return this.axios.get(`publications?name=${name}`)
+      return this.axios.get(`publications/user/${name}`)
         .then((res) => {
           this.publications = res.data
         })
