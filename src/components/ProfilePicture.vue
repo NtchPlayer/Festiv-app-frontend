@@ -1,7 +1,6 @@
 <template>
   <div class="container-profile-picture" :class="{ 'profile-picture-large': largeIcon }">
-<!--    <router-link :to="{ name: 'profile', params: { user: name } }">-->
-    <a href="/">
+    <router-link :to="{ name: 'profile', params: { name }}">
       <figure>
         <img
           class="profile-picture"
@@ -9,8 +8,7 @@
           :src="require('@/assets/default-profile-picture.jpg')"
         >
       </figure>
-    </a>
-<!--    </router-link>-->
+    </router-link>
   </div>
 </template>
 
