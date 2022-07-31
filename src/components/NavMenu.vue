@@ -6,7 +6,7 @@
         Accueil
       </span>
     </router-link>
-    <router-link class="nav-item" :to="{ name: 'home' }">
+    <router-link class="nav-item" :to="{ name: 'search' }">
       <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-magnifying-glass" />
       <span class="nav-item-label">
         Recherche
