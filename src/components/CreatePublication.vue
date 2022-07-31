@@ -72,6 +72,13 @@ export default {
       medias: []
     }
   },
+  computed: {
+    tags () {
+      const regexp = /\B#\w+\b/g
+      const arr = this.content.match(regexp)
+      return [...new Set(arr)]
+    }
+  },
   methods: {
     __post_publication () {
       const formData = new FormData()
@@ -79,6 +86,9 @@ export default {
         formData.append('files[]', file, file.name)
       })
       formData.append('content', this.content)
+      for (const tag of this.tags) {
+        formData.append('tags[]', tag)
+      }
       if (this.content) {
         this.axios.post(
           'publications/add',
