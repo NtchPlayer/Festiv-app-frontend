@@ -47,6 +47,10 @@ body{
   vertical-align: middle;
   margin-left: 10px;
   font-weight: bold;
+  border: 1px solid #cfd9de;
+  &:first-child{
+    margin-left: 0;
+  }
 }
 
 .profile-name{
@@ -125,8 +129,10 @@ form{
   transition-duration: var(--transition-duration);
   border-radius: 50px;
   width: 40px;
+  min-width: 40px;
   font-size: 1.2rem;
   height: 40px;
+  min-height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -241,6 +247,7 @@ a{
 }
 
 .publication-main{
+  white-space: break-spaces;
   margin: 10px 0;
 }
 
