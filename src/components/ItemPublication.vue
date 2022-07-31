@@ -1,5 +1,5 @@
 <template>
-  <article class="item-container publication-body publication-hover">
+  <article class="item-container publication-body publication-hover" @click.self="__openPublication">
     <ProfilePicture :name="publication.user.name" />
     <div class="publication-content">
       <header class="publication-header">
@@ -85,6 +85,15 @@ export default {
         .then(() => {
           this.$emit('fetchPublications')
         })
+    },
+    __openPublication () {
+      this.$router.push({
+        name: 'profile-publication',
+        params: {
+          name: this.publication.user.name,
+          publicationId: this.publication.id
+        }
+      })
     },
     __handleClicks (event) {
       // ensure we use the link, in case the click has been received by a sub element
