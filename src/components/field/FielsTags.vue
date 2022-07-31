@@ -12,7 +12,9 @@
         placeholder="#Solidays"
         maxlength="50"
         @keydown.enter.prevent="addTag(newTag)"
+        @keydown.space.prevent="addTag(newTag)"
         @keydown.prevent.tab="addTag(newTag)"
+        @focusout.prevent="addTag(newTag)"
         @keydown.delete="newTag.length || removeTag(tags.length - 1)"
         :style="{ 'padding-left': `${paddingLeft}px` }"
       />
