@@ -49,7 +49,7 @@
             v-text="error"
           />
           <template v-if="userData.isProfessional">
-            <h2>Information compte Pro.</h2>
+            <h2 class="second-title">Information compte Pro.</h2>
             <FielsTags
               v-model="tags"
             />
