@@ -1,5 +1,5 @@
 <template>
-  <article class="item-container publication-body publication-hover" @click.self="__openPublication">
+  <article class="item-container publication-body publication-hover" @click.prevent="__openPublication">
     <ProfilePicture :name="publication.user.name" />
     <div class="publication-content">
       <header class="publication-header">
@@ -39,7 +39,7 @@
         <PublicationGalerie :medias="publication.medias" />
       </main>
       <footer class="publication-footer">
-        <button type="button" class="button-round button-heart">
+        <button type="button" class="button-round button-heart" @click.prevent="__likePublication()">
           <font-awesome-icon icon="fa-regular fa-heart" />
         </button>
       </footer>
@@ -86,7 +86,17 @@ export default {
           this.$emit('fetchPublications')
         })
     },
+    __likePublication () {
+      console.log('test')
+    },
     __openPublication () {
+      let { target } = event
+      while (target && !target.matches('.publication-body')) {
+        if (target.tagName === 'A' || (target._vei?.onClick && target.className !== 'publication-main')) {
+          return
+        }
+        target = target.parentNode
+      }
       this.$router.push({
         name: 'profile-publication',
         params: {
