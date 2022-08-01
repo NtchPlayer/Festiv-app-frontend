@@ -147,9 +147,16 @@ form{
   }
 }
 
-.button-heart:hover{
-  background-color: var(--red-hover-color);
-  color: var(--red-color);
+.button-heart{
+  &-like{
+    svg path{
+      fill: var(--red-color);
+    }
+  }
+  &:hover {
+    background-color: var(--red-hover-color);
+    color: var(--red-color);
+  }
 }
 
 // Input CSS

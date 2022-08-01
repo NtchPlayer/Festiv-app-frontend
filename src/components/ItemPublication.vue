@@ -39,8 +39,14 @@
         <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
       </main>
       <footer class="publication-footer">
-        <button type="button" class="button-round button-heart" @click.prevent="__likePublication()">
-          <font-awesome-icon icon="fa-regular fa-heart" />
+        <button
+          type="button"
+          :disabled="likeIsLoading"
+          class="button-round button-heart"
+          :class="{'button-heart-like': isLike}"
+          @click.prevent="__likePublication()"
+        >
+          <font-awesome-icon :icon="`${heartIconStyle} fa-heart`" />
         </button>
       </footer>
     </div>
@@ -77,6 +83,15 @@ export default {
       const regexp = /\B#\w+\b/g
       const arr = this.publication.content.match(regexp)
       return [...new Set(arr)]
+    },
+    heartIconStyle () {
+      return this.isLike ? 'fa-solid' : 'fa-regular'
+    }
+  },
+  data () {
+    return {
+      isLike: this.publication.isLike,
+      likeIsLoading: false
     }
   },
   methods: {
@@ -87,7 +102,17 @@ export default {
         })
     },
     __likePublication () {
-      console.log('test')
+      const action = this.isLike ? 'delete' : 'post'
+      this.likeIsLoading = true
+      this.axios[action](`publications/like/${this.publication.id}`)
+        .then(() => {
+          this.likeIsLoading = false
+          this.isLike = !this.isLike
+        })
+        .catch((e) => {
+          this.likeIsLoading = false
+          console.log(e)
+        })
     },
     __openPublication () {
       let { target } = event
