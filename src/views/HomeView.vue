@@ -15,7 +15,7 @@
       </div>
     </section>
     <CreatePublication @fetchPublications="fetchPublications" />
-    <section>
+    <section v-if="publications">
       <ItemPublication
         v-for="publication of publications"
         :key="publication.id"
