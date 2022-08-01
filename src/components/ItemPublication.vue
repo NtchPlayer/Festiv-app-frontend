@@ -36,7 +36,7 @@
           v-html="contentFormatted"
           @click="__handleClicks"
         />
-        <PublicationGalerie :medias="publication.medias" />
+        <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
       </main>
       <footer class="publication-footer">
         <button type="button" class="button-round button-heart" @click.prevent="__likePublication()">
