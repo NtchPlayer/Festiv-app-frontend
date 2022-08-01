@@ -1,7 +1,9 @@
 import store from '@/store'
 
 export default async function beforeEach ({ to, from, next }) {
-  await store.dispatch('auth/checkUserSession')
+  if (to.meta.requireAuth) {
+    await store.dispatch('auth/checkUserSession')
+  }
   if (!store.state.auth.status.loggedIn && to.meta.requireAuth) {
     next({ name: 'login' })
   } else if (store.state.auth.status.loggedIn && !to.meta.requireAuth) {
