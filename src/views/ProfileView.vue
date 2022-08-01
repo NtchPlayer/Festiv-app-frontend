@@ -95,8 +95,10 @@ export default {
     this.__fetchUser()
   },
   watch: {
-    '$route.query' () {
-      this.__fetchUser()
+    '$route.params.name' () {
+      if (this.$route.params.name) {
+        this.__fetchUser()
+      }
     }
   },
   methods: {
