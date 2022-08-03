@@ -16,7 +16,7 @@ app.config.globalProperties.$filters = {
   timeFilter (value) {
     const publicationTime = new Date(value)
     const currentDate = new Date()
-    const monthsList = ['janv.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'aout', 'sept.', 'oct.', 'nov.', 'dec.']
+    const monthsList = ['janv.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'dec.']
 
     const month = monthsList[publicationTime.getMonth()]
     const years = currentDate.getFullYear() !== publicationTime.getFullYear() ? publicationTime.getFullYear() : ''
