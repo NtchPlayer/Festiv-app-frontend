@@ -53,9 +53,19 @@ body{
   }
 }
 
+.profile-username{
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
 .profile-name{
   color: var(--grey-dark);
   font-size: .9rem;
+}
+
+.flex-b{
+  justify-content: space-between;
 }
 
 // Title
@@ -127,23 +137,36 @@ form{
 
 .button-round{
   transition-duration: var(--transition-duration);
-  border-radius: 50px;
-  width: 40px;
-  min-width: 40px;
-  font-size: 1.2rem;
-  height: 40px;
-  min-height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  &-icon{
+    transition-duration: var(--transition-duration);
+    font-size: 1.2rem;
+    height: 40px;
+    min-height: 40px;
+    width: 40px;
+    border-radius: 50px;
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &:hover{
     color: var(--blue-light-color);
-    background-color: var(--blue-light-color-hover);
+    .button-round-icon{
+      background-color: var(--blue-light-color-hover);
+    }
   }
   &:active{
     color: var(--blue-light-color);
     background-color: var(--blue-light-color-active);
+  }
+  &-count{
+    transition-duration: var(--transition-duration);
+    margin-left: 5px;
+    font-size: .9rem;
   }
 }
 
@@ -153,7 +176,10 @@ form{
       fill: var(--red-color);
     }
   }
-  &:hover {
+  &:hover{
+    color: var(--red-color);
+  }
+  .button-round-icon:hover {
     background-color: var(--red-hover-color);
     color: var(--red-color);
   }
@@ -249,7 +275,13 @@ a{
     margin: 0 5px;
     font-size: .9rem;
   }
-  &-time:hover{
+}
+
+.publication-time{
+  color: var(--grey-dark);
+  margin: 0 5px;
+  font-size: .9rem;
+  &:hover{
     text-decoration: underline 1px;
   }
 }
@@ -266,6 +298,25 @@ a{
 .publication-content{
   margin-left: 20px;
   width: 100%;
+}
+
+.publication-aside{
+  position: relative;
+}
+
+.publication-answer{
+  margin: 20px 0;
+  color: var(--grey-dark);
+  &-lane{
+    display: block;
+    width: 2px;
+    height: calc(100% - 55px);
+    background-color: var(--border-color);
+    border-radius: var(--border-radius);
+    position: absolute;
+    left: calc(50% - 1px);
+    bottom: calc(0px + 5px);
+  }
 }
 
 .publication-medias-multiple{
@@ -287,12 +338,14 @@ a{
 
 .publication-footer{
   display: flex;
-  justify-content: space-between;
   padding: 10px 0;
   .button-primary{
     width: auto;
     padding-right: 20px;
     padding-left: 20px;
+  }
+  .button-round{
+    margin-right: 40px;
   }
   #file-publication{
     display: none;
@@ -301,6 +354,10 @@ a{
 }
 
 // Class Color
-.red{
+.color-red{
   color: var(--red-color);
+}
+
+.color-blue{
+  color: var(--blue-light-color);
 }
