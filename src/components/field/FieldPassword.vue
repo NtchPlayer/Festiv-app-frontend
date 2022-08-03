@@ -17,7 +17,7 @@
       :autocomplete="autocomplete"
     >
     <div v-if="errorChecker" v-show="error" class="container-warning-field">
-      <span class="red">
+      <span class="color-red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>
       Votre mot de passe doit contenir:

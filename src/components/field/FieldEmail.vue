@@ -25,7 +25,7 @@
       id="container-warning-field"
       class="warning"
     >
-      <span aria-hidden="true" class="red">
+      <span aria-hidden="true" class="color-red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>
       Votre email n'est pas valide.

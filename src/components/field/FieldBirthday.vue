@@ -14,7 +14,7 @@
       :max="minAge"
     >
     <div v-show="!birthdayIsValid && modelValue !== null" class="container-warning-field">
-      <span class="red">
+      <span class="color-red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>
       Vous devez avoir plus de 13 ans !

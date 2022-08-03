@@ -33,7 +33,7 @@
             label: 'Se déconnecter',
             function: 'logout'
           }, {
-            class: 'red',
+            class: 'color-red',
             icon: 'fa-regular fa-trash-can',
             label: 'Supprimer votre compte',
             function: 'deleteAccount'

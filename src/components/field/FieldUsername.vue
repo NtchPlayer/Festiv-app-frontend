@@ -21,7 +21,7 @@
       maxlength="32"
     >
     <div v-if="errorChecker" v-show="error" class="container-warning-field">
-      <span aria-hidden="true" class="red">
+      <span aria-hidden="true" class="color-red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
       </span>
       Votre nom d'utilisateur:
