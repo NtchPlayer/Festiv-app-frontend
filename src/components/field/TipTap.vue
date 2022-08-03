@@ -1,5 +1,5 @@
 <template>
-  <div class="container-input">
+  <div>
     <p v-if="label" class="label" v-text="label" />
     <editor-content
       :class="{'input': label}"
