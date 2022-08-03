@@ -7,7 +7,9 @@
             class="button-round"
             @click.prevent="$emit('close')"
           >
-            <font-awesome-icon icon="fa-solid fa-xmark" />
+            <span class="button-round-icon">
+              <font-awesome-icon icon="fa-solid fa-xmark" />
+            </span>
           </button>
           <h1 class="header-title">Édition du compte</h1>
         </div>

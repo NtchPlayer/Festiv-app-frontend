@@ -2,7 +2,9 @@
   <header class="header-section">
     <div>
       <button v-if="buttonBackward" class="button-round" @click.prevent="$router.back()">
-        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+        <span class="button-round-icon">
+          <font-awesome-icon icon="fa-solid fa-arrow-left" />
+        </span>
       </button>
       <h1 class="header-title" v-text="title" />
     </div>
@@ -12,7 +14,9 @@
       :title="button.label"
       @click.prevent="$emit('emitClick')"
     >
-      <font-awesome-icon :icon="`fa-solid ${button.icon}`" />
+      <span class="button-round-icon">
+        <font-awesome-icon :icon="`fa-solid ${button.icon}`" />
+      </span>
     </button>
   </header>
 </template>

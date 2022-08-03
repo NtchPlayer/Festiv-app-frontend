@@ -1,7 +1,9 @@
 <template>
   <div class="options-menu-container">
     <button class="button-round" type="button" @click.prevent="optionsMenu = true">
-      <font-awesome-icon icon="fa-solid fa-ellipsis" />
+      <span class="button-round-icon">
+        <font-awesome-icon icon="fa-solid fa-ellipsis" />
+      </span>
     </button>
     <div v-show="optionsMenu" class="options-menu-button-container">
       <button
