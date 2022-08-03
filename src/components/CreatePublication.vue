@@ -2,13 +2,16 @@
   <section class="item-container">
     <header class="modale-header">
       <button class="button-round" @click.prevent="$emit('emitClose')">
-        <font-awesome-icon icon="fa-solid fa-xmark" />
+        <span class="button-round-icon">
+          <font-awesome-icon icon="fa-solid fa-xmark" />
+        </span>
       </button>
     </header>
+    <ItemPublication v-if="parentPublication" class="parent-publication" :publication="parentPublication" :is-parent="true" />
     <main class="publication-body">
       <ProfilePicture :name="$store.state.auth.user.name" />
       <div class="publication-content">
-        <TipTap v-model="content" />
+        <TipTap class="publication-tiptap" v-model="content" />
         <ul
           v-if="medias.length"
           class="publication-medias"
@@ -29,7 +32,7 @@
             />
           </li>
         </ul>
-        <div class="publication-footer">
+        <div class="publication-footer flex-b">
           <input
             id="file-publication"
             ref="file-input"
@@ -40,14 +43,15 @@
             @change="__set_images"
           >
           <label class="button-round" for="file-publication">
-            <font-awesome-icon icon="fa-solid fa-image" />
+            <span class="button-round-icon">
+              <font-awesome-icon icon="fa-solid fa-image" />
+            </span>
           </label>
           <button
             class="button-primary"
             @click.prevent="__post_publication"
-          >
-            Envoyer
-          </button>
+            v-text="buttonText"
+          />
         </div>
       </div>
     </main>
@@ -58,13 +62,20 @@
 import ProfilePicture from '@/components/ProfilePicture'
 import TipTap from '@/components/field/TipTap'
 import PublicationImage from '@/components/PublicationImage'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'CreatePublication',
   components: {
     PublicationImage,
     TipTap,
-    ProfilePicture
+    ProfilePicture,
+    ItemPublication: defineAsyncComponent(() =>
+      import('@/components/ItemPublication')
+    )
+  },
+  props: {
+    parentPublication: { type: [Object, Boolean], default: false }
   },
   data () {
     return {
@@ -77,6 +88,9 @@ export default {
       const regexp = /\B#\w+\b/g
       const arr = this.content.match(regexp)
       return [...new Set(arr)]
+    },
+    buttonText () {
+      return this.parentPublication ? 'Répondre' : 'Envoyer'
     }
   },
   methods: {
@@ -86,6 +100,9 @@ export default {
         formData.append('files[]', file, file.name)
       })
       formData.append('content', this.content)
+      if (this.parentPublication) {
+        formData.append('parentId', this.parentPublication.id)
+      }
       for (const tag of this.tags) {
         formData.append('tags[]', tag)
       }
@@ -134,12 +151,12 @@ export default {
   .ProseMirror{
     min-height: 100px;
   }
-
-  .publication-footer{
-    margin-top: 10px;
-    border-top: 1px solid var(--grey-light);
-  }
 }
+
+.publication-tiptap{
+  margin-top: 10px;
+}
+
 .modale-header{
   display: none;
 }
