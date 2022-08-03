@@ -13,15 +13,18 @@ const app = createApp(App)
   .component('font-awesome-icon', FontAwesomeIcon)
 
 app.config.globalProperties.$filters = {
-  timeFilter (value) {
+  timeFilter (value, withYear = false, withHour = false) {
     const publicationTime = new Date(value)
     const currentDate = new Date()
     const monthsList = ['janv.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'dec.']
 
     const month = monthsList[publicationTime.getMonth()]
-    const years = currentDate.getFullYear() !== publicationTime.getFullYear() ? publicationTime.getFullYear() : ''
+    const years = (currentDate.getFullYear() !== publicationTime.getFullYear()) || !withYear ? publicationTime.getFullYear() : ''
+    const hours = publicationTime.getHours() < 10 ? `0${publicationTime.getHours()}` : publicationTime.getHours()
+    const minutes = publicationTime.getMinutes() < 10 ? `0${publicationTime.getMinutes()}` : publicationTime.getMinutes()
+    const exactTime = !withHour ? `${hours}:${minutes} • ` : ''
 
-    return `${publicationTime.getDay()} ${month} ${years}`
+    return `${exactTime}${publicationTime.getDay()} ${month} ${years}`
   }
 }
 
