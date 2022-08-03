@@ -11,16 +11,16 @@
     />
     <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
       <div class="modale">
-        <CreatePublication @emitClose="newPostModal = false" @fetchPublications="fetchPublications" />
+        <CreatePublication @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
       </div>
     </section>
-    <CreatePublication @fetchPublications="fetchPublications" />
+    <CreatePublication @fetchPublications="__fetchPublications" />
     <section v-if="publications">
       <ItemPublication
         v-for="publication of publications"
         :key="publication.id"
         :publication="publication"
-        @fetchPublications="fetchPublications"
+        @deletePublication="__fetchPublications"
       />
     </section>
     <NavMenu />
@@ -48,13 +48,13 @@ export default {
     }
   },
   mounted () {
-    this.fetchPublications()
+    this.__fetchPublications()
   },
   methods: {
     newPost () {
       this.newPostModal = true
     },
-    fetchPublications () {
+    __fetchPublications () {
       this.axios.get('publications')
         .then((e) => {
           this.publications = e.data
