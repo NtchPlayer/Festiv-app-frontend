@@ -1,72 +1,99 @@
 <template>
-  <article class="item-container publication-body publication-hover" @click.prevent="__openPublication">
-    <ProfilePicture :name="publication.user.name" />
-    <div class="publication-content">
-      <header class="publication-header">
-        <div class="publication-header-meta">
-          <h1 class="publication-header-username">
-            <router-link
-              :to="{name: 'profile', params: { name: publication.user.name }}"
-              v-text="publication.user.username"
-            />
-          </h1>
-          <p class="publication-header-extra">
-            <span class="profile-name" v-text="`@${publication.user.name}`" />
-            •
-            <time
-              class="publication-header-time"
-              v-text="$filters.timeFilter(publication.createdAt)"
-            />
-          </p>
-        </div>
-        <OptionMenu
-          v-if="publication.user.id === $store.state.auth.user.id"
-          :actions="[{
-            class: 'red',
-            icon: 'fa-regular fa-trash-can',
-            label: 'Supprimer la publication',
-            function: 'deletePost'
-          }]"
-          @deletePost="__deletePost"
+  <div>
+    <article class="publication-body" :class="{'item-container publication-hover': !isParent}" @click.prevent="__openPublication">
+      <aside class="publication-aside">
+        <ProfilePicture :name="publication.user.name" />
+        <div v-if="isParent" class="publication-answer-lane" />
+      </aside>
+      <div class="publication-content">
+        <header class="publication-header">
+          <div class="publication-header-meta">
+            <h1 class="publication-header-username">
+              <router-link
+                :to="{name: 'profile', params: { name: publication.user.name }}"
+                v-text="publication.user.username"
+              />
+            </h1>
+            <p class="publication-header-extra">
+              <span class="profile-name" v-text="`@${publication.user.name}`" />
+              •
+              <time
+                class="publication-time"
+                v-text="$filters.timeFilter(publication.createdAt, true, true)"
+              />
+            </p>
+          </div>
+          <OptionMenu
+            v-if="publication.user.id === $store.state.auth.user.id"
+            :actions="[{
+              class: 'color-red',
+              icon: 'fa-regular fa-trash-can',
+              label: 'Supprimer la publication',
+              function: 'deletePost'
+            }]"
+            @deletePost="__deletePost"
+          />
+        </header>
+        <main>
+          <div
+            class="publication-main"
+            v-html="contentFormatted"
+            @click="__handleClicks"
+          />
+          <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
+        </main>
+        <footer v-if="!isParent" class="publication-footer">
+          <ButtonPublicationAction
+            :class-to-add="`button-heart ${isLike ? 'button-heart-like' : ''}`"
+            :icon="`${heartIconStyle} fa-heart`"
+            :count="countLike"
+            :disabled="likeIsLoading"
+            @emitClick="__likePublication"
+          />
+          <ButtonPublicationAction
+            icon="fa-solid fa-comment"
+            :count="parseInt(publication.countComments)"
+            @emitClick="__postComment"
+          />
+        </footer>
+        <p v-else class="publication-answer">
+          En réponse à <span class="color-blue">@{{ publication.user.name }}</span>
+        </p>
+      </div>
+    </article>
+    <section v-if="commentModal && !isParent" class="container-modal" @click.self="comments = false">
+      <div class="modale">
+        <CreatePublication
+          @emitClose="commentModal = false"
+          :parentPublication="publication"
         />
-      </header>
-      <main>
-        <div
-          class="publication-main"
-          v-html="contentFormatted"
-          @click="__handleClicks"
-        />
-        <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
-      </main>
-      <footer class="publication-footer">
-        <button
-          type="button"
-          :disabled="likeIsLoading"
-          class="button-round button-heart"
-          :class="{'button-heart-like': isLike}"
-          @click.prevent="__likePublication()"
-        >
-          <font-awesome-icon :icon="`${heartIconStyle} fa-heart`" />
-        </button>
-      </footer>
-    </div>
-  </article>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
 import ProfilePicture from '@/components/ProfilePicture'
-import PublicationGalerie from '@/components/PublicationGalerie'
 import OptionMenu from '@/components/OptionMenu'
+import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'ItemPublication',
   components: {
     OptionMenu,
-    PublicationGalerie,
-    ProfilePicture
+    ButtonPublicationAction,
+    PublicationGalerie: defineAsyncComponent(() =>
+      import('@/components/PublicationGalerie')
+    ),
+    ProfilePicture,
+    CreatePublication: defineAsyncComponent(() =>
+      import('@/components/CreatePublication')
+    )
   },
   props: {
-    publication: { type: Object, required: true }
+    publication: { type: Object, required: true },
+    isParent: { type: Boolean, default: false }
   },
   computed: {
     contentFormatted () {
@@ -75,7 +102,7 @@ export default {
         return this.publication.content
       }
       this.hashtags.forEach((hashtag) => {
-        formatted = formatted.replace(new RegExp(`${hashtag}`, 'g'), () => `<span class="red"><a href="/search?hashtag=${hashtag.substring(1)}">${hashtag}</a></span>`)
+        formatted = formatted.replace(new RegExp(`${hashtag}`, 'g'), () => `<span class="color-blue"><a href="/search?hashtag=${hashtag.substring(1)}">${hashtag}</a></span>`)
       })
       return formatted
     },
@@ -91,15 +118,20 @@ export default {
   data () {
     return {
       isLike: this.publication.isLike,
-      likeIsLoading: false
+      countLike: parseInt(this.publication.countLike),
+      likeIsLoading: false,
+      commentModal: false
     }
   },
   methods: {
     __deletePost () {
       this.axios.delete(`publications/${this.publication.id}`)
         .then(() => {
-          this.$emit('fetchPublications')
+          this.$emit('deletePublication')
         })
+    },
+    __postComment () {
+      this.commentModal = true
     },
     __likePublication () {
       const action = this.isLike ? 'delete' : 'post'
@@ -115,6 +147,9 @@ export default {
         })
     },
     __openPublication () {
+      if (this.isParent) {
+        return
+      }
       let { target } = event
       while (target && !target.matches('.publication-body')) {
         if (target.tagName === 'A' || (target._vei?.onClick && target.className !== 'publication-main')) {
