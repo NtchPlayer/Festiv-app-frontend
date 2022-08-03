@@ -19,7 +19,8 @@ import {
   faEllipsis,
   faArrowLeft,
   faArrowRightFromBracket,
-  faUserPen
+  faUserPen,
+  faComment
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -44,7 +45,8 @@ library.add(
   faEllipsis,
   faArrowLeft,
   faArrowRightFromBracket,
-  faUserPen
+  faUserPen,
+  faComment
 )
 
 export default FontAwesomeIcon
