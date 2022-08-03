@@ -141,12 +141,6 @@ export default {
   }
 }
 
-.profile-username{
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 15px;
-}
-
 .profile-tags{
   margin-top: 20px;
   &-label{
