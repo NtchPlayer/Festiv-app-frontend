@@ -24,8 +24,10 @@
       class="container-modal publication-galerie-full-container"
       @click.self="__set_modaleData(null)"
     >
-      <button type="button" @click.prevent="__set_modaleData(null)">
-        <font-awesome-icon icon="fa-solid fa-xmark" />
+      <button type="button" class="button-round" @click.prevent="__set_modaleData(null)">
+        <span class="button-round-icon">
+          <font-awesome-icon icon="fa-solid fa-xmark" />
+        </span>
       </button>
       <figure class="modale">
         <img id="publication-galerie-full-image" :src="modaleData.url" :alt="modaleData.alt" />
