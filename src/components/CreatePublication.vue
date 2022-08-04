@@ -34,7 +34,8 @@
         </ul>
         <div class="publication-footer flex-b">
           <input
-            id="file-publication"
+            :id="`file-publication${inputFileIdentifier}`"
+            class="input-file"
             ref="file-input"
             type="file"
             name="Envois de médias"
@@ -42,7 +43,7 @@
             accept=".jpg,.jpeg,.png,.gif"
             @change="__set_images"
           >
-          <label class="button-round" for="file-publication">
+          <label class="button-round" :for="`file-publication${inputFileIdentifier}`">
             <span class="button-round-icon">
               <font-awesome-icon icon="fa-solid fa-image" />
             </span>
@@ -61,18 +62,15 @@
 <script>
 import ProfilePicture from '@/components/ProfilePicture'
 import TipTap from '@/components/field/TipTap'
-import PublicationImage from '@/components/PublicationImage'
 import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'CreatePublication',
   components: {
-    PublicationImage,
-    TipTap,
     ProfilePicture,
-    ItemPublication: defineAsyncComponent(() =>
-      import('@/components/ItemPublication')
-    )
+    TipTap,
+    PublicationImage: defineAsyncComponent(() => import('@/components/PublicationImage')),
+    ItemPublication: defineAsyncComponent(() => import('@/components/ItemPublication'))
   },
   props: {
     parentPublication: { type: [Object, Boolean], default: false }
@@ -91,6 +89,9 @@ export default {
     },
     buttonText () {
       return this.parentPublication ? 'Répondre' : 'Envoyer'
+    },
+    inputFileIdentifier () {
+      return this.parentPublication ? `-${this.parentPublication.id}` : ''
     }
   },
   methods: {
@@ -144,8 +145,12 @@ export default {
   }
 
   .modale-header{
+    position: sticky;
+    top: 0;
     display: block;
     margin-bottom: 20px;
+    background-color: var(--header-color);
+    z-index: 10;
   }
 
   .ProseMirror{
