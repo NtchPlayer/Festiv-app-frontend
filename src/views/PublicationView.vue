@@ -12,13 +12,14 @@
         </div>
       </header>
       <main class="publication-main" v-html="publication.content" />
-      <footer>
+      <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
+      <footer class="publication-footer">
         <time
           class="publication-time"
           v-text="$filters.timeFilter(publication.createdAt)"
         />
       </footer>
-      <div class="publication-footer">
+      <div class="publication-action">
         <ButtonPublicationAction
           :class-to-add="`button-heart ${isLike ? 'button-heart-like' : ''}`"
           :icon="`${this.isLike ? 'fa-solid' : 'fa-regular'} fa-heart`"
@@ -70,9 +71,8 @@ export default {
     ItemPublication,
     Header,
     ButtonPublicationAction,
-    CreatePublication: defineAsyncComponent(() =>
-      import('@/components/CreatePublication')
-    )
+    CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie'))
   },
   data () {
     return {
@@ -148,7 +148,9 @@ export default {
   .publication-main{
     font-size: 1.2rem;
   }
-  .publication-footer{
+  .publication-action{
+    display: flex;
+    justify-content: space-around;
     margin-top: 30px;
     padding: 5px 0;
     border-top: 1px solid var(--grey-light);
