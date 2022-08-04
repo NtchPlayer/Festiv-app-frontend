@@ -40,7 +40,7 @@
             v-html="contentFormatted"
             @click="__handleClicks"
           />
-          <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
+          <PublicationGalerie v-if="!isParent && publication.medias" :medias="publication.medias" />
         </main>
         <footer v-if="!isParent" class="publication-footer">
           <ButtonPublicationAction
@@ -140,6 +140,11 @@ export default {
         .then(() => {
           this.likeIsLoading = false
           this.isLike = !this.isLike
+          if (this.isLike) {
+            this.countLike++
+          } else {
+            this.countLike--
+          }
         })
         .catch((e) => {
           this.likeIsLoading = false
