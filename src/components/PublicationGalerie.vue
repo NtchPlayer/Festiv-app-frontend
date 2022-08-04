@@ -29,8 +29,13 @@
           <font-awesome-icon icon="fa-solid fa-xmark" />
         </span>
       </button>
-      <figure class="modale">
-        <img id="publication-galerie-full-image" :src="modaleData.url" :alt="modaleData.alt" />
+      <figure class="modale" @click.self="__set_modaleData(null)">
+        <img
+          id="publication-galerie-full-image"
+          @click.self="__set_modaleData(null)"
+          :src="modaleData.url"
+          :alt="modaleData.alt"
+        />
       </figure>
     </div>
   </div>
@@ -62,11 +67,31 @@ export default {
   cursor: default;
   .modale{
     padding: 0;
-    margin: 40px 0 ;
+    margin: 40px 0;
+    width: unset;
+    max-height: 100vh;
+    background: transparent;
   }
   #publication-galerie-full-image{
-    width: 100%;
     cursor: default;
+    object-fit: contain;
+    height: 100vh;
+    width: 100vw;
+    max-width: 1200px;
+  }
+  .button-round{
+    position: absolute;
+    z-index: 5;
+    left: 20px;
+    top: 20px;
+    color: #fff;
+    &-icon{
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+    &:hover .button-round-icon{
+      background-color: rgba(35, 34, 34, 0.5);
+    }
   }
 }
 </style>
