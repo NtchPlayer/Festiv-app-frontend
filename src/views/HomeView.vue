@@ -7,7 +7,7 @@
         icon: 'fa-plus'
       }"
       :button-backward="false"
-      @emitClick="newPost"
+      @emitClick="__newPost"
     />
     <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
       <div class="modale">
@@ -51,7 +51,7 @@ export default {
     this.__fetchPublications()
   },
   methods: {
-    newPost () {
+    __newPost () {
       this.newPostModal = true
     },
     __fetchPublications () {
