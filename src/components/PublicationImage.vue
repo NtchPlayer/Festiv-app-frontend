@@ -35,6 +35,7 @@ export default {
 }
 
 .publication-media-thumb{
+  cursor: pointer;
   height: 100%;
 }
 
