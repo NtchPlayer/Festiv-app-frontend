@@ -11,7 +11,7 @@
           <p class="profile-name" v-text="`@${publication.user.name}`" />
         </div>
       </header>
-      <main class="publication-main" v-html="publication.content" />
+      <main class="publication-main" v-html="contentFormatted" />
       <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
       <footer class="publication-footer">
         <time
@@ -84,6 +84,23 @@ export default {
       commentModal: false
     }
   },
+  computed: {
+    contentFormatted () {
+      let formatted = this.publication.content
+      if (!this.hashtags) {
+        return this.publication.content
+      }
+      this.hashtags.forEach((hashtag) => {
+        formatted = formatted.replace(new RegExp(`${hashtag}`, 'g'), () => `<span class="color-blue"><a href="/search?hashtag=${hashtag.substring(1)}">${hashtag}</a></span>`)
+      })
+      return formatted
+    },
+    hashtags () {
+      const regexp = /\B#\w+\b/g
+      const arr = this.publication.content.match(regexp)
+      return [...new Set(arr)]
+    }
+  },
   mounted () {
     this.__fetchPost(this.$route.params.publicationId)
   },
@@ -118,6 +135,11 @@ export default {
         .then(() => {
           this.likeIsLoading = false
           this.isLike = !this.isLike
+          if (this.isLike) {
+            this.countLike++
+          } else {
+            this.countLike--
+          }
         })
         .catch((e) => {
           this.likeIsLoading = false
