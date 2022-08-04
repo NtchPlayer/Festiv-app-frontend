@@ -27,7 +27,9 @@ body{
 .main-container{
   position: relative;
   width: 600px;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 67px;
   min-height: 100vh;
   border-left: 1px solid var(--grey-light);
   border-right: 1px solid var(--grey-light);
@@ -36,6 +38,11 @@ body{
 .item-container{
   padding: 20px;
   border-bottom: 1px solid var(--grey-light);
+}
+
+.input-file{
+  display: none;
+  visibility: hidden;
 }
 
 .text-label{
@@ -161,7 +168,9 @@ form{
   }
   &:active{
     color: var(--blue-light-color);
-    background-color: var(--blue-light-color-active);
+    .button-round-icon{
+      background-color: var(--blue-light-color-active);
+    }
   }
   &-count{
     transition-duration: var(--transition-duration);
@@ -346,10 +355,6 @@ a{
   }
   .button-round{
     margin-right: 40px;
-  }
-  #file-publication{
-    display: none;
-    visibility: hidden;
   }
 }
 
