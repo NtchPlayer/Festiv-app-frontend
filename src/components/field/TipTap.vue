@@ -82,6 +82,7 @@ export default {
 <style lang="scss">
 /* Basic editor styles */
 .ProseMirror {
+  word-wrap: anywhere !important;
   height: 100%;
   &:focus{
     outline: none;
