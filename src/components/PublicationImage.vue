@@ -4,10 +4,12 @@
       v-if="button"
       type="button"
       :title="button"
-      class="publication-media-button"
+      class="button-round button-black publication-media-button"
       @click.prevent="$emit('emitButton')"
     >
-      <font-awesome-icon icon="fa-solid fa-xmark" />
+      <span class="button-round-icon">
+        <font-awesome-icon icon="fa-solid fa-xmark" />
+      </span>
     </button>
     <figure class="publication-media-thumb" @click.prevent="$emit('galerie', { url: image.url, alt: image.alt })">
       <img
@@ -48,17 +50,7 @@ export default {
 .publication-media-button{
   position: absolute;
   z-index: 5;
-  left: 0;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  margin: 5px;
-  padding: 5px 11.25px;
-  border-radius: 50px;
-  transition-duration: var(--transition-duration);
-  backdrop-filter: blur(5px);
-  &:hover{
-    background-color: rgba(35, 34, 34, 0.5);
-  }
+  left: 5px;
+  top: 5px;
 }
 </style>
