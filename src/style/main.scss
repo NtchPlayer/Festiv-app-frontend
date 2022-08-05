@@ -71,6 +71,14 @@ body{
   font-size: .9rem;
 }
 
+.profile-join{
+  margin-top: 10px;
+  color: var(--grey-dark);
+  svg{
+    margin-right: 5px;
+  }
+}
+
 .flex-b{
   justify-content: space-between;
 }
