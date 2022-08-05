@@ -48,8 +48,8 @@
             ref="file-input"
             type="file"
             name="Envois de médias"
+            accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/quicktime"
             multiple
-            accept=".jpg,.jpeg,.png,.gif,video/mp4,video/x-m4v,video/*,.mov"
             @change="__set_medias"
           >
           <label class="button-round" :for="`file-publication${inputFileIdentifier}`">
@@ -137,16 +137,29 @@ export default {
     __set_medias () {
       this.error = null
       const medias = [...this.$refs['file-input'].files]
-      this.type = this.__get_media_type(this.$refs['file-input'].files[0])
-      medias.forEach((file) => {
-        if (this.__get_media_type(this.$refs['file-input'].files[0]) !== this.__get_media_type(file)) {
-          this.error = 'Veuillez sélectionner soit 1 vidéo soit 4 images.'
-          this.medias = []
-          this.type = null
-          return
-        }
-        this.medias.push(file)
-      })
+      this.type = this.__get_media_type(medias[0])
+      if (medias.length > 2) {
+        this.error = 'Vous ne pouvez pas poster plus de 2 fichiers.'
+        return
+      }
+      if (!medias.every((media) => this.__get_media_type(media) === this.type)) {
+        this.error = 'Veuillez sélectionner soit 1 vidéo soit 4 images.'
+        this.type = null
+        return
+      }
+      if (!medias.every((media) => media.name.match(/\.(jpg|jpeg|png|gif|webp|mp4|mov|m4v|avi)$/))) {
+        this.error = 'Le format de fichier sélectionner est invalide.'
+        this.type = null
+        return
+      }
+      if (medias.every((media) => (media.size / 1000000).toPrecision(3) > 20)) { // MegaOctet
+        this.error = 'Un fichier est trop lourd.'
+        this.type = null
+        return
+      }
+      for (const media of medias) {
+        this.medias.push(media)
+      }
     },
     __get_media_type (file) {
       return file.type.split('/')[0]
