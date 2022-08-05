@@ -19,7 +19,13 @@
         >
       </div>
     </section>
-    <section>
+    <section v-if="results.length === 0 && !defaultView" class="void-section">
+      <div class="void-container">
+        <font-awesome-icon class="void-icon" icon="icon-solid fa-search" />
+        <p class="void-description">Aucun résultat n'a été trouvé !</p>
+      </div>
+    </section>
+    <section v-else>
       <ItemPublication
         v-for="result of results"
         :key="result.id"
@@ -89,6 +95,7 @@ export default {
   },
   watch: {
     '$route.query' () {
+      this.q = this.$route.query.q
       this.__search()
     }
   },
@@ -128,7 +135,7 @@ export default {
         })
         .catch((e) => {
           console.log(e)
-          this.results = null
+          this.results = []
         })
     },
     __makeSearch () {
