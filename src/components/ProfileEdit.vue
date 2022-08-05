@@ -172,11 +172,12 @@ export default {
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         )
-        .then(() => {
+        .then((e) => {
           this.$emit('close')
           this.file = null
           this.$emit('getUser')
           this.loading = false
+          this.$store.state.auth.user.avatar = e.data.url
         })
         .catch((e) => {
           this.__catchError(e)
