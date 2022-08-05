@@ -46,7 +46,7 @@
           }]"
           @editAccount="__editAccount"
           @logout="__logout"
-          @deleteAccount="__deleteAccount"
+          @deleteAccount="confirmDelete = true"
         />
       </section>
       <ProfileEdit
@@ -54,7 +54,7 @@
         @close="editAccount = false"
         @getUser="__fetchUser"
       />
-      <section>
+      <section v-if="publications">
         <ItemPublication
           v-for="publication of publications"
           :key="publication.id"
@@ -62,6 +62,19 @@
           @fetchPublications="__fetchUserPost(this.userData.username)"
         />
       </section>
+      <section v-else class="void-section">
+        <div class="void-container">
+          <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
+          <p class="void-description">Vous rien encore poster !</p>
+        </div>
+      </section>
+      <ConfirmModale
+        v-if="confirmDelete"
+        message="Êtes-vous sur de vouloir supprimer votre compte ?"
+        confirm="Supprimer"
+        @cancel="confirmDelete = false"
+        @confirm="__deleteAccount"
+      />
     </template>
     <template v-else>
       <div>Loading...</div>
@@ -77,10 +90,12 @@ import Header from '@/components/Header'
 import OptionMenu from '@/components/OptionMenu'
 import ItemPublication from '@/components/ItemPublication'
 import { defineAsyncComponent } from 'vue'
+import ConfirmModale from '@/components/ConfirmModale'
 
 export default {
   name: 'ProfileView',
   components: {
+    ConfirmModale,
     ProfileEdit: defineAsyncComponent(() => import('@/components/ProfileEdit')),
     Header,
     NavMenu,
@@ -93,7 +108,8 @@ export default {
       userData: null,
       publications: null,
       initLoading: true,
-      editAccount: false
+      editAccount: false,
+      confirmDelete: false
     }
   },
   mounted () {
@@ -110,15 +126,21 @@ export default {
     __editAccount () {
       this.editAccount = true
     },
-    __logout () {
-      this.$store
+    async __logout () {
+      await this.$store
         .dispatch('auth/logout')
         .then(() => {
           this.$router.push({ name: 'login' })
         })
     },
-    __deleteAccount () {
-      console.log('delete Account')
+    async __deleteAccount () {
+      await this.axios.delete('users')
+        .then(() => {
+          this.__logout()
+        })
+        .catch((e) => {
+          throw e
+        })
     },
     __fetchUser () {
       return this.axios.get(`users/${this.$route.params.name}`)
