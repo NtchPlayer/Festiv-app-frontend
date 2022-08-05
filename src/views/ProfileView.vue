@@ -23,6 +23,10 @@
               </li>
             </ul>
           </div>
+          <p class="profile-join">
+            <font-awesome-icon icon="fa-solid fa-calendar-days" />
+            A rejoint Festiv'app le {{ $filters.timeFilter(userData.createdAt, false, true) }}
+          </p>
         </div>
         <OptionMenu
           v-if="userData.id === $store.state.auth.user?.id"
