@@ -2,7 +2,7 @@
   <div>
     <article class="publication-body" :class="{'item-container publication-hover': !isParent}" @click.prevent="__openPublication">
       <aside class="publication-aside">
-        <ProfilePicture :name="publication.user.name" />
+        <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
         <div v-if="isParent" class="publication-answer-lane" />
       </aside>
       <div class="publication-content">
