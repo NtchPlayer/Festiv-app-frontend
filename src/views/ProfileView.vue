@@ -6,6 +6,7 @@
         <div>
           <ProfilePicture
             :name="userData.username"
+            :src="userData.avatar?.url"
             :large-icon="true"
           />
           <h2 class="profile-username">
@@ -71,12 +72,12 @@ import NavMenu from '@/components/NavMenu'
 import Header from '@/components/Header'
 import OptionMenu from '@/components/OptionMenu'
 import ItemPublication from '@/components/ItemPublication'
-import ProfileEdit from '@/components/ProfileEdit'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'ProfileView',
   components: {
-    ProfileEdit,
+    ProfileEdit: defineAsyncComponent(() => import('@/components/ProfileEdit')),
     Header,
     NavMenu,
     ProfilePicture,
