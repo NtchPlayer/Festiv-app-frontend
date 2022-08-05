@@ -10,6 +10,7 @@ html{
   font-size: 16px;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
 }
 
 body{
@@ -24,15 +25,21 @@ body{
   direction: ltr;
 }
 
+#app{
+  min-height: 100vh;
+}
+
 .main-container{
   position: relative;
   width: 600px;
   margin-right: auto;
   margin-left: auto;
-  margin-bottom: 67px;
+  padding-bottom: 66px;
   min-height: 100vh;
   border-left: 1px solid var(--grey-light);
   border-right: 1px solid var(--grey-light);
+  display: flex;
+  flex-direction: column;
 }
 
 .item-container{
@@ -377,6 +384,27 @@ a{
   }
   .button-round{
     margin-right: 40px;
+  }
+}
+
+// Void
+.void{
+  &-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+  &-container{
+    text-align: center;
+  }
+  &-description{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: .9rem;
+  }
+  &-icon{
+    font-size: 4rem;
   }
 }
 
