@@ -20,9 +20,18 @@ export const auth = {
         }
       )
     },
-    checkUserSession ({ dispatch }) {
+    checkUserSession ({ commit, dispatch }) {
       return AuthService.getCurrentUser()
+        .then((e) => {
+          commit('setUser', {
+            name: e.user.name,
+            avatar: e.user.avatar?.url,
+            id: e.user.id,
+            accessToken: e.user.accessToken
+          })
+        })
         .catch(() => {
+          AuthService.logout()
           dispatch('logout')
         })
     },
@@ -51,6 +60,9 @@ export const auth = {
     loginFailure (state) {
       state.status.loggedIn = false
       state.user = null
+    },
+    setUser (state, user) {
+      state.user = user
     },
     logout (state) {
       state.status.loggedIn = false
