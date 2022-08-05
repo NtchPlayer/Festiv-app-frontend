@@ -1,5 +1,5 @@
 <template>
-  <section class="container-modal" @click.self="$emit('close')">
+  <section v-if="user" class="container-modal" @click.self="$emit('close')">
     <div class="modale">
       <div class="header-section">
         <div>
@@ -17,7 +17,7 @@
           <button
             type="button"
             class="button-primary"
-            :disabled="!formIsValid"
+            :disabled="!formIsValid || loading"
             @click.prevent="__editUser"
           >
             Enregistrer
@@ -28,40 +28,40 @@
         <fieldset :disabled="loading">
           <h2 class="second-title">Information utilisateur</h2>
           <ProfilePicture
-            :name="userData.name"
-            :src="avatar"
+            :name="user.name"
+            :src="user.avatar?.url"
             :large-icon="true"
             :is-editable="true"
             class="container-input"
             @emitFile="__emitFile"
           />
           <FieldUsername
-            v-model="username"
+            v-model="user.username"
             :error-checker="true"
             @usernameIsValid="__updateUsernameIsValid"
           />
           <FieldEmail
-            v-model="email"
+            v-model="user.email"
             :error-checker="true"
             @emailIsValid="__updateEmailIsValid"
           />
           <FieldBirthday
-            v-model="birthday"
+            v-model="user.birthday"
             @birthdayIsValid="__updateBirthdayIsValid"
           />
           <TipTap
             label="Votre Bio"
-            v-model="biography"
+            v-model="user.biography"
           />
           <p
             v-show="error"
             class="error-message"
             v-text="error"
           />
-          <template v-if="userData.isProfessional">
+          <template v-if="user.isProfessional">
             <h2 class="second-title">Information compte Pro.</h2>
             <FielsTags
-              v-model="tags"
+              v-model="user.tags"
             />
           </template>
           <h2 class="second-title">Sécurité</h2>
@@ -86,24 +86,13 @@ import ProfilePicture from '@/components/ProfilePicture'
 
 export default {
   name: 'ProfileEdit',
-  props: {
-    userData: {
-      type: Object,
-      required: true
-    }
-  },
   data () {
     return {
-      avatar: this.userData.avatar?.url,
       file: null,
-      username: this.userData.username,
+      user: null,
       usernameIsValid: true,
-      email: this.userData.email,
       emailIsValid: true,
-      birthday: this.userData.birthday,
       birthdayIsValid: true,
-      biography: this.userData.biography,
-      tags: this.userData.tags,
       password: '',
       loading: false,
       error: null
@@ -123,6 +112,16 @@ export default {
       return this.usernameIsValid && this.emailIsValid && this.birthdayIsValid
     }
   },
+  async mounted () {
+    await this.axios.get('profile')
+      .then((res) => {
+        this.user = res.data.user
+        if (!res.data.user.avatar) {
+          this.user.avatar = {}
+        }
+        this.loading = false
+      })
+  },
   methods: {
     __updateUsernameIsValid (value) {
       this.usernameIsValid = value
@@ -135,7 +134,7 @@ export default {
     },
     __emitFile (file) {
       this.file = file
-      this.avatar = URL.createObjectURL(file)
+      this.user.avatar.url = URL.createObjectURL(file)
     },
     __editUser () {
       if (!this.formIsValid) {
@@ -145,11 +144,11 @@ export default {
       this.loading = true
       this.axios
         .put('users/update', {
-          username: this.username,
-          email: this.email,
-          birthday: this.birthday,
-          biography: this.biography,
-          tags: this.tags
+          username: this.user.username,
+          email: this.user.email,
+          birthday: this.user.birthday,
+          biography: this.user.biography,
+          tags: this.user.tags
         })
         .then(() => {
           if (this.file) {

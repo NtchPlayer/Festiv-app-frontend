@@ -25,10 +25,11 @@
           </div>
         </div>
         <OptionMenu
+          v-if="userData.id === $store.state.auth.user?.id"
           :actions="[{
             icon: 'fa-solid fa-user-pen',
             label: 'Éditer votre profile',
-            function: 'editAccount'
+            function: 'editAccount',
           }, {
             icon: 'fa-solid fa-arrow-right-from-bracket',
             label: 'Se déconnecter',
@@ -46,7 +47,6 @@
       </section>
       <ProfileEdit
         v-if="editAccount"
-        :user-data="userData"
         @close="editAccount = false"
         @getUser="__fetchUser"
       />
