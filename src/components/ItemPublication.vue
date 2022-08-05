@@ -40,7 +40,10 @@
             v-html="contentFormatted"
             @click="__handleClicks"
           />
-          <PublicationGalerie v-if="!isParent && publication.medias" :medias="publication.medias" />
+          <template v-if="!isParent && publication.medias">
+            <PublicationGalerie v-if="mediaType === 'image'" :medias="publication.medias" />
+            <PublicationVideo v-else :video="{ src: publication.medias[0].url, type: publication.medias[0].type }" />
+          </template>
         </main>
         <footer v-if="!isParent" class="publication-footer">
           <ButtonPublicationAction
@@ -83,13 +86,10 @@ export default {
   components: {
     OptionMenu,
     ButtonPublicationAction,
-    PublicationGalerie: defineAsyncComponent(() =>
-      import('@/components/PublicationGalerie')
-    ),
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie')),
     ProfilePicture,
-    CreatePublication: defineAsyncComponent(() =>
-      import('@/components/CreatePublication')
-    )
+    CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo'))
   },
   props: {
     publication: { type: Object, required: true },
@@ -113,6 +113,9 @@ export default {
     },
     heartIconStyle () {
       return this.isLike ? 'fa-solid' : 'fa-regular'
+    },
+    mediaType () {
+      return this.publication.medias[0].type.split('/')[0]
     }
   },
   data () {

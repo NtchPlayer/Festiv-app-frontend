@@ -13,7 +13,7 @@
       <div class="publication-content">
         <TipTap class="publication-tiptap" v-model="content" />
         <ul
-          v-if="medias.length"
+          v-if="type === 'image'"
           class="publication-medias"
           :class="{'publication-medias-multiple': medias.length > 1}"
         >
@@ -32,6 +32,15 @@
             />
           </li>
         </ul>
+        <PublicationVideo
+          v-else-if="type === 'video'"
+          button="Retirer la vidéo"
+          :video="{
+            src: __create_url(medias[0]),
+            type: medias[0].type
+          }"
+          @emitButton="__remove_media(medias[0])"
+        />
         <div class="publication-footer flex-b">
           <input
             :id="`file-publication${inputFileIdentifier}`"
@@ -40,8 +49,8 @@
             type="file"
             name="Envois de médias"
             multiple
-            accept=".jpg,.jpeg,.png,.gif"
-            @change="__set_images"
+            accept=".jpg,.jpeg,.png,.gif,video/mp4,video/x-m4v,video/*,.mov"
+            @change="__set_medias"
           >
           <label class="button-round" :for="`file-publication${inputFileIdentifier}`">
             <span class="button-round-icon">
@@ -54,6 +63,7 @@
             v-text="buttonText"
           />
         </div>
+        <p v-if="error" class="error-message" v-text="error" />
       </div>
     </main>
   </section>
@@ -70,6 +80,7 @@ export default {
     ProfilePicture,
     TipTap,
     PublicationImage: defineAsyncComponent(() => import('@/components/PublicationImage')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo')),
     ItemPublication: defineAsyncComponent(() => import('@/components/ItemPublication'))
   },
   props: {
@@ -78,7 +89,9 @@ export default {
   data () {
     return {
       content: '',
-      medias: []
+      medias: [],
+      type: null,
+      error: null
     }
   },
   computed: {
@@ -121,14 +134,29 @@ export default {
           })
       }
     },
-    __set_images () {
-      [...this.$refs['file-input'].files].forEach((file) => {
+    __set_medias () {
+      this.error = null
+      const medias = [...this.$refs['file-input'].files]
+      this.type = this.__get_media_type(this.$refs['file-input'].files[0])
+      medias.forEach((file) => {
+        if (this.__get_media_type(this.$refs['file-input'].files[0]) !== this.__get_media_type(file)) {
+          this.error = 'Veuillez sélectionner soit 1 vidéo soit 4 images.'
+          this.medias = []
+          this.type = null
+          return
+        }
         this.medias.push(file)
       })
+    },
+    __get_media_type (file) {
+      return file.type.split('/')[0]
     },
     __remove_media (media) {
       const indexOfMediaToRemove = this.medias.indexOf(media)
       this.medias.splice(indexOfMediaToRemove, 1)
+      if (this.medias.length === 0) {
+        this.type = null
+      }
     },
     __create_url (media) {
       return URL.createObjectURL(media)

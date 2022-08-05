@@ -12,7 +12,11 @@
         </div>
       </header>
       <main class="publication-main" v-html="contentFormatted" />
-      <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />
+      <template v-if="publication.medias">
+        <PublicationGalerie v-if="mediaType === 'image'" :medias="publication.medias" />
+        <PublicationVideo v-else :video="{ src: publication.medias[0].url, type: publication.medias[0].type }" />
+      </template>
+<!--      <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />-->
       <footer class="publication-footer">
         <time
           class="publication-time"
@@ -72,7 +76,8 @@ export default {
     Header,
     ButtonPublicationAction,
     CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
-    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie'))
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo'))
   },
   data () {
     return {
@@ -99,6 +104,9 @@ export default {
       const regexp = /\B#\w+\b/g
       const arr = this.publication.content.match(regexp)
       return [...new Set(arr)]
+    },
+    mediaType () {
+      return this.publication.medias[0].type.split('/')[0]
     }
   },
   mounted () {
