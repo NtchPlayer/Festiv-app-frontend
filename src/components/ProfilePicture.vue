@@ -27,6 +27,7 @@
           class="input-file"
           type="file"
           ref="input-profile"
+          accept="image/jpeg,image/png,image/webp"
           @change="__emitFile"
         >
         </div>
