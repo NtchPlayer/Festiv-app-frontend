@@ -9,7 +9,7 @@
     </header>
     <ItemPublication v-if="parentPublication" class="parent-publication" :publication="parentPublication" :is-parent="true" />
     <main class="publication-body">
-      <ProfilePicture :name="$store.state.auth.user.name" />
+      <ProfilePicture :name="$store.state.auth.user?.name" :src="$store.state.auth.user?.avatar" />
       <div class="publication-content">
         <TipTap class="publication-tiptap" v-model="content" />
         <ul
