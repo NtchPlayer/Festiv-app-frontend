@@ -18,7 +18,7 @@
         Messages
       </span>
     </router-link>
-    <router-link class="nav-item" :to="{ name: 'profile', params: { name: $store.state.auth.user.name } }">
+    <router-link v-if="$store.state.auth.status.loggedIn" class="nav-item" :to="{ name: 'profile', params: { name: $store.state.auth.user?.name } }">
       <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-user" />
       <span class="nav-item-label">
         Profile
