@@ -21,7 +21,8 @@ import {
   faArrowRightFromBracket,
   faUserPen,
   faComment,
-  faCalendarDays
+  faCalendarDays,
+  faWind
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -48,7 +49,8 @@ library.add(
   faArrowRightFromBracket,
   faUserPen,
   faComment,
-  faCalendarDays
+  faCalendarDays,
+  faWind
 )
 
 export default FontAwesomeIcon
