@@ -27,6 +27,14 @@
       <form class="item-container">
         <fieldset :disabled="loading">
           <h2 class="second-title">Information utilisateur</h2>
+          <ProfilePicture
+            :name="userData.name"
+            :src="avatar"
+            :large-icon="true"
+            :is-editable="true"
+            class="container-input"
+            @emitFile="__emitFile"
+          />
           <FieldUsername
             v-model="username"
             :error-checker="true"
@@ -74,6 +82,8 @@ import FieldBirthday from '@/components/field/FieldBirthday'
 import TipTap from '@/components/field/TipTap'
 import FielsTags from '@/components/field/FielsTags'
 import FieldPassword from '@/components/field/FieldPassword'
+import ProfilePicture from '@/components/ProfilePicture'
+
 export default {
   name: 'ProfileEdit',
   props: {
@@ -84,6 +94,8 @@ export default {
   },
   data () {
     return {
+      avatar: this.userData.avatar?.url,
+      file: null,
       username: this.userData.username,
       usernameIsValid: true,
       email: this.userData.email,
@@ -98,6 +110,7 @@ export default {
     }
   },
   components: {
+    ProfilePicture,
     FieldPassword,
     FielsTags,
     TipTap,
@@ -120,6 +133,10 @@ export default {
     __updateBirthdayIsValid (value) {
       this.birthdayIsValid = value
     },
+    __emitFile (file) {
+      this.file = file
+      this.avatar = URL.createObjectURL(file)
+    },
     __editUser () {
       if (!this.formIsValid) {
         return
@@ -135,15 +152,41 @@ export default {
           tags: this.tags
         })
         .then(() => {
-          this.loading = false
-          this.$emit('getUser')
-          this.$emit('close')
+          if (this.file) {
+            this.__updateAvatar(this.file)
+          } else {
+            this.$emit('close')
+            this.$emit('getUser')
+            this.loading = false
+          }
         })
         .catch((e) => {
-          this.loading = false
-          this.error = e.response.data.message
-          throw e
+          this.__catchError(e)
         })
+    },
+    __updateAvatar (file) {
+      const formData = new FormData()
+      formData.append('avatar', file, file.name)
+      this.axios
+        .post(
+          'medias/avatar',
+          formData,
+          { headers: { 'Content-Type': 'multipart/form-data' } }
+        )
+        .then(() => {
+          this.$emit('close')
+          this.file = null
+          this.$emit('getUser')
+          this.loading = false
+        })
+        .catch((e) => {
+          this.__catchError(e)
+        })
+    },
+    __catchError (e) {
+      this.loading = false
+      this.error = e.response.data.message
+      throw e
     }
   }
 }
