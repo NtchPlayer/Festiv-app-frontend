@@ -24,7 +24,7 @@
       class="container-modal publication-galerie-full-container"
       @click.self="__set_modaleData(null)"
     >
-      <button type="button" class="button-round" @click.prevent="__set_modaleData(null)">
+      <button type="button" class="button-round button-black" @click.prevent="__set_modaleData(null)">
         <span class="button-round-icon">
           <font-awesome-icon icon="fa-solid fa-xmark" />
         </span>
@@ -82,16 +82,8 @@ export default {
   .button-round{
     position: absolute;
     z-index: 5;
-    left: 20px;
-    top: 20px;
-    color: #fff;
-    &-icon{
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-    }
-    &:hover .button-round-icon{
-      background-color: rgba(35, 34, 34, 0.5);
-    }
+    top: 5px;
+    left: 5px;
   }
 }
 </style>
