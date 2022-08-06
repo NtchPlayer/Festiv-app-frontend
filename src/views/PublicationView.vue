@@ -1,15 +1,25 @@
 <template>
   <main class="main-container">
-    <Header
-      title="Publication"
-    />
+    <Header title="Publication" />
     <article v-if="!initLoading" class="item-container publication-single">
       <header class="publication-single-header">
-        <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
-        <div>
-          <p class="profile-username" v-text="publication.user.username" />
-          <p class="profile-name" v-text="`@${publication.user.name}`" />
+        <div class="publication-single-header-user">
+          <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
+          <div>
+            <p class="profile-username" v-text="publication.user.username" />
+            <p class="profile-name" v-text="`@${publication.user.name}`" />
+          </div>
         </div>
+        <OptionMenu
+          v-if="parseInt(publication.user.id) === $store.state.auth.user?.id"
+          :actions="[{
+          class: 'color-red',
+          icon: 'fa-regular fa-trash-can',
+          label: 'Supprimer la publication',
+          function: 'deletePost'
+        }]"
+          @deletePost="__deletePost"
+        />
       </header>
       <main class="publication-main" v-html="contentFormatted" />
       <template v-if="publication.medias">
@@ -64,6 +74,7 @@ import ItemPublication from '@/components/ItemPublication'
 import NavMenu from '@/components/NavMenu'
 import ProfilePicture from '@/components/ProfilePicture'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
+import OptionMenu from '@/components/OptionMenu'
 import { defineAsyncComponent } from 'vue'
 
 export default {
@@ -74,6 +85,7 @@ export default {
     ItemPublication,
     Header,
     ButtonPublicationAction,
+    OptionMenu,
     CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
     PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie')),
     PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo'))
@@ -155,6 +167,12 @@ export default {
     },
     __postComment () {
       this.commentModal = true
+    },
+    __deletePost () {
+      this.axios.delete(`publications/${this.publication.id}`)
+        .then(() => {
+          this.$router.push({ name: 'home' })
+        })
     }
   }
 }
@@ -165,9 +183,13 @@ export default {
   border: none;
   &-header{
     display: flex;
+    justify-content: space-between;
     margin-bottom: 20px;
-    div:first-child{
-      margin-right: 20px;
+    &-user{
+      display: flex;
+      .container-profile-picture{
+        margin-right: 20px;
+      }
     }
     .profile-username{
       font-size: 1rem;
