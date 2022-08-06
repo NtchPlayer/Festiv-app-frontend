@@ -40,6 +40,9 @@ class AuthService {
       .then((res) => {
         return res.data
       })
+      .catch(() => {
+        delete axiosInstance.defaults.headers.common.Authorization
+      })
   }
 }
 
