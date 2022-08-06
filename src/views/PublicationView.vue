@@ -5,7 +5,7 @@
     />
     <article v-if="!initLoading" class="item-container publication-single">
       <header class="publication-single-header">
-        <ProfilePicture :name="publication.user.name" />
+        <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
         <div>
           <p class="profile-username" v-text="publication.user.username" />
           <p class="profile-name" v-text="`@${publication.user.name}`" />
@@ -16,7 +16,6 @@
         <PublicationGalerie v-if="mediaType === 'image'" :medias="publication.medias" />
         <PublicationVideo v-else :video="{ src: publication.medias[0].url, type: publication.medias[0].type }" />
       </template>
-<!--      <PublicationGalerie v-if="publication.medias" :medias="publication.medias" />-->
       <footer class="publication-footer">
         <time
           class="publication-time"
