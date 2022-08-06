@@ -24,7 +24,7 @@
             </p>
           </div>
           <OptionMenu
-            v-if="publication.user.id === $store.state.auth.user?.id"
+            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id"
             :actions="[{
               class: 'color-red',
               icon: 'fa-regular fa-trash-can',
