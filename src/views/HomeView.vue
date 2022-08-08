@@ -23,6 +23,7 @@
         @deletePublication="__fetchPublications"
       />
     </section>
+    <LoaderItem v-else-if="isLoading" />
     <NavMenu />
   </main>
 </template>
@@ -32,6 +33,7 @@ import MainHeader from '@/components/MainHeader'
 import NavMenu from '@/components/MainNav'
 import PublicationCreate from '@/components/publication/PublicationCreate'
 import PublicationItem from '@/components/publication/PublicationItem'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'HomeView',
@@ -39,12 +41,14 @@ export default {
     PublicationItem,
     PublicationCreate,
     NavMenu,
-    MainHeader
+    MainHeader,
+    LoaderItem
   },
   data () {
     return {
       newPostModal: false,
-      publications: null
+      publications: null,
+      isLoading: true
     }
   },
   mounted () {
@@ -55,8 +59,10 @@ export default {
       this.newPostModal = true
     },
     __fetchPublications () {
+      this.isLoading = true
       this.axios.get('publications')
         .then((e) => {
+          this.isLoading = false
           this.publications = e.data
         })
     }

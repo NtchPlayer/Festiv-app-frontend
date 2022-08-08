@@ -62,6 +62,7 @@
           @fetchPublications="__fetchUserPost(this.userData.username)"
         />
       </section>
+      <LoaderItem v-else-if="isLoading" />
       <section v-else class="void-section">
         <div class="void-container">
           <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
@@ -77,7 +78,7 @@
       />
     </template>
     <template v-else>
-      <div>Loading...</div>
+      <LoaderItem />
     </template>
     <NavMenu />
   </main>
@@ -91,10 +92,12 @@ import OptionMenu from '@/components/OptionMenu'
 import PublicationItem from '@/components/publication/PublicationItem'
 import { defineAsyncComponent } from 'vue'
 import ConfirmModale from '@/components/ConfirmModale'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'ProfileView',
   components: {
+    LoaderItem,
     ConfirmModale,
     ProfileEdit: defineAsyncComponent(() => import('@/components/profile/ProfileEdit')),
     MainHeader,
@@ -108,6 +111,7 @@ export default {
       userData: null,
       publications: null,
       initLoading: true,
+      isLoading: false,
       editAccount: false,
       confirmDelete: false
     }
@@ -155,8 +159,10 @@ export default {
         })
     },
     __fetchUserPost (name) {
+      this.isLoading = true
       return this.axios.get(`publications/user/${name}`)
         .then((res) => {
+          this.isLoading = false
           this.publications = res.data
         })
     }

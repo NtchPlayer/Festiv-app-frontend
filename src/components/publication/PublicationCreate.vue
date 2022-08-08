@@ -50,18 +50,27 @@
             name="Envois de médias"
             accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/quicktime"
             multiple
+            :disabled="isLoading"
             @change="__set_medias"
           >
-          <label class="button-round" :for="`file-publication${inputFileIdentifier}`">
+          <label
+            class="button-round"
+            :for="`file-publication${inputFileIdentifier}`"
+            :disabled="isLoading"
+          >
             <span class="button-round-icon">
               <font-awesome-icon icon="fa-solid fa-image" />
             </span>
           </label>
-          <button
-            class="button-primary"
-            @click.prevent="__post_publication"
-            v-text="buttonText"
-          />
+          <div>
+            <LoaderItem v-show="isLoading" :is-tiny="true" />
+            <button
+              class="button-primary"
+              @click.prevent="__post_publication"
+              :disabled="isLoading"
+              v-text="buttonText"
+            />
+          </div>
         </div>
         <p v-if="error" class="error-message" v-text="error" />
       </div>
@@ -73,10 +82,12 @@
 import ProfilePicture from '@/components/profile/ProfilePicture'
 import TipTap from '@/components/fields/TipTap'
 import { defineAsyncComponent } from 'vue'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'PublicationCreate',
   components: {
+    LoaderItem,
     ProfilePicture,
     TipTap,
     PublicationImage: defineAsyncComponent(() => import('@/components/publication/PublicationImage')),
@@ -91,7 +102,8 @@ export default {
       content: '',
       medias: [],
       type: null,
-      error: null
+      error: null,
+      isLoading: false
     }
   },
   computed: {
@@ -109,6 +121,7 @@ export default {
   },
   methods: {
     __post_publication () {
+      this.error = null
       const formData = new FormData()
       this.medias.forEach((file) => {
         formData.append('files[]', file, file.name)
@@ -121,16 +134,22 @@ export default {
         formData.append('tags[]', tag)
       }
       if (this.content) {
+        this.isLoading = true
         this.axios.post(
           'publications/add',
           formData,
           { headers: { 'Content-Type': 'multipart/form-data' } }
         )
           .then(() => {
+            this.isLoading = false
             this.content = ''
             this.medias = []
             this.$emit('fetchPublications')
             this.$emit('emitClose')
+          })
+          .catch((e) => {
+            this.isLoading = false
+            this.error = e
           })
       }
     },

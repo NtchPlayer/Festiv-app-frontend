@@ -19,7 +19,8 @@
         >
       </div>
     </section>
-    <section v-if="results.length === 0 && !defaultView" class="void-section">
+    <LoaderItem v-if="isLoading" />
+    <section v-else-if="results.length === 0 && !defaultView" class="void-section">
       <div class="void-container">
         <font-awesome-icon class="void-icon" icon="icon-solid fa-search" />
         <p class="void-description">Aucun résultat n'a été trouvé !</p>
@@ -47,10 +48,12 @@
 import NavMenu from '@/components/MainNav'
 import FestivalItem from '@/components/FestivalItem'
 import PublicationItem from '@/components/publication/PublicationItem'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'SearchView',
   components: {
+    LoaderItem,
     PublicationItem,
     FestivalItem,
     NavMenu
@@ -61,7 +64,7 @@ export default {
       isHashtagSearch: false,
       results: [],
       festivals: [],
-      loading: false
+      isLoading: false
     }
   },
   computed: {
@@ -101,16 +104,15 @@ export default {
   },
   methods: {
     async __fetchFestivals () {
-      this.loading = true
+      this.isLoading = true
       await this.axios
         .get('users/festivals')
-        .then((e) => {
-          this.loading = false
-          this.festivals = e.data
+        .then((res) => {
+          this.isLoading = false
+          this.festivals = res.data
         })
-        .catch((e) => {
-          this.loading = false
-          throw e
+        .catch(() => {
+          this.isLoading = false
         })
     },
     async __search () {
@@ -118,7 +120,7 @@ export default {
         this.results = []
         return
       }
-      this.loading = true
+      this.isLoading = true
       this.isHashtagSearch = false
       if (this.hashtag) {
         this.q = `#${this.hashtag}`
@@ -129,12 +131,12 @@ export default {
       }
       await this.axios
         .get(this.searchUrl)
-        .then((e) => {
-          this.loading = false
-          this.results = e.data
+        .then((res) => {
+          this.isLoading = false
+          this.results = res.data
         })
-        .catch((e) => {
-          console.log(e)
+        .catch(() => {
+          this.isLoading = false
           this.results = []
         })
     },
