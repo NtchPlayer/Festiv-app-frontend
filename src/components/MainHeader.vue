@@ -42,6 +42,9 @@ export default {
   align-items: center;
   justify-content: space-between;
   background-color: var(--header-color);
+  box-shadow: var(--shadow-menu);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  backdrop-filter: blur(20px);
   > div{
     align-self: center;
     display: flex;

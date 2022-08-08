@@ -36,15 +36,17 @@ body{
   margin-left: auto;
   padding-bottom: 66px;
   min-height: 100vh;
-  border-left: 1px solid var(--grey-light);
-  border-right: 1px solid var(--grey-light);
+  //border-left: 1px solid var(--grey-light);
+  //border-right: 1px solid var(--grey-light);
   display: flex;
   flex-direction: column;
 }
 
 .item-container{
   padding: 20px;
-  border-bottom: 1px solid var(--grey-light);
+  box-shadow: var(--shadow-material-2dp);
+  border-radius: var(--border-radius);
+  margin: 10px 0;
 }
 
 .input-file{
@@ -124,8 +126,12 @@ body{
   min-width: 600px;
   width: 600px;
   border-radius: var(--border-radius);
+  box-shadow: var(--shadow-material-2dp);
   overflow: scroll;
   max-height: calc(100% - 100px);
+  .item-container{
+    box-shadow: none;
+  }
 }
 
 // Button
@@ -288,7 +294,8 @@ a{
   transition-duration: var(--transition-duration);
   cursor: pointer;
   &:hover{
-    background-color: var(--hover-color);
+    //background-color: var(--hover-color);
+    box-shadow: var(--shadow-material-8dp);
   }
 }
 
