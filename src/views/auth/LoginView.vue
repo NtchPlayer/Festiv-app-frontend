@@ -2,7 +2,7 @@
   <section class="modale item-container">
     <h1 class="main-title">Se connecter</h1>
     <form @submit.prevent="__submitLogin">
-      <fieldset :disabled="loading">
+      <fieldset :disabled="isLoading">
         <FieldEmail
           v-model="email"
           :focus="true"
@@ -11,7 +11,12 @@
           v-model="password"
         />
         <p v-show="error" class="error-message" v-text="error"/>
-        <input class="button-primary" type="submit" value="Suivant">
+        <input
+          class="button-primary"
+          type="submit"
+          value="Suivant"
+          :disabled="isLoading"
+        >
       </fieldset>
     </form>
     <p class="auth-link">
@@ -37,22 +42,25 @@ export default {
     return {
       email: '',
       password: '',
-      loading: false,
+      isLoading: false,
       error: null
     }
   },
   methods: {
     async __submitLogin () {
-      this.loading = true
+      if (!this.email && !this.password) {
+        return
+      }
+      this.isLoading = true
       this.error = null
       await this.$store
         .dispatch('auth/login', { email: this.email, password: this.password })
         .then(() => {
           this.$router.push({ name: 'home' })
-          this.loading = false
+          this.isLoading = false
         })
         .catch((error) => {
-          this.loading = false
+          this.isLoading = false
           this.__handleError(error.response.data)
         })
     },
