@@ -1,12 +1,15 @@
 <template>
-  <section class="container-loader">
+  <section class="container-loader" :class="{ 'tiny-loader': isTiny }">
     <div class="lds-dual-ring" />
   </section>
 </template>
 
 <script>
 export default {
-  name: 'LoaderItem'
+  name: 'LoaderItem',
+  props: {
+    isTiny: { type: Boolean, default: false }
+  }
 }
 </script>
 
@@ -30,9 +33,23 @@ export default {
     height: 64px;
     margin: 8px;
     border-radius: 50%;
-    border: 6px solid #fff;
+    border-width: 6px;
+    border-style: solid;
     border-color: var(--primary-color) transparent var(--primary-color) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
+  }
+}
+
+.tiny-loader{
+  margin: 0 20px 0 0;
+  .lds-dual-ring{
+    width: 36px;
+    height: 36px;
+    &:after{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
   }
 }
 
