@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import FieldEmail from '@/components/field/FieldEmail'
-import FieldPassword from '@/components/field/FieldPassword'
+import FieldEmail from '@/components/fields/FieldEmail'
+import FieldPassword from '@/components/fields/FieldPassword'
 
 export default {
   name: 'LoginView',
