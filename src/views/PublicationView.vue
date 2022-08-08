@@ -47,10 +47,10 @@
         />
       </div>
     </article>
-    <CreatePublication />
+    <PublicationCreate />
     <section v-if="commentModal" class="container-modal" @click.self="commentModal = false">
       <div class="modale">
-        <CreatePublication
+        <PublicationCreate
           @emitClose="commentModal = false"
           :parentPublication="publication"
         />
@@ -86,7 +86,7 @@ export default {
     MainHeader,
     ButtonPublicationAction,
     OptionMenu,
-    CreatePublication: defineAsyncComponent(() => import('@/components/publication/CreatePublication')),
+    PublicationCreate: defineAsyncComponent(() => import('@/components/publication/PublicationCreate')),
     PublicationGalerie: defineAsyncComponent(() => import('@/components/publication/PublicationGalerie')),
     PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo'))
   },

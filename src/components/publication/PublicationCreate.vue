@@ -75,7 +75,7 @@ import TipTap from '@/components/fields/TipTap'
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'CreatePublication',
+  name: 'PublicationCreate',
   components: {
     ProfilePicture,
     TipTap,

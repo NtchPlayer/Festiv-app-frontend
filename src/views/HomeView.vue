@@ -11,10 +11,10 @@
     />
     <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
       <div class="modale">
-        <CreatePublication @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
+        <PublicationCreate @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
       </div>
     </section>
-    <CreatePublication @fetchPublications="__fetchPublications" />
+    <PublicationCreate @fetchPublications="__fetchPublications" />
     <section v-if="publications">
       <ItemPublication
         v-for="publication of publications"
@@ -30,14 +30,14 @@
 <script>
 import MainHeader from '@/components/MainHeader'
 import NavMenu from '@/components/NavMenu'
-import CreatePublication from '@/components/publication/CreatePublication'
+import PublicationCreate from '@/components/publication/PublicationCreate'
 import ItemPublication from '@/components/publication/ItemPublication'
 
 export default {
   name: 'HomeView',
   components: {
     ItemPublication,
-    CreatePublication,
+    PublicationCreate,
     NavMenu,
     MainHeader
   },
