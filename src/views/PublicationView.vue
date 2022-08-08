@@ -57,7 +57,7 @@
       </div>
     </section>
     <section v-if="publication?.comments">
-      <ItemPublication
+      <PublicationItem
         v-for="comment of publication?.comments"
         :key="comment.id"
         :publication="comment"
@@ -70,7 +70,7 @@
 
 <script>
 import MainHeader from '@/components/MainHeader'
-import ItemPublication from '@/components/publication/ItemPublication'
+import PublicationItem from '@/components/publication/PublicationItem'
 import NavMenu from '@/components/NavMenu'
 import ProfilePicture from '@/components/profile/ProfilePicture'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
@@ -82,7 +82,7 @@ export default {
   components: {
     ProfilePicture,
     NavMenu,
-    ItemPublication,
+    PublicationItem,
     MainHeader,
     ButtonPublicationAction,
     OptionMenu,

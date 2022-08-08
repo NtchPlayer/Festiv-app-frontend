@@ -55,7 +55,7 @@
         @getUser="__fetchUser"
       />
       <section v-if="publications">
-        <ItemPublication
+        <PublicationItem
           v-for="publication of publications"
           :key="publication.id"
           :publication="publication"
@@ -88,7 +88,7 @@ import ProfilePicture from '@/components/profile/ProfilePicture'
 import NavMenu from '@/components/NavMenu'
 import MainHeader from '@/components/MainHeader'
 import OptionMenu from '@/components/OptionMenu'
-import ItemPublication from '@/components/publication/ItemPublication'
+import PublicationItem from '@/components/publication/PublicationItem'
 import { defineAsyncComponent } from 'vue'
 import ConfirmModale from '@/components/ConfirmModale'
 
@@ -101,7 +101,7 @@ export default {
     NavMenu,
     ProfilePicture,
     OptionMenu,
-    ItemPublication
+    PublicationItem
   },
   data () {
     return {

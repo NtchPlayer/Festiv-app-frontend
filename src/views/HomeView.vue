@@ -16,7 +16,7 @@
     </section>
     <PublicationCreate @fetchPublications="__fetchPublications" />
     <section v-if="publications">
-      <ItemPublication
+      <PublicationItem
         v-for="publication of publications"
         :key="publication.id"
         :publication="publication"
@@ -31,12 +31,12 @@
 import MainHeader from '@/components/MainHeader'
 import NavMenu from '@/components/NavMenu'
 import PublicationCreate from '@/components/publication/PublicationCreate'
-import ItemPublication from '@/components/publication/ItemPublication'
+import PublicationItem from '@/components/publication/PublicationItem'
 
 export default {
   name: 'HomeView',
   components: {
-    ItemPublication,
+    PublicationItem,
     PublicationCreate,
     NavMenu,
     MainHeader

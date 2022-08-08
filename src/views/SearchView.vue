@@ -26,7 +26,7 @@
       </div>
     </section>
     <section v-else>
-      <ItemPublication
+      <PublicationItem
         v-for="result of results"
         :key="result.id"
         :publication="result"
@@ -46,12 +46,12 @@
 <script>
 import NavMenu from '@/components/NavMenu'
 import FestivalItem from '@/components/FestivalItem'
-import ItemPublication from '@/components/publication/ItemPublication'
+import PublicationItem from '@/components/publication/PublicationItem'
 
 export default {
   name: 'SearchView',
   components: {
-    ItemPublication,
+    PublicationItem,
     FestivalItem,
     NavMenu
   },
