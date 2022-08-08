@@ -131,6 +131,7 @@ body{
   max-height: calc(100% - 100px);
   .item-container{
     box-shadow: none;
+    margin: 0;
   }
 }
 
@@ -197,6 +198,15 @@ form{
     transition-duration: var(--transition-duration);
     margin-left: 5px;
     font-size: .9rem;
+  }
+  &[disabled="true"]{
+    cursor: not-allowed;
+    .button-round-icon{
+      color: var(--grey-dark);
+      &:hover{
+        background-color: unset;
+      }
+    }
   }
 }
 
@@ -391,6 +401,9 @@ a{
   }
   .button-round{
     margin-right: 40px;
+  }
+  > div{
+    display: flex;
   }
 }
 
