@@ -149,6 +149,10 @@ export default {
           this.userData = res.data
           this.__fetchUserPost(res.data.name)
         })
+        .catch(() => {
+          console.log('test')
+          this.$router.push({ name: 'home' })
+        })
     },
     __fetchUserPost (name) {
       return this.axios.get(`publications/user/${name}`)
