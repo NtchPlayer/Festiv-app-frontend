@@ -1,6 +1,6 @@
 <template>
   <main class="main-container">
-    <Header title="Publication" />
+    <MainHeader title="Publication" />
     <article v-if="!initLoading" class="item-container publication-single">
       <header class="publication-single-header">
         <div class="publication-single-header-user">
@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
-import ItemPublication from '@/components/ItemPublication'
+import MainHeader from '@/components/MainHeader'
+import ItemPublication from '@/components/publication/ItemPublication'
 import NavMenu from '@/components/NavMenu'
-import ProfilePicture from '@/components/ProfilePicture'
+import ProfilePicture from '@/components/profile/ProfilePicture'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
 import OptionMenu from '@/components/OptionMenu'
 import { defineAsyncComponent } from 'vue'
@@ -83,12 +83,12 @@ export default {
     ProfilePicture,
     NavMenu,
     ItemPublication,
-    Header,
+    MainHeader,
     ButtonPublicationAction,
     OptionMenu,
-    CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
-    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie')),
-    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo'))
+    CreatePublication: defineAsyncComponent(() => import('@/components/publication/CreatePublication')),
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/publication/PublicationGalerie')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo'))
   },
   data () {
     return {

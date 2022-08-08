@@ -70,8 +70,8 @@
 </template>
 
 <script>
-import ProfilePicture from '@/components/ProfilePicture'
-import TipTap from '@/components/field/TipTap'
+import ProfilePicture from '@/components/profile/ProfilePicture'
+import TipTap from '@/components/fields/TipTap'
 import { defineAsyncComponent } from 'vue'
 
 export default {
@@ -79,9 +79,9 @@ export default {
   components: {
     ProfilePicture,
     TipTap,
-    PublicationImage: defineAsyncComponent(() => import('@/components/PublicationImage')),
-    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo')),
-    ItemPublication: defineAsyncComponent(() => import('@/components/ItemPublication'))
+    PublicationImage: defineAsyncComponent(() => import('@/components/publication/PublicationImage')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo')),
+    ItemPublication: defineAsyncComponent(() => import('@/components/publication/ItemPublication'))
   },
   props: {
     parentPublication: { type: [Object, Boolean], default: false }

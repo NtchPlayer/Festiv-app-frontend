@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import PublicationImage from '@/components/PublicationImage'
+import PublicationImage from '@/components/publication/PublicationImage'
 export default {
   name: 'PublicationGalerie',
   components: { PublicationImage },

@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import ProfilePicture from '@/components/ProfilePicture'
+import ProfilePicture from '@/components/profile/ProfilePicture'
 import OptionMenu from '@/components/OptionMenu'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
 import { defineAsyncComponent } from 'vue'
@@ -86,10 +86,10 @@ export default {
   components: {
     OptionMenu,
     ButtonPublicationAction,
-    PublicationGalerie: defineAsyncComponent(() => import('@/components/PublicationGalerie')),
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/publication/PublicationGalerie')),
     ProfilePicture,
-    CreatePublication: defineAsyncComponent(() => import('@/components/CreatePublication')),
-    PublicationVideo: defineAsyncComponent(() => import('@/components/PublicationVideo'))
+    CreatePublication: defineAsyncComponent(() => import('@/components/publication/CreatePublication')),
+    PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo'))
   },
   props: {
     publication: { type: Object, required: true },
