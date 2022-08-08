@@ -1,6 +1,6 @@
 <template>
   <main class="main-container">
-    <Header
+    <MainHeader
       title="Accueil"
       :button="{
         label: 'Nouveau Post',
@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
+import MainHeader from '@/components/MainHeader'
 import NavMenu from '@/components/NavMenu'
-import CreatePublication from '@/components/CreatePublication'
-import ItemPublication from '@/components/ItemPublication'
+import CreatePublication from '@/components/publication/CreatePublication'
+import ItemPublication from '@/components/publication/ItemPublication'
 
 export default {
   name: 'HomeView',
@@ -39,7 +39,7 @@ export default {
     ItemPublication,
     CreatePublication,
     NavMenu,
-    Header
+    MainHeader
   },
   data () {
     return {

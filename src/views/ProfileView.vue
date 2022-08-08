@@ -1,7 +1,7 @@
 <template>
   <main class="main-container profile-view">
     <template v-if="!initLoading">
-      <Header :title="userData.username" />
+      <MainHeader :title="userData.username" />
       <section class="item-container">
         <div>
           <ProfilePicture
@@ -84,11 +84,11 @@
 </template>
 
 <script>
-import ProfilePicture from '@/components/ProfilePicture'
+import ProfilePicture from '@/components/profile/ProfilePicture'
 import NavMenu from '@/components/NavMenu'
-import Header from '@/components/Header'
+import MainHeader from '@/components/MainHeader'
 import OptionMenu from '@/components/OptionMenu'
-import ItemPublication from '@/components/ItemPublication'
+import ItemPublication from '@/components/publication/ItemPublication'
 import { defineAsyncComponent } from 'vue'
 import ConfirmModale from '@/components/ConfirmModale'
 
@@ -96,8 +96,8 @@ export default {
   name: 'ProfileView',
   components: {
     ConfirmModale,
-    ProfileEdit: defineAsyncComponent(() => import('@/components/ProfileEdit')),
-    Header,
+    ProfileEdit: defineAsyncComponent(() => import('@/components/profile/ProfileEdit')),
+    MainHeader,
     NavMenu,
     ProfilePicture,
     OptionMenu,
