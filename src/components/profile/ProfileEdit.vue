@@ -76,13 +76,13 @@
 </template>
 
 <script>
-import FieldUsername from '@/components/field/FieldUsername'
-import FieldEmail from '@/components/field/FieldEmail'
-import FieldBirthday from '@/components/field/FieldBirthday'
-import TipTap from '@/components/field/TipTap'
-import FielsTags from '@/components/field/FielsTags'
-import FieldPassword from '@/components/field/FieldPassword'
-import ProfilePicture from '@/components/ProfilePicture'
+import FieldUsername from '@/components/fields/FieldUsername'
+import FieldEmail from '@/components/fields/FieldEmail'
+import FieldBirthday from '@/components/fields/FieldBirthday'
+import TipTap from '@/components/fields/TipTap'
+import FielsTags from '@/components/fields/FielsTags'
+import FieldPassword from '@/components/fields/FieldPassword'
+import ProfilePicture from '@/components/profile/ProfilePicture'
 
 export default {
   name: 'ProfileEdit',
