@@ -86,8 +86,8 @@ export default {
   components: {
     OptionMenu,
     ButtonPublicationAction,
-    PublicationGalerie: defineAsyncComponent(() => import('@/components/publication/PublicationGalerie')),
     ProfilePicture,
+    PublicationGalerie: defineAsyncComponent(() => import('@/components/publication/PublicationGalerie')),
     PublicationCreate: defineAsyncComponent(() => import('@/components/publication/PublicationCreate')),
     PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo'))
   },
