@@ -12,13 +12,13 @@
         Recherche
       </span>
     </router-link>
-    <span class="nav-item nav-item-preview">
-      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-message" />
-      <span class="nav-item-label">
-        Messages
-      </span>
-      <span class="text-label">Bientôt</span>
-    </span>
+<!--    <span class="nav-item nav-item-preview">-->
+<!--      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-message" />-->
+<!--      <span class="nav-item-label">-->
+<!--        Messages-->
+<!--      </span>-->
+<!--      <span class="text-label">Bientôt</span>-->
+<!--    </span>-->
     <router-link v-if="$store.state.auth.status.loggedIn" class="nav-item" :to="{ name: 'profile', params: { name: $store.state.auth.user?.name } }">
       <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-user" />
       <span class="nav-item-label">
@@ -49,7 +49,7 @@ export default {
 .nav-item{
   display: flex;
   padding: 10px 20px;
-  width: 25%;
+  width: calc(100% / 3);
   transition-duration: var(--transition-duration);
   align-items: center;
   flex-direction: column;
