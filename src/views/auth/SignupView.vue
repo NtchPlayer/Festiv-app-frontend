@@ -53,11 +53,11 @@
 </template>
 
 <script>
-import FieldUsername from '@/components/field/FieldUsername'
-import FieldEmail from '@/components/field/FieldEmail'
-import FieldPassword from '@/components/field/FieldPassword'
-import FielsTags from '@/components/field/FielsTags'
-import FieldName from '@/components/field/FieldName'
+import FieldUsername from '@/components/fields/FieldUsername'
+import FieldEmail from '@/components/fields/FieldEmail'
+import FieldPassword from '@/components/fields/FieldPassword'
+import FielsTags from '@/components/fields/FielsTags'
+import FieldName from '@/components/fields/FieldName'
 
 export default {
   name: 'SignupView',
