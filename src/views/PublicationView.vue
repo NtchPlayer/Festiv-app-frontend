@@ -1,53 +1,56 @@
 <template>
   <main class="main-container">
     <MainHeader title="Publication" />
-    <article v-if="!initLoading" class="item-container publication-single">
-      <header class="publication-single-header">
-        <div class="publication-single-header-user">
-          <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
-          <div>
-            <p class="profile-username" v-text="publication.user.username" />
-            <p class="profile-name" v-text="`@${publication.user.name}`" />
+    <LoaderItem v-if="initLoading"/>
+    <template v-else>
+      <article class="item-container publication-single">
+        <header class="publication-single-header">
+          <div class="publication-single-header-user">
+            <ProfilePicture :name="publication.user.name" :src="publication.user.avatar?.url" />
+            <div>
+              <p class="profile-username" v-text="publication.user.username" />
+              <p class="profile-name" v-text="`@${publication.user.name}`" />
+            </div>
           </div>
+          <OptionMenu
+            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id"
+            :actions="[{
+            class: 'color-red',
+            icon: 'fa-regular fa-trash-can',
+            label: 'Supprimer la publication',
+            function: 'deletePost'
+          }]"
+            @deletePost="__deletePost"
+          />
+        </header>
+        <main class="publication-main" v-html="contentFormatted" />
+        <template v-if="publication.medias">
+          <PublicationGalerie v-if="mediaType === 'image'" :medias="publication.medias" />
+          <PublicationVideo v-else :video="{ src: publication.medias[0].url, type: publication.medias[0].type }" />
+        </template>
+        <footer class="publication-footer">
+          <time
+            class="publication-time"
+            v-text="$filters.timeFilter(publication.createdAt)"
+          />
+        </footer>
+        <div class="publication-action">
+          <ButtonPublicationAction
+            :class-to-add="`button-heart ${isLike ? 'button-heart-like' : ''}`"
+            :icon="`${this.isLike ? 'fa-solid' : 'fa-regular'} fa-heart`"
+            :count="countLike"
+            :disabled="likeIsLoading"
+            @emitClick="__likePublication"
+          />
+          <ButtonPublicationAction
+            icon="fa-solid fa-comment"
+            :count="parseInt(publication.countComments)"
+            @emitClick="__postComment"
+          />
         </div>
-        <OptionMenu
-          v-if="parseInt(publication.user.id) === $store.state.auth.user?.id"
-          :actions="[{
-          class: 'color-red',
-          icon: 'fa-regular fa-trash-can',
-          label: 'Supprimer la publication',
-          function: 'deletePost'
-        }]"
-          @deletePost="__deletePost"
-        />
-      </header>
-      <main class="publication-main" v-html="contentFormatted" />
-      <template v-if="publication.medias">
-        <PublicationGalerie v-if="mediaType === 'image'" :medias="publication.medias" />
-        <PublicationVideo v-else :video="{ src: publication.medias[0].url, type: publication.medias[0].type }" />
-      </template>
-      <footer class="publication-footer">
-        <time
-          class="publication-time"
-          v-text="$filters.timeFilter(publication.createdAt)"
-        />
-      </footer>
-      <div class="publication-action">
-        <ButtonPublicationAction
-          :class-to-add="`button-heart ${isLike ? 'button-heart-like' : ''}`"
-          :icon="`${this.isLike ? 'fa-solid' : 'fa-regular'} fa-heart`"
-          :count="countLike"
-          :disabled="likeIsLoading"
-          @emitClick="__likePublication"
-        />
-        <ButtonPublicationAction
-          icon="fa-solid fa-comment"
-          :count="parseInt(publication.countComments)"
-          @emitClick="__postComment"
-        />
-      </div>
-    </article>
-    <PublicationCreate />
+      </article>
+      <PublicationCreate />
+    </template>
     <section v-if="commentModal" class="container-modal" @click.self="commentModal = false">
       <div class="modale">
         <PublicationCreate
@@ -76,10 +79,12 @@ import ProfilePicture from '@/components/profile/ProfilePicture'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
 import OptionMenu from '@/components/OptionMenu'
 import { defineAsyncComponent } from 'vue'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'PublicationView',
   components: {
+    LoaderItem,
     ProfilePicture,
     NavMenu,
     PublicationItem,
