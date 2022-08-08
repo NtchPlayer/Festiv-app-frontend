@@ -46,7 +46,7 @@
 <script>
 import NavMenu from '@/components/NavMenu'
 import FestivalItem from '@/components/FestivalItem'
-import ItemPublication from '@/components/ItemPublication'
+import ItemPublication from '@/components/publication/ItemPublication'
 
 export default {
   name: 'SearchView',
