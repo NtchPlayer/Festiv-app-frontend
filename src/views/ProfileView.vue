@@ -25,7 +25,7 @@
           </div>
           <p class="profile-join">
             <font-awesome-icon icon="fa-solid fa-calendar-days" />
-            A rejoint Festiv'app le {{ $filters.timeFilter(userData.createdAt, false, true) }}
+            A rejoint Festiv'App le {{ $filters.timeFilter(userData.createdAt, false, true) }}
           </p>
         </div>
         <OptionMenu
