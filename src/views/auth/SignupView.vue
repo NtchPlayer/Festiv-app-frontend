@@ -2,7 +2,7 @@
   <section class="modale item-container">
     <h1 class="main-title">Se créer un compte</h1>
     <form @submit.prevent="__submitSignup">
-      <fieldset :disabled="loading">
+      <fieldset :disabled="isLoading">
         <FieldUsername
           v-model="username"
           :focus="true"
@@ -40,7 +40,7 @@
         >
           Oops, une erreur c'est produite ! Veuillez ressayer plus tard.
         </p>
-        <input :disabled="!isValidForm" class="button-primary" type="submit" value="Suivant">
+        <input :disabled="!isValidForm || isLoading" class="button-primary" type="submit" value="Suivant">
       </fieldset>
     </form>
     <p class="auth-link">
@@ -82,7 +82,7 @@ export default {
       passwordIsValid: false,
       isFestivalAccount: false,
       tags: [],
-      loading: false,
+      isLoading: false,
       errorServer: false
     }
   },
@@ -105,7 +105,10 @@ export default {
       this.nameIsValid = value
     },
     __submitSignup () {
-      this.loading = true
+      if (!this.isValidForm) {
+        return
+      }
+      this.isLoading = true
       this.emailIsUse = false
       this.nameIsUse = false
       this.errorServer = false
@@ -120,10 +123,10 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'login' })
-          this.loading = false
+          this.isLoading = false
         })
         .catch((error) => {
-          this.loading = false
+          this.isLoading = false
           this.__handleError(error.response.data)
         })
     },
