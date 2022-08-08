@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'HeaderSection',
+  name: 'MainHeader',
   props: {
     title: { type: String, required: true },
     button: { type: Object, required: false },
