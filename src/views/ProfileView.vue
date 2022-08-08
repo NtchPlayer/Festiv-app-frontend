@@ -85,7 +85,7 @@
 
 <script>
 import ProfilePicture from '@/components/profile/ProfilePicture'
-import NavMenu from '@/components/NavMenu'
+import NavMenu from '@/components/MainNav'
 import MainHeader from '@/components/MainHeader'
 import OptionMenu from '@/components/OptionMenu'
 import PublicationItem from '@/components/publication/PublicationItem'

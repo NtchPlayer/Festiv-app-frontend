@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import NavMenu from '@/components/NavMenu'
+import NavMenu from '@/components/MainNav'
 import FestivalItem from '@/components/FestivalItem'
 import PublicationItem from '@/components/publication/PublicationItem'
 

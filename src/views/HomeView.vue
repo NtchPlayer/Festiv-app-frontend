@@ -29,7 +29,7 @@
 
 <script>
 import MainHeader from '@/components/MainHeader'
-import NavMenu from '@/components/NavMenu'
+import NavMenu from '@/components/MainNav'
 import PublicationCreate from '@/components/publication/PublicationCreate'
 import PublicationItem from '@/components/publication/PublicationItem'
 

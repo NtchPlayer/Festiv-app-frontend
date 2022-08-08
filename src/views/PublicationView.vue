@@ -71,7 +71,7 @@
 <script>
 import MainHeader from '@/components/MainHeader'
 import PublicationItem from '@/components/publication/PublicationItem'
-import NavMenu from '@/components/NavMenu'
+import NavMenu from '@/components/MainNav'
 import ProfilePicture from '@/components/profile/ProfilePicture'
 import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
 import OptionMenu from '@/components/OptionMenu'
