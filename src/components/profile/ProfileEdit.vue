@@ -14,10 +14,11 @@
           <h1 class="header-title">Édition du compte</h1>
         </div>
         <div>
+          <LoaderItem :is-tiny="isLoading" />
           <button
             type="button"
             class="button-primary"
-            :disabled="!formIsValid || loading"
+            :disabled="!formIsValid || isLoading"
             @click.prevent="__editUser"
           >
             Enregistrer
@@ -25,7 +26,7 @@
         </div>
       </div>
       <form class="item-container">
-        <fieldset :disabled="loading">
+        <fieldset :disabled="isLoading">
           <h2 class="second-title">Information utilisateur</h2>
           <ProfilePicture
             :name="user.name"
@@ -83,6 +84,7 @@ import TipTap from '@/components/fields/TipTap'
 import FielsTags from '@/components/fields/FielsTags'
 import FieldPassword from '@/components/fields/FieldPassword'
 import ProfilePicture from '@/components/profile/ProfilePicture'
+import LoaderItem from '@/components/LoaderItem'
 
 export default {
   name: 'ProfileEdit',
@@ -94,11 +96,12 @@ export default {
       emailIsValid: true,
       birthdayIsValid: true,
       password: '',
-      loading: false,
+      isLoading: false,
       error: null
     }
   },
   components: {
+    LoaderItem,
     ProfilePicture,
     FieldPassword,
     FielsTags,
@@ -119,7 +122,7 @@ export default {
         if (!res.data.user.avatar) {
           this.user.avatar = {}
         }
-        this.loading = false
+        this.isLoading = false
       })
   },
   methods: {
@@ -141,7 +144,7 @@ export default {
         return
       }
       this.error = null
-      this.loading = true
+      this.isLoading = true
       this.axios
         .put('users/update', {
           username: this.user.username,
@@ -156,7 +159,7 @@ export default {
           } else {
             this.$emit('close')
             this.$emit('getUser')
-            this.loading = false
+            this.isLoading = false
           }
         })
         .catch((e) => {
@@ -176,7 +179,7 @@ export default {
           this.$emit('close')
           this.file = null
           this.$emit('getUser')
-          this.loading = false
+          this.isLoading = false
           this.$store.state.auth.user.avatar = e.data.url
         })
         .catch((e) => {
@@ -184,7 +187,7 @@ export default {
         })
     },
     __catchError (e) {
-      this.loading = false
+      this.isLoading = false
       this.error = e.response.data.message
       throw e
     }
