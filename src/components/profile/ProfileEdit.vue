@@ -14,7 +14,7 @@
           <h1 class="header-title">Édition du compte</h1>
         </div>
         <div>
-          <LoaderItem :is-tiny="isLoading" />
+          <LoaderItem :is-tiny="true" v-show="isLoading" />
           <button
             type="button"
             class="button-primary"
