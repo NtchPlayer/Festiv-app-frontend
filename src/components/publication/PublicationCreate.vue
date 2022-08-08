@@ -7,7 +7,7 @@
         </span>
       </button>
     </header>
-    <ItemPublication v-if="parentPublication" class="parent-publication" :publication="parentPublication" :is-parent="true" />
+    <PublicationItem v-if="parentPublication" class="parent-publication" :publication="parentPublication" :is-parent="true" />
     <main class="publication-body">
       <ProfilePicture :name="$store.state.auth.user?.name" :src="$store.state.auth.user?.avatar" />
       <div class="publication-content">
@@ -81,7 +81,7 @@ export default {
     TipTap,
     PublicationImage: defineAsyncComponent(() => import('@/components/publication/PublicationImage')),
     PublicationVideo: defineAsyncComponent(() => import('@/components/publication/PublicationVideo')),
-    ItemPublication: defineAsyncComponent(() => import('@/components/publication/ItemPublication'))
+    PublicationItem: defineAsyncComponent(() => import('@/components/publication/PublicationItem'))
   },
   props: {
     parentPublication: { type: [Object, Boolean], default: false }

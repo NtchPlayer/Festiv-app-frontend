@@ -82,7 +82,7 @@ import ButtonPublicationAction from '@/components/buttons/buttonPublicationActio
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'ItemPublication',
+  name: 'PublicationItem',
   components: {
     OptionMenu,
     ButtonPublicationAction,
