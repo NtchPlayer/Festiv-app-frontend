@@ -26,6 +26,8 @@ export default {
 .container-notifications{
   z-index: 20;
   position: fixed;
+  max-width: 100%;
+  text-align: center;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -49,4 +51,10 @@ export default {
   transform: translateY(0);
 }
 
+@media only screen and (max-width: 600px) {
+  .container-notifications{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
 </style>
