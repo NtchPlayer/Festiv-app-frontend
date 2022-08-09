@@ -1,7 +1,7 @@
 <template>
   <section class="item-container">
     <header class="modale-header">
-      <button class="button-round" @click.prevent="$emit('emitClose')">
+      <button class="button-round" :disabled="isLoading" @click.prevent="__closeModal">
         <span class="button-round-icon">
           <font-awesome-icon icon="fa-solid fa-xmark" />
         </span>
@@ -67,7 +67,7 @@
             <button
               class="button-primary"
               @click.prevent="__post_publication"
-              :disabled="isLoading"
+              :disabled="isLoading || !content"
               v-text="buttonText"
             />
           </div>
@@ -195,6 +195,12 @@ export default {
         content,
         style
       })
+    },
+    __closeModal () {
+      if (this.isLoading) {
+        return
+      }
+      this.$emit('emitClose')
     }
   }
 }
@@ -222,7 +228,7 @@ export default {
 }
 
 .publication-tiptap{
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .modale-header{
