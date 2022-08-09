@@ -39,25 +39,20 @@
           <FieldUsername
             v-model="user.username"
             :error-checker="true"
-            @usernameIsValid="__updateUsernameIsValid"
+            @usernameIsValid="usernameIsValid = $event"
           />
           <FieldEmail
             v-model="user.email"
             :error-checker="true"
-            @emailIsValid="__updateEmailIsValid"
+            @emailIsValid="emailIsValid = $event"
           />
           <FieldBirthday
             v-model="user.birthday"
-            @birthdayIsValid="__updateBirthdayIsValid"
+            @birthdayIsValid="birthdayIsValid = $event"
           />
           <TipTap
             label="Votre Bio"
             v-model="user.biography"
-          />
-          <p
-            v-show="error"
-            class="error-message"
-            v-text="error"
           />
           <template v-if="user.isProfessional">
             <h2 class="second-title">Information compte Pro.</h2>
@@ -96,8 +91,7 @@ export default {
       emailIsValid: true,
       birthdayIsValid: true,
       password: '',
-      isLoading: false,
-      error: null
+      isLoading: false
     }
   },
   components: {
@@ -126,15 +120,6 @@ export default {
       })
   },
   methods: {
-    __updateUsernameIsValid (value) {
-      this.usernameIsValid = value
-    },
-    __updateEmailIsValid (value) {
-      this.emailIsValid = value
-    },
-    __updateBirthdayIsValid (value) {
-      this.birthdayIsValid = value
-    },
     __emitFile (file) {
       this.file = file
       this.user.avatar.url = URL.createObjectURL(file)
@@ -143,7 +128,6 @@ export default {
       if (!this.formIsValid) {
         return
       }
-      this.error = null
       this.isLoading = true
       this.axios
         .put('users/update', {
@@ -160,6 +144,10 @@ export default {
             this.$emit('close')
             this.$emit('getUser')
             this.isLoading = false
+            this.$store.dispatch('notifications/emitNotification', {
+              content: 'Votre compte a été mis à jour.',
+              style: 'green'
+            })
           }
         })
         .catch((e) => {
@@ -181,6 +169,10 @@ export default {
           this.$emit('getUser')
           this.isLoading = false
           this.$store.state.auth.user.avatar = e.data.url
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Votre compte et votre photo de profile ont été mis à jour.',
+            style: 'green'
+          })
         })
         .catch((e) => {
           this.__catchError(e)
@@ -188,8 +180,10 @@ export default {
     },
     __catchError (e) {
       this.isLoading = false
-      this.error = e.response.data.message
-      throw e
+      this.$store.dispatch('notifications/emitNotification', {
+        content: e.response.data.message,
+        style: 'red'
+      })
     }
   }
 }
