@@ -265,6 +265,16 @@ form{
   }
 }
 
+.input-warning{
+  position: relative;
+  &-icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
 .error-message{
   font-size: .8rem;
   margin: 5px 0;
