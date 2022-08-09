@@ -87,6 +87,10 @@ body{
   }
 }
 
+.flex{
+  display: flex;
+}
+
 .flex-b{
   justify-content: space-between;
 }
@@ -464,5 +468,12 @@ a{
   .responsive-padding{
     padding-left: 15px;
     padding-right: 15px;
+  }
+  .modale{
+    min-width: unset;
+    width: 100vw;
+    height: 100vh;
+    max-height: unset;
+    border-radius: 0;
   }
 }
