@@ -5,11 +5,13 @@ import router from './router'
 import store from './store'
 import FontAwesomeIcon from './fontawesome'
 import { axiosInstance, VueAxios } from '@/axios'
+import { createHead } from '@vueuse/head'
 
 const app = createApp(App)
   .use(store)
   .use(router)
   .use(VueAxios, axiosInstance)
+  .use(createHead())
   .component('font-awesome-icon', FontAwesomeIcon)
 
 app.config.globalProperties.$filters = {
