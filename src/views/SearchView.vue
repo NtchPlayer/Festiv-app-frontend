@@ -21,7 +21,7 @@
         >
       </div>
     </header>
-    <div class="responsive-padding">
+    <div class="content-section">
       <LoaderItem v-if="isLoading" />
       <section v-else-if="results.length === 0 && !defaultView" class="section-height-full void-section">
         <div class="void-container">

@@ -2,7 +2,7 @@
   <main class="main-container profile-view">
     <template v-if="!initLoading">
       <MainHeader :title="userData.username" />
-      <div class="responsive-padding">
+      <div class="content-section">
         <section class="item-container flex">
           <div>
             <ProfilePicture

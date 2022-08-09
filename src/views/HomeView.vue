@@ -9,7 +9,7 @@
       :button-backward="false"
       @emitClick="__newPost"
     />
-    <div class="responsive-padding">
+    <div class="content-section">
       <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
         <div class="modale">
           <PublicationCreate @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />

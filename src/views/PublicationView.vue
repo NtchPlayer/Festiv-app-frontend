@@ -1,7 +1,7 @@
 <template>
   <main class="main-container">
     <MainHeader title="Publication" />
-    <div class="responsive-padding">
+    <div class="content-section">
       <LoaderItem v-if="initLoading"/>
       <template v-else>
         <article class="item-container publication-single">

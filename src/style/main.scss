@@ -456,7 +456,7 @@ a{
 }
 
 // responsive
-.responsive-padding{
+.content-section{
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 129px);
@@ -466,7 +466,7 @@ a{
   .main-nav{
     border-radius: 0 !important;
   }
-  .responsive-padding{
+  .content-section{
     padding-left: 15px;
     padding-right: 15px;
   }
