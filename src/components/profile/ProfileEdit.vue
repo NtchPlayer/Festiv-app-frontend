@@ -1,11 +1,12 @@
 <template>
-  <section v-if="user" class="container-modal" @click.self="$emit('close')">
+  <section v-if="user" class="container-modal" @click.self="__closeModal">
     <div class="modale">
       <div class="header-section">
         <div>
           <button
             class="button-round"
-            @click.prevent="$emit('close')"
+            :disabled="isLoading"
+            @click.prevent="__closeModal"
           >
             <span class="button-round-icon">
               <font-awesome-icon icon="fa-solid fa-xmark" />
@@ -184,6 +185,12 @@ export default {
         content: e.response.data.message,
         style: 'red'
       })
+    },
+    __closeModal () {
+      if (this.isLoading) {
+        return
+      }
+      this.$emit('close')
     }
   }
 }
