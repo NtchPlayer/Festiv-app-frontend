@@ -24,7 +24,7 @@
             </p>
           </div>
           <OptionMenu
-            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id"
+            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id && !isParent"
             :actions="[{
               class: 'color-red',
               icon: 'fa-regular fa-trash-can',
@@ -78,7 +78,7 @@
 <script>
 import ProfilePicture from '@/components/profile/ProfilePicture'
 import OptionMenu from '@/components/OptionMenu'
-import ButtonPublicationAction from '@/components/buttons/buttonPublicationAction'
+import ButtonPublicationAction from '@/components/buttons/ButtonPublicationAction'
 import { defineAsyncComponent } from 'vue'
 
 export default {
