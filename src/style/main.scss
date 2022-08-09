@@ -162,7 +162,7 @@ body{
     background-color: var(--primary-color-active);
   }
   &:disabled{
-    background-color: var(--grey-light);
+    background-color: var(--blue-light-color-disabled);
     cursor: not-allowed;
   }
 }
@@ -208,9 +208,11 @@ form{
     margin-left: 5px;
     font-size: .9rem;
   }
-  &[disabled="true"]{
+  &[disabled="true"],
+  &:disabled{
     cursor: not-allowed;
     .button-round-icon{
+      background-color: transparent;
       color: var(--grey-dark);
       &:hover{
         background-color: unset;
