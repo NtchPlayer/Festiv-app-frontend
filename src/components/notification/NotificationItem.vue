@@ -23,7 +23,7 @@ export default {
     initTimer () {
       this.timer = setTimeout(() => {
         this.$store.dispatch('notifications/deleteNotifications')
-      }, 3000)
+      }, 4000)
       this.$refs['notification-loading-bar'].style.animation = 'none'
       setTimeout(() => {
         this.$refs['notification-loading-bar'].style.animation = ''
@@ -63,7 +63,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 0;
-  animation: loading-bar-notification 3s linear forwards;
+  animation: loading-bar-notification 4s linear forwards;
 }
 
 @keyframes loading-bar-notification {
