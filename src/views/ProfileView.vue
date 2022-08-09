@@ -3,10 +3,10 @@
     <template v-if="!initLoading">
       <MainHeader :title="userData.username" />
       <div class="content-section">
-        <section class="item-container flex">
+        <section class="item-container flex flex-b">
           <div>
             <ProfilePicture
-              :name="userData.username"
+              :name="userData.name"
               :src="userData.avatar?.url"
               :large-icon="true"
             />
