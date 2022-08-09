@@ -34,6 +34,7 @@ import NavMenu from '@/components/MainNav'
 import PublicationCreate from '@/components/publication/PublicationCreate'
 import PublicationItem from '@/components/publication/PublicationItem'
 import LoaderItem from '@/components/LoaderItem'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'HomeView',
@@ -66,6 +67,11 @@ export default {
           this.publications = e.data
         })
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Accueil'
+    })
   }
 }
 </script>

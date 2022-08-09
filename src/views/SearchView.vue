@@ -49,6 +49,7 @@ import NavMenu from '@/components/MainNav'
 import FestivalItem from '@/components/FestivalItem'
 import PublicationItem from '@/components/publication/PublicationItem'
 import LoaderItem from '@/components/LoaderItem'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'SearchView',
@@ -146,6 +147,11 @@ export default {
       }
       this.$router.push({ query: { q: this.q } })
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Recherche'
+    })
   }
 }
 </script>

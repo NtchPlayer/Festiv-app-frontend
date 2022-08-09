@@ -58,6 +58,7 @@ import FieldEmail from '@/components/fields/FieldEmail'
 import FieldPassword from '@/components/fields/FieldPassword'
 import FielsTags from '@/components/fields/FielsTags'
 import FieldName from '@/components/fields/FieldName'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'SignupView',
@@ -139,6 +140,11 @@ export default {
         this.errorServer = true
       }
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Inscription'
+    })
   }
 }
 </script>

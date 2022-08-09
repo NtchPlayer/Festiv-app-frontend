@@ -93,6 +93,7 @@ import PublicationItem from '@/components/publication/PublicationItem'
 import { defineAsyncComponent } from 'vue'
 import ConfirmModale from '@/components/ConfirmModale'
 import LoaderItem from '@/components/LoaderItem'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'ProfileView',
@@ -166,6 +167,11 @@ export default {
           this.publications = res.data
         })
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Compte'
+    })
   }
 }
 </script>
