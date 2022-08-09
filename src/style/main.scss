@@ -127,7 +127,7 @@ body{
   z-index: 10;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.26);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .modale{
@@ -333,9 +333,11 @@ a{
   justify-content: space-between;
   &-meta{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
   }
   &-username{
+    margin-right: 10px;
     font-size: 1rem;
     a{
       color: var(--text-color);
@@ -346,7 +348,6 @@ a{
   }
   &-extra{
     color: var(--grey-dark);
-    margin: 0 5px;
     font-size: .9rem;
   }
 }
