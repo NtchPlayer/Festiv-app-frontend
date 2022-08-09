@@ -24,7 +24,7 @@
           @deletePublication="__fetchPublications"
         />
       </section>
-      <LoaderItem class="section-height-full" />
+      <LoaderItem v-else class="section-height-full" />
     </div>
     <NavMenu />
   </main>
