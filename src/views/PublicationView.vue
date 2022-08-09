@@ -80,6 +80,7 @@ import ButtonPublicationAction from '@/components/buttons/buttonPublicationActio
 import OptionMenu from '@/components/OptionMenu'
 import { defineAsyncComponent } from 'vue'
 import LoaderItem from '@/components/LoaderItem'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'PublicationView',
@@ -179,6 +180,11 @@ export default {
           this.$router.push({ name: 'home' })
         })
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Publication'
+    })
   }
 }
 </script>
