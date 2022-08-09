@@ -1,12 +1,15 @@
 <template>
   <router-view/>
+  <NotificationContainer />
 </template>
 
 <script>
 import { useHead } from '@vueuse/head'
+import NotificationContainer from '@/components/notification/NotificationContainer'
 
 export default {
   name: 'App',
+  components: { NotificationContainer },
   setup () {
     const baseSite = 'https://festiv-app-frontend.herokuapp.com'
     useHead({
