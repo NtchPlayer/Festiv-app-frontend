@@ -56,7 +56,7 @@ export default {
         StarterKit,
         Placeholder.configure({
           // Use a placeholder:
-          placeholder: 'Write something …'
+          placeholder: 'Envie de partager quelque ?'
         })
       ],
       content: this.modelValue,
