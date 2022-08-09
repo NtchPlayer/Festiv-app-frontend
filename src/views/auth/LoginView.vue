@@ -31,6 +31,7 @@
 <script>
 import FieldEmail from '@/components/fields/FieldEmail'
 import FieldPassword from '@/components/fields/FieldPassword'
+import { useHead } from '@vueuse/head'
 
 export default {
   name: 'LoginView',
@@ -67,6 +68,11 @@ export default {
     __handleError (error) {
       this.error = error.message
     }
+  },
+  setup () {
+    useHead({
+      title: ' | Connexion'
+    })
   }
 }
 </script>
