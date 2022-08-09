@@ -6,20 +6,23 @@
     >
       Identifiant unique
     </label>
-    <input
-      id="name"
-      ref="input"
-      v-model.trim="name"
-      class="input"
-      :class="{'input-error': error}"
-      type="text"
-      :disabled="disabled"
-      name="Field name"
-      placeholder="NtchPlayer"
-      :autocomplete="autocomplete"
-      minlength="2"
-      maxlength="32"
-    >
+    <div class="input-warning">
+      <input
+        id="name"
+        ref="input"
+        v-model.trim="name"
+        class="input"
+        :class="{'input-error': error}"
+        type="text"
+        :disabled="disabled"
+        name="Field name"
+        placeholder="NtchPlayer"
+        :autocomplete="autocomplete"
+        minlength="2"
+        maxlength="32"
+      >
+      <font-awesome-icon v-show="isUse" class="input-warning-icon color-red" icon="fa-solid fa-circle-exclamation" />
+    </div>
     <p
       v-show="isUse"
       class="error-message"
@@ -76,6 +79,9 @@ export default {
   watch: {
     nameIsValid () {
       this.$emit('nameIsValid', this.nameIsValid)
+    },
+    modelValue () {
+      this.$emit('isUse', false)
     }
   },
   mounted () {

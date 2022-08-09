@@ -1,29 +1,25 @@
 <template>
   <div class="container-input">
     <label class="label" for="email">E-mail</label>
-    <input
-      id="email"
-      ref="input"
-      v-model="email"
-      class="input"
-      :class="{'input-error': error && email !== ''}"
-      :type="errorChecker ? 'email' : 'text'"
-      :disabled="disabled"
-      name="Field Email"
-      placeholder="E-mail"
-      :autocomplete="autocomplete"
-    >
-    <p
-      v-show="isUse"
-      class="error-message"
-    >
-      Cet email est déjà utilisé.
-    </p>
+    <div class="input-warning">
+      <input
+        id="email"
+        ref="input"
+        v-model="email"
+        class="input"
+        :class="{'input-error': error && email !== ''}"
+        :type="errorChecker ? 'email' : 'text'"
+        :disabled="disabled"
+        name="Field Email"
+        placeholder="E-mail"
+        :autocomplete="autocomplete"
+      >
+      <font-awesome-icon v-show="isUse" class="input-warning-icon color-red" icon="fa-solid fa-circle-exclamation" />
+    </div>
     <p
       v-if="errorChecker"
       v-show="error && (email !== '')"
-      id="container-warning-field"
-      class="warning"
+      class="warning container-warning-field"
     >
       <span aria-hidden="true" class="color-red">
         <font-awesome-icon icon="fa-solid fa-circle-exclamation" />
@@ -56,6 +52,15 @@ export default {
   watch: {
     emailIsValid () {
       this.$emit('emailIsValid', this.emailIsValid)
+    },
+    isUse () {
+      this.$store.dispatch('notifications/emitNotification', {
+        content: 'Cet email est déjà utilisé.',
+        style: 'red'
+      })
+    },
+    modelValue () {
+      this.$emit('isUse', false)
     }
   },
   mounted () {
