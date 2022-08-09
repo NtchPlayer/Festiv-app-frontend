@@ -3,7 +3,7 @@
     <template v-if="!initLoading">
       <MainHeader :title="userData.username" />
       <div class="responsive-padding">
-        <section class="item-container">
+        <section class="item-container flex">
           <div>
             <ProfilePicture
               :name="userData.username"
