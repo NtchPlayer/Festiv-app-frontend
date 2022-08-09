@@ -1,15 +1,12 @@
 <template>
   <main class="container-modal">
     <router-view />
-    <NotificationContainer />
   </main>
 </template>
 
 <script>
-import NotificationContainer from '@/components/notification/NotificationContainer'
 export default {
-  name: 'AuthView',
-  components: { NotificationContainer }
+  name: 'AuthView'
 }
 </script>
 
