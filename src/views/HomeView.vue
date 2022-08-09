@@ -9,21 +9,23 @@
       :button-backward="false"
       @emitClick="__newPost"
     />
-    <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
-      <div class="modale">
-        <PublicationCreate @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
-      </div>
-    </section>
-    <PublicationCreate @fetchPublications="__fetchPublications" />
-    <section v-if="publications" class="section-height-full">
-      <PublicationItem
-        v-for="publication of publications"
-        :key="publication.id"
-        :publication="publication"
-        @deletePublication="__fetchPublications"
-      />
-    </section>
-    <LoaderItem v-else-if="isLoading" />
+    <div class="responsive-padding">
+      <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
+        <div class="modale">
+          <PublicationCreate @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
+        </div>
+      </section>
+      <PublicationCreate @fetchPublications="__fetchPublications" />
+      <section v-if="publications" class="section-height-full">
+        <PublicationItem
+          v-for="publication of publications"
+          :key="publication.id"
+          :publication="publication"
+          @deletePublication="__fetchPublications"
+        />
+      </section>
+      <LoaderItem class="section-height-full" />
+    </div>
     <NavMenu />
   </main>
 </template>

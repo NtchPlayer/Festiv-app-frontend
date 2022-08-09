@@ -34,9 +34,7 @@ body{
   max-width: 600px;
   margin-right: auto;
   margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-  min-height: 100vh;
+  min-height: calc(100vh - 129px);
   //border-left: 1px solid var(--grey-light);
   //border-right: 1px solid var(--grey-light);
   display: flex;
@@ -450,4 +448,21 @@ a{
 
 .color-blue{
   color: var(--blue-light-color);
+}
+
+// responsive
+.responsive-padding{
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 129px);
+}
+@media only screen and (max-width: 600px) {
+  .header-section,
+  .main-nav{
+    border-radius: 0 !important;
+  }
+  .responsive-padding{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }

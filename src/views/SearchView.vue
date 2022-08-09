@@ -1,13 +1,15 @@
 <template>
   <main class="main-container">
-    <section class="header-section">
+    <header class="header-section">
       <button
         v-if="!defaultView"
         type="button"
         class="button-round"
         @click.prevent="$router.back()"
       >
-        <font-awesome-icon icon="fa-solid fa-arrow-left" />
+        <span class="button-round-icon">
+          <font-awesome-icon icon="fa-solid fa-arrow-left" />
+        </span>
       </button>
       <div class="search-bar">
         <font-awesome-icon class="search-bar-icon" icon="fa-solid fa-search" />
@@ -18,28 +20,30 @@
           @keydown.enter.prevent="__makeSearch"
         >
       </div>
-    </section>
-    <LoaderItem v-if="isLoading" />
-    <section v-else-if="results.length === 0 && !defaultView" class="section-height-full void-section">
-      <div class="void-container">
-        <font-awesome-icon class="void-icon" icon="icon-solid fa-search" />
-        <p class="void-description">Aucun résultat n'a été trouvé !</p>
-      </div>
-    </section>
-    <section v-else>
-      <PublicationItem
-        v-for="result of results"
-        :key="result.id"
-        :publication="result"
-      />
-    </section>
-    <section v-if="defaultView" class="section-height-full">
-      <FestivalItem
-        v-for="festival of festivals"
-        :key="festival.id"
-        :festival="festival"
-      />
-    </section>
+    </header>
+    <div class="responsive-padding">
+      <LoaderItem v-if="isLoading" />
+      <section v-else-if="results.length === 0 && !defaultView" class="section-height-full void-section">
+        <div class="void-container">
+          <font-awesome-icon class="void-icon" icon="icon-solid fa-search" />
+          <p class="void-description">Aucun résultat n'a été trouvé !</p>
+        </div>
+      </section>
+      <section v-else>
+        <PublicationItem
+          v-for="result of results"
+          :key="result.id"
+          :publication="result"
+        />
+      </section>
+      <section v-if="defaultView" class="section-height-full">
+        <FestivalItem
+          v-for="festival of festivals"
+          :key="festival.id"
+          :festival="festival"
+        />
+      </section>
+    </div>
     <NavMenu />
   </main>
 </template>

@@ -34,6 +34,7 @@ export default {
 
 <style lang="scss">
 .header-section{
+  min-height: 62px;
   padding: 10px 20px;
   position: sticky;
   z-index: 7;

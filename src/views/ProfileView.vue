@@ -2,80 +2,82 @@
   <main class="main-container profile-view">
     <template v-if="!initLoading">
       <MainHeader :title="userData.username" />
-      <section class="item-container">
-        <div>
-          <ProfilePicture
-            :name="userData.username"
-            :src="userData.avatar?.url"
-            :large-icon="true"
-          />
-          <h2 class="profile-username">
-            <span v-text="userData.username" />
-            <span v-if="userData.isProfessional" class="text-label">Festival</span>
-          </h2>
-          <p class="profile-name" v-text="`@${userData.name}`" />
-          <div class="publication-main" v-html="userData.biography" />
-          <div v-if="userData.isProfessional" class="profile-tags">
-            <p class="profile-tags-label">Hashtag de ce festival:</p>
-            <ul class="profile-tags-container">
-              <li v-for="tag of userData.tags" :key="tag.id">
-                <span class="text-label" v-text="tag.content" />
-              </li>
-            </ul>
+      <div class="responsive-padding">
+        <section class="item-container">
+          <div>
+            <ProfilePicture
+              :name="userData.username"
+              :src="userData.avatar?.url"
+              :large-icon="true"
+            />
+            <h2 class="profile-username">
+              <span v-text="userData.username" />
+              <span v-if="userData.isProfessional" class="text-label">Festival</span>
+            </h2>
+            <p class="profile-name" v-text="`@${userData.name}`" />
+            <div class="publication-main" v-html="userData.biography" />
+            <div v-if="userData.isProfessional" class="profile-tags">
+              <p class="profile-tags-label">Hashtag de ce festival:</p>
+              <ul class="profile-tags-container">
+                <li v-for="tag of userData.tags" :key="tag.id">
+                  <span class="text-label" v-text="tag.content" />
+                </li>
+              </ul>
+            </div>
+            <p class="profile-join">
+              <font-awesome-icon icon="fa-solid fa-calendar-days" />
+              A rejoint Festiv'App le {{ $filters.timeFilter(userData.createdAt, false, true) }}
+            </p>
           </div>
-          <p class="profile-join">
-            <font-awesome-icon icon="fa-solid fa-calendar-days" />
-            A rejoint Festiv'App le {{ $filters.timeFilter(userData.createdAt, false, true) }}
-          </p>
-        </div>
-        <OptionMenu
-          v-if="userData.id === $store.state.auth.user?.id"
-          :actions="[{
-            icon: 'fa-solid fa-user-pen',
-            label: 'Éditer votre profile',
-            function: 'editAccount',
-          }, {
-            icon: 'fa-solid fa-arrow-right-from-bracket',
-            label: 'Se déconnecter',
-            function: 'logout'
-          }, {
-            class: 'color-red',
-            icon: 'fa-regular fa-trash-can',
-            label: 'Supprimer votre compte',
-            function: 'deleteAccount'
-          }]"
-          @editAccount="__editAccount"
-          @logout="__logout"
-          @deleteAccount="confirmDelete = true"
+          <OptionMenu
+            v-if="userData.id === $store.state.auth.user?.id"
+            :actions="[{
+              icon: 'fa-solid fa-user-pen',
+              label: 'Éditer votre profile',
+              function: 'editAccount',
+            }, {
+              icon: 'fa-solid fa-arrow-right-from-bracket',
+              label: 'Se déconnecter',
+              function: 'logout'
+            }, {
+              class: 'color-red',
+              icon: 'fa-regular fa-trash-can',
+              label: 'Supprimer votre compte',
+              function: 'deleteAccount'
+            }]"
+            @editAccount="__editAccount"
+            @logout="__logout"
+            @deleteAccount="confirmDelete = true"
+          />
+        </section>
+        <ProfileEdit
+          v-if="editAccount"
+          @close="editAccount = false"
+          @getUser="__fetchUser"
         />
-      </section>
-      <ProfileEdit
-        v-if="editAccount"
-        @close="editAccount = false"
-        @getUser="__fetchUser"
-      />
-      <section v-if="publications" class="section-height-full">
-        <PublicationItem
-          v-for="publication of publications"
-          :key="publication.id"
-          :publication="publication"
-          @fetchPublications="__fetchUserPost(this.userData.username)"
+        <section v-if="publications" class="section-height-full">
+          <PublicationItem
+            v-for="publication of publications"
+            :key="publication.id"
+            :publication="publication"
+            @fetchPublications="__fetchUserPost(this.userData.username)"
+          />
+        </section>
+        <LoaderItem v-else-if="isLoading" />
+        <section v-else class="section-height-full void-section">
+          <div class="void-container">
+            <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
+            <p class="void-description">Vous rien encore poster !</p>
+          </div>
+        </section>
+        <ConfirmModale
+          v-if="confirmDelete"
+          message="Êtes-vous sur de vouloir supprimer votre compte ?"
+          confirm="Supprimer"
+          @cancel="confirmDelete = false"
+          @confirm="__deleteAccount"
         />
-      </section>
-      <LoaderItem v-else-if="isLoading" />
-      <section v-else class="section-height-full void-section">
-        <div class="void-container">
-          <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
-          <p class="void-description">Vous rien encore poster !</p>
-        </div>
-      </section>
-      <ConfirmModale
-        v-if="confirmDelete"
-        message="Êtes-vous sur de vouloir supprimer votre compte ?"
-        confirm="Supprimer"
-        @cancel="confirmDelete = false"
-        @confirm="__deleteAccount"
-      />
+      </div>
     </template>
     <template v-else>
       <LoaderItem />
