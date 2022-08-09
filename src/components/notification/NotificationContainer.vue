@@ -24,11 +24,14 @@ export default {
 
 <style>
 .container-notifications{
-  position: absolute;
+  z-index: 20;
+  position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
+  cursor: default;
+  user-select: none;
 }
 
 .swipe-enter-from,
