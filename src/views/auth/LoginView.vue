@@ -10,7 +10,6 @@
         <FieldPassword
           v-model="password"
         />
-        <p v-show="error" class="error-message" v-text="error"/>
         <input
           class="button-primary"
           type="submit"
@@ -43,8 +42,7 @@ export default {
     return {
       email: '',
       password: '',
-      isLoading: false,
-      error: null
+      isLoading: false
     }
   },
   methods: {
@@ -53,7 +51,6 @@ export default {
         return
       }
       this.isLoading = true
-      this.error = null
       await this.$store
         .dispatch('auth/login', { email: this.email, password: this.password })
         .then(() => {
@@ -62,11 +59,11 @@ export default {
         })
         .catch((error) => {
           this.isLoading = false
-          this.__handleError(error.response.data)
+          this.$store.dispatch('notifications/emitNotification', {
+            content: error.message,
+            style: 'red'
+          })
         })
-    },
-    __handleError (error) {
-      this.error = error.message
     }
   },
   setup () {
