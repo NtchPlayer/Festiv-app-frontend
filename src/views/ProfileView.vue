@@ -19,9 +19,12 @@
             <div v-if="userData.isProfessional" class="profile-tags">
               <p class="profile-tags-label">Hashtag de ce festival:</p>
               <ul class="profile-tags-container">
-                <li v-for="tag of userData.tags" :key="tag.id">
-                  <span class="text-label" v-text="tag.content" />
-                </li>
+                <span
+                  v-for="tag of userData.tags"
+                  :key="tag.id"
+                  class="text-label"
+                  v-text="tag.content"
+                />
               </ul>
             </div>
             <p class="profile-join">
@@ -80,7 +83,7 @@
       </div>
     </template>
     <template v-else>
-      <LoaderItem />
+      <LoaderItem class="section-height-full" />
     </template>
     <NavMenu />
   </main>
@@ -186,6 +189,9 @@ export default {
   > .item-container{
     display: flex;
     justify-content: space-between;
+  }
+  > .section-height-full{
+    height: calc(100vh - 87px);
   }
 }
 
