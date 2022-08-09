@@ -1,36 +1,30 @@
 <template>
   <nav class="main-nav">
-    <router-link class="nav-item" :to="{ name: 'home' }">
-      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-house" />
-      <span class="nav-item-label">
-        Accueil
-      </span>
-    </router-link>
-    <router-link class="nav-item" :to="{ name: 'search' }">
-      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-magnifying-glass" />
-      <span class="nav-item-label">
-        Recherche
-      </span>
-    </router-link>
-<!--    <span class="nav-item nav-item-preview">-->
-<!--      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-message" />-->
-<!--      <span class="nav-item-label">-->
-<!--        Messages-->
-<!--      </span>-->
-<!--      <span class="text-label">Bientôt</span>-->
-<!--    </span>-->
-    <router-link v-if="$store.state.auth.status.loggedIn" class="nav-item" :to="{ name: 'profile', params: { name: $store.state.auth.user?.name } }">
-      <font-awesome-icon class="nav-item-icon" icon="fa-solid fa-user" />
-      <span class="nav-item-label">
-        Profile
-      </span>
-    </router-link>
+    <ButtonMainNav
+      label="Accueil"
+      icon="fa-solid fa-house"
+      :link="{ name: 'home' }"
+    />
+    <ButtonMainNav
+      label="Recherche"
+      icon="fa-solid fa-magnifying-glass"
+      :link="{ name: 'search' }"
+    />
+    <ButtonMainNav
+      v-if="$store.state.auth.status.loggedIn"
+      label="Profil"
+      icon="fa-solid fa-user"
+      :link="{ name: 'profile', params: { name: $store.state.auth.user?.name } }"
+    />
   </nav>
 </template>
 
 <script>
+import ButtonMainNav from '@/components/buttons/ButtonMainNav'
+
 export default {
-  name: 'NavMenu'
+  name: 'NavMenu',
+  components: { ButtonMainNav }
 }
 </script>
 
@@ -44,48 +38,5 @@ export default {
   background-color: var(--background-color);
   box-shadow: var(--shadow-menu);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.nav-item{
-  display: flex;
-  padding: 10px 20px;
-  width: calc(100% / 3);
-  transition-duration: var(--transition-duration);
-  align-items: center;
-  flex-direction: column;
-  &:first-child{
-    border-radius: var(--border-radius) 0 0 0;
-  }
-  &:last-child{
-    border-radius: 0 var(--border-radius) 0 0;
-  }
-  &.router-link-exact-active{
-    font-weight: bold;
-  }
-  &:hover{
-    text-decoration: none;
-    background-color: var(--grey-light);
-  }
-  &-icon{
-    margin-bottom: 10px;
-  }
-  &-label{
-    font-size: .9rem;
-  }
-  &-preview{
-    cursor: not-allowed;
-    position: relative;
-    &:hover{
-      background-color: inherit;
-    }
-    .text-label{
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-size: .7rem;
-      margin: 0;
-      transform: translate(0, -25%);
-    }
-  }
 }
 </style>
