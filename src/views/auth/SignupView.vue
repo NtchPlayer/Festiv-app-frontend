@@ -7,24 +7,26 @@
           v-model="username"
           :focus="true"
           :errorChecker="true"
-          @usernameIsValid="__updateUsernameIsValid"
+          @usernameIsValid="usernameIsValid = $event"
         />
         <FieldEmail
           v-model="email"
           :errorChecker="true"
           :is-use="emailIsUse"
-          @emailIsValid="__updateEmailIsValid"
+          @emailIsValid="emailIsValid = $event"
+          @isUse="emailIsUse = $event"
         />
         <FieldName
           v-model="name"
           :error-checker="true"
           :is-use="nameIsUse"
-          @nameIsValid="__updateNameIsValid"
+          @nameIsValid="nameIsValid = $event"
+          @isUse="emailIsUse = $event"
         />
         <FieldPassword
           v-model="password"
           :errorChecker="true"
-          @passwordIsValid="__updatePasswordIsValid"
+          @passwordIsValid="passwordIsValid = $event"
         />
         <div class="container-input">
           <input type="checkbox" v-model="isFestivalAccount" id="festival-account" @keydown.enter.prevent="isFestivalAccount = !isFestivalAccount">
@@ -34,12 +36,6 @@
           v-show="isFestivalAccount"
           :model-value="tags"
         />
-        <p
-          v-show="errorServer"
-          class="error-message"
-        >
-          Oops, une erreur c'est produite ! Veuillez ressayer plus tard.
-        </p>
         <input :disabled="!isValidForm || isLoading" class="button-primary" type="submit" value="Suivant">
       </fieldset>
     </form>
@@ -83,8 +79,7 @@ export default {
       passwordIsValid: false,
       isFestivalAccount: false,
       tags: [],
-      isLoading: false,
-      errorServer: false
+      isLoading: false
     }
   },
   computed: {
@@ -93,18 +88,6 @@ export default {
     }
   },
   methods: {
-    __updateUsernameIsValid (value) {
-      this.usernameIsValid = value
-    },
-    __updatePasswordIsValid (value) {
-      this.passwordIsValid = value
-    },
-    __updateEmailIsValid (value) {
-      this.emailIsValid = value
-    },
-    __updateNameIsValid (value) {
-      this.nameIsValid = value
-    },
     __submitSignup () {
       if (!this.isValidForm) {
         return
@@ -112,7 +95,6 @@ export default {
       this.isLoading = true
       this.emailIsUse = false
       this.nameIsUse = false
-      this.errorServer = false
       this.$store
         .dispatch('auth/signup', {
           username: this.username,
@@ -124,6 +106,10 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'login' })
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter.',
+            style: 'green'
+          })
           this.isLoading = false
         })
         .catch((error) => {
@@ -137,7 +123,10 @@ export default {
       } else if (error.statusCode === 422 && error.message.includes('Name')) {
         this.nameIsUse = true
       } else {
-        this.errorServer = true
+        this.$store.dispatch('notifications/emitNotification', {
+          content: 'Oops, une erreur c\'est produite ! Veuillez ressayer plus tard.',
+          style: 'red'
+        })
       }
     }
   },
