@@ -93,6 +93,12 @@ body{
   justify-content: space-between;
 }
 
+.section-height-full{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 // Title
 .main-title{
   font-size: 2rem;
@@ -421,10 +427,8 @@ a{
 // Void
 .void{
   &-section{
-    display: flex;
-    justify-content: center;
     align-items: center;
-    flex-grow: 1;
+    justify-content: center;
   }
   &-container{
     text-align: center;

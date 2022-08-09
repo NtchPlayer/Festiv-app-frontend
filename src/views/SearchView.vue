@@ -20,7 +20,7 @@
       </div>
     </section>
     <LoaderItem v-if="isLoading" />
-    <section v-else-if="results.length === 0 && !defaultView" class="void-section">
+    <section v-else-if="results.length === 0 && !defaultView" class="section-height-full void-section">
       <div class="void-container">
         <font-awesome-icon class="void-icon" icon="icon-solid fa-search" />
         <p class="void-description">Aucun résultat n'a été trouvé !</p>
@@ -33,7 +33,7 @@
         :publication="result"
       />
     </section>
-    <section v-if="defaultView">
+    <section v-if="defaultView" class="section-height-full">
       <FestivalItem
         v-for="festival of festivals"
         :key="festival.id"

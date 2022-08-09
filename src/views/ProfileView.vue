@@ -54,7 +54,7 @@
         @close="editAccount = false"
         @getUser="__fetchUser"
       />
-      <section v-if="publications">
+      <section v-if="publications" class="section-height-full">
         <PublicationItem
           v-for="publication of publications"
           :key="publication.id"
@@ -63,7 +63,7 @@
         />
       </section>
       <LoaderItem v-else-if="isLoading" />
-      <section v-else class="void-section">
+      <section v-else class="section-height-full void-section">
         <div class="void-container">
           <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
           <p class="void-description">Vous rien encore poster !</p>
