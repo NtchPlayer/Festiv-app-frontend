@@ -37,8 +37,8 @@ export default {
 <style lang="scss">
 .main-nav{
   border-top: 1px solid var(--grey-light);
-  position: fixed;
-  width: inherit;
+  position: sticky;
+  width: 100%;
   bottom: 0;
   display: flex;
   background-color: var(--background-color);

@@ -31,10 +31,11 @@ body{
 
 .main-container{
   position: relative;
-  width: 600px;
+  max-width: 600px;
   margin-right: auto;
   margin-left: auto;
-  padding-bottom: 66px;
+  padding-left: 15px;
+  padding-right: 15px;
   min-height: 100vh;
   //border-left: 1px solid var(--grey-light);
   //border-right: 1px solid var(--grey-light);
