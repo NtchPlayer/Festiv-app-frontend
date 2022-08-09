@@ -72,7 +72,6 @@
             />
           </div>
         </div>
-        <p v-if="error" class="error-message" v-text="error" />
       </div>
     </main>
   </section>
@@ -102,7 +101,6 @@ export default {
       content: '',
       medias: [],
       type: null,
-      error: null,
       isLoading: false
     }
   },
@@ -121,7 +119,6 @@ export default {
   },
   methods: {
     __post_publication () {
-      this.error = null
       const formData = new FormData()
       this.medias.forEach((file) => {
         formData.append('files[]', file, file.name)
@@ -146,33 +143,33 @@ export default {
             this.medias = []
             this.$emit('fetchPublications')
             this.$emit('emitClose')
+            this.__emitNotification('La publication a été envoyé.', 'green')
           })
-          .catch((e) => {
+          .catch(() => {
             this.isLoading = false
-            this.error = e
+            this.__emitNotification('Une erreur est survenue.', 'red')
           })
       }
     },
     __set_medias () {
-      this.error = null
       const medias = [...this.$refs['file-input'].files]
       this.type = this.__get_media_type(medias[0])
       if (medias.length > 2) {
-        this.error = 'Vous ne pouvez pas poster plus de 2 fichiers.'
+        this.__emitNotification('Vous ne pouvez pas poster plus de 2 fichiers.', 'red')
         return
       }
       if (!medias.every((media) => this.__get_media_type(media) === this.type)) {
-        this.error = 'Veuillez sélectionner soit 1 vidéo soit 4 images.'
+        this.__emitNotification('Veuillez sélectionner soit 1 vidéo soit 4 images.', 'red')
         this.type = null
         return
       }
       if (!medias.every((media) => media.name.match(/\.(jpg|jpeg|png|gif|webp|mp4|mov|m4v|avi)$/))) {
-        this.error = 'Le format de fichier sélectionner est invalide.'
+        this.__emitNotification('Le format de fichier sélectionner est invalide.', 'red')
         this.type = null
         return
       }
       if (medias.every((media) => (media.size / 1000000).toPrecision(3) > 20)) { // MegaOctet
-        this.error = 'Un fichier est trop lourd.'
+        this.__emitNotification('Un fichier des fichiers sélectionnés est trop lourd.', 'red')
         this.type = null
         return
       }
@@ -192,6 +189,12 @@ export default {
     },
     __create_url (media) {
       return URL.createObjectURL(media)
+    },
+    __emitNotification (content, style) {
+      this.$store.dispatch('notifications/emitNotification', {
+        content,
+        style
+      })
     }
   }
 }

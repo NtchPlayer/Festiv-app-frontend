@@ -149,9 +149,12 @@ export default {
             this.countLike--
           }
         })
-        .catch((e) => {
+        .catch(() => {
           this.likeIsLoading = false
-          console.log(e)
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur est survenue.',
+            style: 'red'
+          })
         })
     },
     __openPublication () {

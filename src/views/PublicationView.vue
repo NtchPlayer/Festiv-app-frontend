@@ -146,8 +146,12 @@ export default {
           this.countLike = parseInt(res.data.countLike)
           this.likeIsLoading = false
         })
-        .catch((e) => {
-          console.log(e)
+        .catch(() => {
+          this.$router.push({ name: 'home' })
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur de chargement est survenue.',
+            style: 'red'
+          })
         })
     },
     __backToHome () {
@@ -166,9 +170,12 @@ export default {
             this.countLike--
           }
         })
-        .catch((e) => {
+        .catch(() => {
           this.likeIsLoading = false
-          console.log(e)
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur est survenue, veuillez réessayer plus tard.',
+            style: 'red'
+          })
         })
     },
     __postComment () {
@@ -178,6 +185,16 @@ export default {
       this.axios.delete(`publications/${this.publication.id}`)
         .then(() => {
           this.$router.push({ name: 'home' })
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'La publication a été supprimée',
+            style: 'green'
+          })
+        })
+        .catch(() => {
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur est survenue, veuillez réessayer plus tard.',
+            style: 'red'
+          })
         })
     }
   },

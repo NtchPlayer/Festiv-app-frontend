@@ -155,7 +155,10 @@ export default {
           this.__fetchUserPost(res.data.name)
         })
         .catch(() => {
-          console.log('test')
+          this.$store.dispatch('notifications/emitNotification', {
+            content: "Cette utilisateur n'existe pas.",
+            style: 'red'
+          })
           this.$router.push({ name: 'home' })
         })
     },
