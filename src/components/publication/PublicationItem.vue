@@ -24,6 +24,7 @@
             </p>
           </div>
           <OptionMenu
+            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id && !isParent"
             :actions="[{
               class: 'color-red',
               icon: 'fa-regular fa-trash-can',
@@ -70,6 +71,7 @@
           :preview-comment="true"
           @emitClose="__closeModalComment"
           @sendPost="sendPostIsLoading = $event"
+          @fetchPublications="__postComment"
         />
       </div>
     </section>
@@ -132,7 +134,7 @@ export default {
     __deletePost () {
       this.axios.delete(`publications/${this.publication.id}`)
         .then(() => {
-          this.$emit('deletePublication')
+          this.$emit('fetchPublications')
           this.$store.dispatch('notifications/emitNotification', {
             content: 'La publication a été supprimée.',
             style: 'green'
@@ -217,6 +219,9 @@ export default {
         event.preventDefault()
         this.$router.push({ name: 'search', query: { hashtag } })
       }
+    },
+    __postComment () {
+      this.$emit('fetchPublications')
     }
   }
 }
