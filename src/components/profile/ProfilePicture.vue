@@ -17,7 +17,7 @@
           :src="src"
         >
         <div v-if="isEditable">
-        <label type="button" class="button-round button-black" for="profile-image">
+        <label class="button-round button-black" for="profile-image">
           <span class="button-round-icon">
             <font-awesome-icon icon="fa-solid fa-image" />
           </span>
