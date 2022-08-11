@@ -2,6 +2,7 @@ import { axiosInstance } from '@/axios'
 
 class AuthService {
   login (user) {
+    delete axiosInstance.defaults.headers.common.Authorization
     return axiosInstance
       .post('auth/login', {
         email: user.email,
