@@ -11,7 +11,7 @@ export default {
   name: 'App',
   components: { NotificationContainer },
   setup () {
-    const baseSite = 'https://festiv-app-frontend.herokuapp.com'
+    // const baseSite = 'https://festiv-app-frontend.herokuapp.com'
     useHead({
       // Can be static or computed
       titleTemplate: "Festiv'App%s",
@@ -43,10 +43,12 @@ export default {
         }, {
           property: 'og:description',
           content: 'Le réseau social des festivals !'
-        }, {
-          property: 'og:url',
-          content: baseSite
-        }, {
+        },
+        // {
+        //   property: 'og:url',
+        //   content: baseSite
+        // },
+        {
           property: 'og:type',
           content: 'website'
         }, {
@@ -64,10 +66,12 @@ export default {
         }, {
           name: 'twitter:description',
           content: 'Le réseau social des festivals !'
-        }, {
-          name: 'twitter:url',
-          content: baseSite
-        }, {
+        },
+        // {
+        //   name: 'twitter:url',
+        //   content: baseSite
+        // },
+        {
           name: 'twitter:site',
           content: '@festivApp.io'
         }, {
@@ -77,15 +81,15 @@ export default {
           name: 'twitter:card',
           content: 'app'
         }
-      ],
-      link: [
-        { rel: 'favicon', href: `${baseSite}/favicon.ico` },
-        { rel: 'icon', type: 'image/png', href: `${baseSite}/icons/icon.png` },
-        { rel: 'apple-touch-icon', type: 'image/png', sizes: '152x152', href: `${baseSite}/icons/touch-icon-ipad.png` },
-        { rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180', href: `${baseSite}/icons/touch-icon-iphone-retina.png` },
-        { rel: 'apple-touch-icon', type: 'image/png', sizes: '167x167', href: `${baseSite}/icons/touch-icon-ipad-retina.png` },
-        { rel: 'apple-touch-icon', type: 'image/png', sizes: '512x512', href: `${baseSite}/icons/apple-touch-icon.png` }
       ]
+      // link: [
+      //   { rel: 'favicon', href: `${baseSite}/favicon.ico` },
+      //   { rel: 'icon', type: 'image/png', href: `${baseSite}/icons/icon.png` },
+      //   { rel: 'apple-touch-icon', type: 'image/png', sizes: '152x152', href: `${baseSite}/icons/touch-icon-ipad.png` },
+      //   { rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180', href: `${baseSite}/icons/touch-icon-iphone-retina.png` },
+      //   { rel: 'apple-touch-icon', type: 'image/png', sizes: '167x167', href: `${baseSite}/icons/touch-icon-ipad-retina.png` },
+      //   { rel: 'apple-touch-icon', type: 'image/png', sizes: '512x512', href: `${baseSite}/icons/apple-touch-icon.png` }
+      // ]
     })
     return {
       useHead
