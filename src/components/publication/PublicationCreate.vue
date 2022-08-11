@@ -172,8 +172,7 @@ export default {
         return
       }
       if (medias.every((media) => (media.size / 1000000).toPrecision(3) > 20)) { // MegaOctet
-        this.__emitNotification('Un fichier des fichiers sélectionnés est trop lourd.', 'red')
-        this.type = null
+        this.__emitNotification('Le fichier des fichiers sélectionnés est trop lourd.', 'red')
         return
       }
       this.type = this.__get_media_type(medias[0])
