@@ -22,7 +22,9 @@ import {
   faUserPen,
   faComment,
   faCalendarDays,
-  faWind
+  faWind,
+  faEye,
+  faEyeSlash
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -50,7 +52,9 @@ library.add(
   faUserPen,
   faComment,
   faCalendarDays,
-  faWind
+  faWind,
+  faEye,
+  faEyeSlash
 )
 
 export default FontAwesomeIcon
