@@ -25,6 +25,7 @@
           v-for="publication of publications"
           :key="publication.id"
           :publication="publication"
+          @deletePublication="__fetchPublications"
           @fetchPublications="__fetchPublications"
         />
       </section>
