@@ -11,7 +11,7 @@
     <main class="publication-body">
       <ProfilePicture :name="$store.state.auth.user?.name" :src="$store.state.auth.user?.avatar" />
       <div class="publication-content">
-        <TipTap class="publication-tiptap" v-model="content" />
+        <TipTap class="publication-tiptap" v-model="content" :limit="limit" @charactersCount="charactersCount = $event" />
         <ul
           v-if="type === 'image'"
           class="publication-medias"
@@ -64,6 +64,7 @@
           </label>
           <div>
             <LoaderItem v-show="isLoading" :is-tiny="true" />
+            <CharactersCount v-show="charactersCount" :limit="limit" :characters-count="charactersCount" />
             <button
               class="button-primary"
               @click.prevent="__post_publication"
@@ -79,13 +80,15 @@
 
 <script>
 import ProfilePicture from '@/components/profile/ProfilePicture'
-import TipTap from '@/components/fields/TipTap'
+import TipTap from '@/components/fields/FieldTipTap'
 import { defineAsyncComponent } from 'vue'
 import LoaderItem from '@/components/LoaderItem'
+import CharactersCount from '@/components/CharactersCount'
 
 export default {
   name: 'PublicationCreate',
   components: {
+    CharactersCount,
     LoaderItem,
     ProfilePicture,
     TipTap,
@@ -99,9 +102,11 @@ export default {
   data () {
     return {
       content: '',
+      charactersCount: 0,
       medias: [],
       type: null,
-      isLoading: false
+      isLoading: false,
+      limit: 300
     }
   },
   computed: {

@@ -10,14 +10,15 @@
 
 <script>
 import Placeholder from '@tiptap/extension-placeholder'
+import CharacterCount from '@tiptap/extension-character-count'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 
 export default {
+  name: 'FieldTipTap',
   components: {
     EditorContent
   },
-
   props: {
     modelValue: {
       type: String,
@@ -26,21 +27,20 @@ export default {
     label: {
       type: [String, Boolean],
       default: false
-    }
+    },
+    limit: { type: Number, default: 500 }
   },
-
-  emits: ['update:modelValue'],
-
+  emits: ['update:modelValue', 'charactersCount'],
   data () {
     return {
       editor: null
     }
   },
-
   watch: {
     modelValue (value) {
       // HTML
       const isSame = this.editor.getHTML() === value
+      this.$emit('charactersCount', this.editor.storage.characterCount.characters())
 
       if (isSame) {
         return
@@ -49,7 +49,6 @@ export default {
       this.editor.commands.setContent(value, false)
     }
   },
-
   mounted () {
     this.editor = new Editor({
       extensions: [
@@ -57,6 +56,9 @@ export default {
         Placeholder.configure({
           // Use a placeholder:
           placeholder: 'Envie de partager quelque ?'
+        }),
+        CharacterCount.configure({
+          limit: this.limit
         })
       ],
       content: this.modelValue,
@@ -72,7 +74,6 @@ export default {
       }
     })
   },
-
   beforeUnmount () {
     this.editor.destroy()
   }
