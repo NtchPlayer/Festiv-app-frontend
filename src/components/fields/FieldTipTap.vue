@@ -55,7 +55,7 @@ export default {
         StarterKit,
         Placeholder.configure({
           // Use a placeholder:
-          placeholder: 'Envie de partager quelque ?'
+          placeholder: 'Envie de partager quelque chose ?'
         }),
         CharacterCount.configure({
           limit: this.limit
