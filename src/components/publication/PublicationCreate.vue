@@ -158,19 +158,17 @@ export default {
     },
     __set_medias () {
       const medias = [...this.$refs['file-input'].files]
-      this.type = this.__get_media_type(medias[0])
-      if (medias.length > 2) {
+      const type = this.__get_media_type(medias[0])
+      if (medias.length > 2 || (this.medias.length + 1) > 2) {
         this.__emitNotification('Vous ne pouvez pas poster plus de 2 fichiers.', 'red')
         return
       }
-      if (!medias.every((media) => this.__get_media_type(media) === this.type)) {
-        this.__emitNotification('Veuillez sélectionner soit 1 vidéo soit 4 images.', 'red')
-        this.type = null
+      if ((this.type && this.type !== type) || !medias.every((media) => this.__get_media_type(media) === type)) {
+        this.__emitNotification('Veuillez sélectionner soit 1 vidéo soit 2 images.', 'red')
         return
       }
       if (!medias.every((media) => media.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp|mp4|mov|m4v|avi)$/))) {
         this.__emitNotification('Le format de fichier sélectionner est invalide.', 'red')
-        this.type = null
         return
       }
       if (medias.every((media) => (media.size / 1000000).toPrecision(3) > 20)) { // MegaOctet
@@ -178,6 +176,7 @@ export default {
         this.type = null
         return
       }
+      this.type = this.__get_media_type(medias[0])
       for (const media of medias) {
         this.medias.push(media)
       }
