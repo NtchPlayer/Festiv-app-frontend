@@ -19,12 +19,12 @@
             <div v-if="userData.isProfessional" class="profile-tags">
               <p class="profile-tags-label">Hashtag de ce festival:</p>
               <ul class="profile-tags-container">
-                <span
-                  v-for="tag of userData.tags"
-                  :key="tag.id"
-                  class="text-label"
-                  v-text="tag.content"
-                />
+              <p
+                v-for="tag of userData.tags"
+                :key="tag.id"
+                class="text-label"
+                v-text="tag.content"
+              />
               </ul>
             </div>
             <p class="profile-join">
