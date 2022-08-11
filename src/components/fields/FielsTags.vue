@@ -8,7 +8,7 @@
         id="hashtags"
         v-model.trim="newTag"
         type="text"
-        class="input"
+        class="input input-shaping"
         placeholder="#Solidays"
         maxlength="50"
         @keydown.enter.prevent="addTag(newTag)"

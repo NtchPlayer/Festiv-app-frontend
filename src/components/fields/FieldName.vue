@@ -11,7 +11,7 @@
         id="name"
         ref="input"
         v-model.trim="name"
-        class="input"
+        class="input input-shaping"
         :class="{'input-error': error}"
         type="text"
         :disabled="disabled"

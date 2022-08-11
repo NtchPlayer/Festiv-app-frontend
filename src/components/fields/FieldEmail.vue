@@ -6,7 +6,7 @@
         id="email"
         ref="input"
         v-model="email"
-        class="input"
+        class="input input-shaping"
         :class="{'input-error': error && email !== ''}"
         :type="errorChecker ? 'email' : 'text'"
         :disabled="disabled"

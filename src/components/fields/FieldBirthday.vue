@@ -7,7 +7,7 @@
       id="birthday"
       ref="input"
       v-model="birthday"
-      class="input"
+      class="input input-shaping"
       :class="{'input-error': birthdayIsValid}"
       type="date"
       name="Field Birthday"

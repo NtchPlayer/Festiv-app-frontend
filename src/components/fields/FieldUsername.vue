@@ -10,7 +10,7 @@
       id="username"
       ref="input"
       v-model.trim="username"
-      class="input"
+      class="input input-shaping"
       :class="{'input-error': error}"
       type="text"
       :disabled="disabled"
