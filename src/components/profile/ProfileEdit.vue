@@ -165,16 +165,19 @@ export default {
       }
       this.emailIsUse = false
       this.isLoading = true
+      const data = {
+        username: this.user.username,
+        email: this.user.email,
+        birthday: this.user.birthday,
+        biography: this.user.biography,
+        tags: this.user.tags
+      }
+      if (this.passwordInclude) {
+        data.oldPassword = this.oldPassword
+        data.newPassword = this.newPassword
+      }
       this.axios
-        .put('users/update', {
-          username: this.user.username,
-          email: this.user.email,
-          birthday: this.user.birthday,
-          biography: this.user.biography,
-          tags: this.user.tags,
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword
-        })
+        .put('users/update', data)
         .then(() => {
           if (this.file) {
             this.__updateAvatar(this.file)
