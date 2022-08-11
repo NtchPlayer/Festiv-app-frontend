@@ -2,7 +2,7 @@
   <div>
     <p v-if="label" class="label" v-text="label" />
     <editor-content
-      :class="{'input': label}"
+      :class="{'input input-shaping': label}"
       :editor="editor"
     />
   </div>
