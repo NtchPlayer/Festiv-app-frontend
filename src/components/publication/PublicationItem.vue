@@ -56,7 +56,7 @@
           <ButtonPublicationAction
             icon="fa-solid fa-comment"
             :count="parseInt(publication.countComments)"
-            @emitClick="__postComment"
+            @emitClick="commentModal = true"
           />
         </footer>
         <p v-else class="publication-answer">
@@ -144,9 +144,6 @@ export default {
             style: 'red'
           })
         })
-    },
-    __postComment () {
-      this.commentModal = true
     },
     __closeModalComment () {
       if (this.sendPostIsLoading) {
