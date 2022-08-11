@@ -71,6 +71,7 @@ export default {
     width: unset;
     max-height: 100vh;
     background: transparent;
+    box-shadow: none;
   }
   #publication-galerie-full-image{
     cursor: default;
