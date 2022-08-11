@@ -494,6 +494,12 @@ a{
   .header-section,
   .main-nav{
     border-radius: 0 !important;
+    .nav-item{
+      &:first-child,
+      &:last-child{
+        border-radius: 0 !important;
+      }
+    }
   }
   .content-section{
     padding-left: 15px;
