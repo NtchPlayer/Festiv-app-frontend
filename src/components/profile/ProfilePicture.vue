@@ -47,7 +47,22 @@ export default {
   },
   methods: {
     __emitFile () {
-      this.$emit('emitFile', this.$refs['input-profile'].files[0])
+      const media = this.$refs['input-profile'].files[0]
+      if (!media.name.toLowerCase().match(/\.(jpg|jpeg|png|webp)$/)) {
+        this.$store.dispatch('notifications/emitNotification', {
+          content: "L'extension du fichier sélectionné est invalide.",
+          style: 'red'
+        })
+        return
+      }
+      if ((media.size / 1000000).toPrecision(3) > 1) { // MegaOctet
+        this.$store.dispatch('notifications/emitNotification', {
+          content: "L'image sélectionnée est trop lourde.",
+          style: 'red'
+        })
+        return
+      }
+      this.$emit('emitFile', media)
     }
   }
 }
