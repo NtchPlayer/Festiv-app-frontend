@@ -1,18 +1,25 @@
 <template>
   <div class="container-input">
     <label class="label" for="password" v-text="label" />
-    <input
-      id="password"
-      ref="input"
-      v-model="password"
-      class="input"
-      type="password"
-      placeholder="Votre mot de passe"
-      :disabled="disabled"
-      name="Field Password"
-      :minlength="errorChecker === false ? false : 8"
-      :autocomplete="autocomplete"
-    >
+    <div class="input-shaping input-shaping-button">
+      <input
+        id="password"
+        ref="input"
+        v-model="password"
+        class="input"
+        :type="typeInput"
+        placeholder="Votre mot de passe"
+        :disabled="disabled"
+        name="Field Password"
+        :minlength="errorChecker === false ? false : 8"
+        :autocomplete="autocomplete"
+      >
+      <button type="button" class="button-round" @click.prevent="revealPassword = !revealPassword">
+        <span class="button-round-icon">
+          <font-awesome-icon :icon="iconButton" />
+        </span>
+      </button>
+    </div>
     <template v-if="errorChecker">
       <p
         v-if="passwordToCheck"
@@ -108,6 +115,17 @@ export default {
         default:
           return true
       }
+    },
+    iconButton () {
+      return this.revealPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'
+    },
+    typeInput () {
+      return this.revealPassword ? 'text' : 'password'
+    }
+  },
+  data () {
+    return {
+      revealPassword: false
     }
   },
   watch: {
