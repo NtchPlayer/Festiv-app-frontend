@@ -150,9 +150,16 @@ export default {
       await this.axios.delete('users')
         .then(() => {
           this.__logout()
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Votre compte a bien été supprimée.',
+            style: 'green'
+          })
         })
-        .catch((e) => {
-          throw e
+        .catch(() => {
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur est survenue.',
+            style: 'red'
+          })
         })
     },
     __fetchUser () {
