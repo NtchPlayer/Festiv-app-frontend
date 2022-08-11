@@ -171,7 +171,9 @@ export default {
           email: this.user.email,
           birthday: this.user.birthday,
           biography: this.user.biography,
-          tags: this.user.tags
+          tags: this.user.tags,
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword
         })
         .then(() => {
           if (this.file) {
