@@ -18,14 +18,14 @@
             <div class="publication-main" v-html="userData.biography" />
             <div v-if="userData.isProfessional" class="profile-tags">
               <p class="profile-tags-label">Hashtag de ce festival:</p>
-              <ul class="profile-tags-container">
-              <p
+              <p class="profile-tags-container">
+              <span
                 v-for="tag of userData.tags"
                 :key="tag.id"
                 class="text-label"
                 v-text="tag.content"
               />
-              </ul>
+              </p>
             </div>
             <p class="profile-join">
               <font-awesome-icon icon="fa-solid fa-calendar-days" />
