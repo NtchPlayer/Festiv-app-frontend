@@ -168,7 +168,7 @@ export default {
         this.type = null
         return
       }
-      if (!medias.every((media) => media.name.match(/\.(jpg|jpeg|png|gif|webp|mp4|mov|m4v|avi)$/))) {
+      if (!medias.every((media) => media.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|webp|mp4|mov|m4v|avi)$/))) {
         this.__emitNotification('Le format de fichier sélectionner est invalide.', 'red')
         this.type = null
         return
