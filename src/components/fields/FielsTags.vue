@@ -71,7 +71,7 @@ export default {
         return
       }
       for (const tagObject of tags.value) {
-        if (tag === tagObject.content) {
+        if (tag.toLowerCase() === tagObject.content.toLowerCase()) {
           handleDuplicate(tag)
           return
         }
