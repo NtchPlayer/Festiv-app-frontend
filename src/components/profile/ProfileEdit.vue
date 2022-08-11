@@ -65,8 +65,27 @@
           </template>
           <h2 class="second-title">Sécurité</h2>
           <FieldPassword
-            v-model="password"
+            v-model="oldPassword"
             :error-checker="true"
+            label="Ancien mot de passe"
+            warning-message="Votre nouveau mot de passe ne peux pas être le même que l'ancien."
+            :password-to-check="newPassword"
+            check-type="old"
+            @isValid="oldPasswordIsValid = $event"
+          />
+          <FieldPassword
+            v-model="newPassword"
+            :error-checker="true"
+            label="Nouveau mot de passe"
+            @isValid="newPasswordIsValid = $event"
+          />
+          <FieldPassword
+            v-model="confirmNewPassword"
+            :error-checker="true"
+            check-type="confirm"
+            :password-to-check="newPassword"
+            label="Confirmer nouveau mot de passe"
+            @isValid="confirmNewPasswordIsValid = $event"
           />
         </fieldset>
       </form>
@@ -94,7 +113,12 @@ export default {
       emailIsValid: true,
       emailIsUse: false,
       birthdayIsValid: true,
-      password: '',
+      oldPassword: '',
+      oldPasswordIsValid: false,
+      newPassword: '',
+      newPasswordIsValid: false,
+      confirmNewPassword: '',
+      confirmNewPasswordIsValid: false,
       isLoading: false
     }
   },
@@ -110,7 +134,14 @@ export default {
   },
   computed: {
     formIsValid () {
-      return this.usernameIsValid && this.emailIsValid && this.birthdayIsValid
+      if (this.passwordInclude) {
+        return this.usernameIsValid && this.emailIsValid && this.birthdayIsValid && this.newPasswordIsValid && this.confirmNewPasswordIsValid && this.oldPasswordIsValid && Boolean(this.oldPassword)
+      } else {
+        return this.usernameIsValid && this.emailIsValid && this.birthdayIsValid
+      }
+    },
+    passwordInclude () {
+      return Boolean(this.oldPassword) || Boolean(this.newPassword) || Boolean(this.confirmNewPassword)
     }
   },
   async mounted () {
