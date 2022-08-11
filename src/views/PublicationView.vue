@@ -46,17 +46,18 @@
             <ButtonPublicationAction
               icon="fa-solid fa-comment"
               :count="parseInt(publication.countComments)"
-              @emitClick="__postComment"
+              @emitClick="commentModal = true"
             />
           </div>
         </article>
         <PublicationCreate />
       </template>
-      <section v-if="commentModal" class="container-modal" @click.self="commentModal = false">
+      <section v-if="commentModal" class="container-modal" @click.self="__closeModal">
         <div class="modale">
           <PublicationCreate
-            @emitClose="commentModal = false"
             :parentPublication="publication"
+            @emitClose="__closeModal"
+            @sendPost="sendPostIsLoading = $event"
           />
         </div>
       </section>
@@ -105,7 +106,8 @@ export default {
       isLike: false,
       countLike: 0,
       likeIsLoading: true,
-      commentModal: false
+      commentModal: false,
+      sendPostIsLoading: false
     }
   },
   computed: {
@@ -180,8 +182,11 @@ export default {
           })
         })
     },
-    __postComment () {
-      this.commentModal = true
+    __closeModal () {
+      if (this.sendPostIsLoading) {
+        return
+      }
+      this.commentModal = false
     },
     __deletePost () {
       this.axios.delete(`publications/${this.publication.id}`)

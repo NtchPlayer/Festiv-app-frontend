@@ -64,11 +64,12 @@
         </p>
       </div>
     </article>
-    <section v-if="commentModal && !isParent" class="container-modal" @click.self="comments = false">
+    <section v-if="commentModal && !isParent" class="container-modal" @click.self="__closeModalComment">
       <div class="modale">
         <PublicationCreate
-          @emitClose="commentModal = false"
           :parentPublication="publication"
+          @emitClose="__closeModalComment"
+          @sendPost="sendPostIsLoading = $event"
         />
       </div>
     </section>
@@ -123,7 +124,8 @@ export default {
       isLike: this.publication.isLike,
       countLike: parseInt(this.publication.countLike),
       likeIsLoading: false,
-      commentModal: false
+      commentModal: false,
+      sendPostIsLoading: false
     }
   },
   methods: {
@@ -145,6 +147,12 @@ export default {
     },
     __postComment () {
       this.commentModal = true
+    },
+    __closeModalComment () {
+      if (this.sendPostIsLoading) {
+        return
+      }
+      this.commentModal = false
     },
     __likePublication () {
       const action = this.isLike ? 'delete' : 'post'

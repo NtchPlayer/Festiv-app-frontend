@@ -137,6 +137,7 @@ export default {
       }
       if (this.content) {
         this.isLoading = true
+        this.$emit('sendPost', true)
         this.axios.post(
           'publications/add',
           formData,
@@ -144,6 +145,7 @@ export default {
         )
           .then(() => {
             this.isLoading = false
+            this.$emit('sendPost', false)
             this.content = ''
             this.medias = []
             this.$emit('fetchPublications')
@@ -152,6 +154,7 @@ export default {
           })
           .catch(() => {
             this.isLoading = false
+            this.$emit('sendPost', false)
             this.__emitNotification('Une erreur est survenue.', 'red')
           })
       }

@@ -10,9 +10,13 @@
       @emitClick="__newPost"
     />
     <div class="content-section">
-      <section v-if="newPostModal" class="container-modal" @click.self="newPostModal = false">
+      <section v-if="newPostModal" class="container-modal" @click.self="__closeModal">
         <div class="modale">
-          <PublicationCreate @emitClose="newPostModal = false" @fetchPublications="__fetchPublications" />
+          <PublicationCreate
+            @emitClose="__closeModal"
+            @fetchPublications="__fetchPublications"
+            @sendPost="sendPostIsLoading = $event"
+          />
         </div>
       </section>
       <PublicationCreate @fetchPublications="__fetchPublications" />
@@ -51,7 +55,8 @@ export default {
     return {
       newPostModal: false,
       publications: null,
-      isLoading: true
+      isLoading: true,
+      sendPostIsLoading: false
     }
   },
   mounted () {
@@ -68,6 +73,12 @@ export default {
           this.isLoading = false
           this.publications = e.data
         })
+    },
+    __closeModal () {
+      if (this.sendPostIsLoading) {
+        return
+      }
+      this.newPostModal = false
     }
   },
   setup () {
