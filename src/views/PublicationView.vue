@@ -50,14 +50,16 @@
             />
           </div>
         </article>
-        <PublicationCreate />
+        <PublicationCreate :parentPublication="publication" @fetchPublications="__fetchPost" />
       </template>
       <section v-if="commentModal" class="container-modal" @click.self="__closeModal">
         <div class="modale">
           <PublicationCreate
             :parentPublication="publication"
+            :preview-comment="true"
             @emitClose="__closeModal"
             @sendPost="sendPostIsLoading = $event"
+            @fetchPublications="__fetchPost"
           />
         </div>
       </section>
@@ -131,18 +133,18 @@ export default {
     }
   },
   mounted () {
-    this.__fetchPost(this.$route.params.publicationId)
+    this.__fetchPost()
   },
   watch: {
     '$route.params.publicationId' () {
       if (this.$route.params.publicationId) {
-        this.__fetchPost(this.$route.params.publicationId)
+        this.__fetchPost()
       }
     }
   },
   methods: {
-    async __fetchPost (id) {
-      await this.axios.get(`publications/${id}`)
+    async __fetchPost () {
+      await this.axios.get(`publications/${this.$route.params.publicationId}`)
         .then((res) => {
           this.initLoading = false
           this.publication = res.data

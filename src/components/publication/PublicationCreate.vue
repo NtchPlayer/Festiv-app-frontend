@@ -7,7 +7,7 @@
         </span>
       </button>
     </header>
-    <PublicationItem v-if="parentPublication" class="parent-publication" :publication="parentPublication" :is-parent="true" />
+    <PublicationItem v-if="previewComment" class="parent-publication" :publication="parentPublication" :is-parent="true" />
     <main class="publication-body">
       <ProfilePicture :name="$store.state.auth.user?.name" :src="$store.state.auth.user?.avatar" />
       <div class="publication-content">
@@ -64,7 +64,7 @@
           </label>
           <div>
             <LoaderItem v-show="isLoading" :is-tiny="true" />
-            <CharactersCount v-show="charactersCount" :limit="limit" :characters-count="charactersCount" />
+            <CharactersCount v-show="content" :limit="limit" :characters-count="charactersCount" />
             <button
               class="button-primary"
               @click.prevent="__post_publication"
@@ -97,7 +97,8 @@ export default {
     PublicationItem: defineAsyncComponent(() => import('@/components/publication/PublicationItem'))
   },
   props: {
-    parentPublication: { type: [Object, Boolean], default: false }
+    parentPublication: { type: [Object, Boolean], default: false },
+    previewComment: { type: Boolean, default: false }
   },
   data () {
     return {
@@ -124,6 +125,9 @@ export default {
   },
   methods: {
     __post_publication () {
+      if (!this.content) {
+        return
+      }
       const formData = new FormData()
       this.medias.forEach((file) => {
         formData.append('files[]', file, file.name)
@@ -135,29 +139,27 @@ export default {
       for (const tag of this.tags) {
         formData.append('tags[]', tag)
       }
-      if (this.content) {
-        this.isLoading = true
-        this.$emit('sendPost', true)
-        this.axios.post(
-          'publications/add',
-          formData,
-          { headers: { 'Content-Type': 'multipart/form-data' } }
-        )
-          .then(() => {
-            this.isLoading = false
-            this.$emit('sendPost', false)
-            this.content = ''
-            this.medias = []
-            this.$emit('fetchPublications')
-            this.$emit('emitClose')
-            this.__emitNotification('La publication a été envoyé.', 'green')
-          })
-          .catch(() => {
-            this.isLoading = false
-            this.$emit('sendPost', false)
-            this.__emitNotification('Une erreur est survenue.', 'red')
-          })
-      }
+      this.isLoading = true
+      this.$emit('sendPost', true)
+      this.axios.post(
+        'publications/add',
+        formData,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      )
+        .then(() => {
+          this.isLoading = false
+          this.$emit('sendPost', false)
+          this.content = ''
+          this.medias = []
+          this.$emit('fetchPublications')
+          this.$emit('emitClose')
+          this.__emitNotification('La publication a été envoyé.', 'green')
+        })
+        .catch(() => {
+          this.isLoading = false
+          this.$emit('sendPost', false)
+          this.__emitNotification('Une erreur est survenue.', 'red')
+        })
     },
     __set_medias () {
       const medias = [...this.$refs['file-input'].files]

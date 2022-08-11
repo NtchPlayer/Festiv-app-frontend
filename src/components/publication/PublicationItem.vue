@@ -24,7 +24,6 @@
             </p>
           </div>
           <OptionMenu
-            v-if="parseInt(publication.user.id) === $store.state.auth.user?.id && !isParent"
             :actions="[{
               class: 'color-red',
               icon: 'fa-regular fa-trash-can',
@@ -68,6 +67,7 @@
       <div class="modale">
         <PublicationCreate
           :parentPublication="publication"
+          :preview-comment="true"
           @emitClose="__closeModalComment"
           @sendPost="sendPostIsLoading = $event"
         />
@@ -116,7 +116,7 @@ export default {
       return this.isLike ? 'fa-solid' : 'fa-regular'
     },
     mediaType () {
-      return this.publication.medias[0].type.split('/')[0]
+      return this.publication.medias ? this.publication.medias[0].type.split('/')[0] : null
     }
   },
   data () {
