@@ -120,7 +120,7 @@ export default {
       return this.parentPublication ? 'Répondre' : 'Envoyer'
     },
     inputFileIdentifier () {
-      return this.parentPublication ? `-${this.parentPublication.id}` : ''
+      return this.parentPublication ? `-${this.parentPublication.id}-${this.previewComment}` : ''
     }
   },
   methods: {

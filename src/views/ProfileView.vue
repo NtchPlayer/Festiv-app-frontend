@@ -70,7 +70,7 @@
         <section v-else class="section-height-full void-section">
           <div class="void-container">
             <font-awesome-icon class="void-icon" icon="icon-solid fa-wind"/>
-            <p class="void-description">Vous rien encore poster !</p>
+            <p class="void-description">Vous n'avez encore rien posté !</p>
           </div>
         </section>
         <ConfirmModale
@@ -173,6 +173,9 @@ export default {
         .then((res) => {
           this.isLoading = false
           this.publications = res.data
+        })
+        .catch(() => {
+          this.isLoading = false
         })
     }
   },
