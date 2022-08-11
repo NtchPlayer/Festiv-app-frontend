@@ -178,6 +178,7 @@ export default {
           this.publications = res.data
         })
         .catch(() => {
+          this.publications = null
           this.isLoading = false
         })
     }
