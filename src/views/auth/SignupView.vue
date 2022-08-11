@@ -26,7 +26,15 @@
         <FieldPassword
           v-model="password"
           :errorChecker="true"
-          @passwordIsValid="passwordIsValid = $event"
+          @isValid="passwordIsValid = $event"
+        />
+        <FieldPassword
+          v-model="confirmPassword"
+          :errorChecker="true"
+          check-type="confirm"
+          :password-to-check="password"
+          label="Confirmation mot de passe"
+          @isValid="confirmPasswordIsValid = $event"
         />
         <div class="container-input">
           <input type="checkbox" v-model="isFestivalAccount" id="festival-account" @keydown.enter.prevent="isFestivalAccount = !isFestivalAccount">
@@ -77,6 +85,8 @@ export default {
       nameIsUse: false,
       password: '',
       passwordIsValid: false,
+      confirmPassword: '',
+      confirmPasswordIsValid: false,
       isFestivalAccount: false,
       tags: [],
       isLoading: false
@@ -84,7 +94,7 @@ export default {
   },
   computed: {
     isValidForm () {
-      return this.usernameIsValid && this.emailIsValid && this.nameIsValid && this.passwordIsValid
+      return this.usernameIsValid && this.emailIsValid && this.nameIsValid && this.passwordIsValid && this.confirmPasswordIsValid
     }
   },
   methods: {
