@@ -131,6 +131,16 @@ export default {
       this.axios.delete(`publications/${this.publication.id}`)
         .then(() => {
           this.$emit('deletePublication')
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'La publication a été supprimée.',
+            style: 'green'
+          })
+        })
+        .catch(() => {
+          this.$store.dispatch('notifications/emitNotification', {
+            content: 'Une erreur est survenue.',
+            style: 'red'
+          })
         })
     },
     __postComment () {
