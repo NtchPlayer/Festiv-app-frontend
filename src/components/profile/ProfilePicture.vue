@@ -55,7 +55,7 @@ export default {
         })
         return
       }
-      if ((media.size / 1000000).toPrecision(3) > 1) { // MegaOctet
+      if ((media.size / 1000000).toPrecision(3) > 20) { // MegaOctet
         this.$store.dispatch('notifications/emitNotification', {
           content: "L'image sélectionnée est trop lourde.",
           style: 'red'
