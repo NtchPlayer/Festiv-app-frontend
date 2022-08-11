@@ -74,13 +74,13 @@ export default {
   margin-right: 10px;
   display: flex;
   align-self: center;
-  border-right: 1px solid var(--grey-light);
-  padding-right: 10px;
 }
 
 .character-container-svg{
   overflow: visible;
   transform: rotate(-90deg);
+  border-bottom: 1px solid var(--grey-light);
+  padding-bottom: 10px;
 }
 
 .character-count-circle{
