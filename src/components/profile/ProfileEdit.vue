@@ -45,7 +45,9 @@
           <FieldEmail
             v-model="user.email"
             :error-checker="true"
+            :is-use="emailIsUse"
             @emailIsValid="emailIsValid = $event"
+            @isUse="emailIsUse = $event"
           />
           <FieldBirthday
             v-model="user.birthday"
@@ -90,6 +92,7 @@ export default {
       user: null,
       usernameIsValid: true,
       emailIsValid: true,
+      emailIsUse: false,
       birthdayIsValid: true,
       password: '',
       isLoading: false
@@ -129,6 +132,7 @@ export default {
       if (!this.formIsValid) {
         return
       }
+      this.emailIsUse = false
       this.isLoading = true
       this.axios
         .put('users/update', {
@@ -152,7 +156,7 @@ export default {
           }
         })
         .catch((e) => {
-          this.__catchError(e)
+          this.__catchError(e.response.data)
         })
     },
     __updateAvatar (file) {
@@ -176,13 +180,16 @@ export default {
           })
         })
         .catch((e) => {
-          this.__catchError(e)
+          this.__catchError(e.response.data)
         })
     },
-    __catchError (e) {
+    __catchError (error) {
       this.isLoading = false
+      if (error.statusCode === 422 && error.message.includes('email')) {
+        this.emailIsUse = true
+      }
       this.$store.dispatch('notifications/emitNotification', {
-        content: e.response.data.message,
+        content: error.message,
         style: 'red'
       })
     },

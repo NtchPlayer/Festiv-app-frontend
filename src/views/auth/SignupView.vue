@@ -118,7 +118,7 @@ export default {
         })
     },
     __handleError (error) {
-      if (error.statusCode === 422 && error.message.includes('Email')) {
+      if (error.statusCode === 422 && error.message.includes('email')) {
         this.emailIsUse = true
       } else if (error.statusCode === 422 && error.message.includes('Name')) {
         this.nameIsUse = true
