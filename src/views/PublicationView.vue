@@ -69,6 +69,7 @@
           :key="comment.id"
           :publication="comment"
           @deletePublication="__backToHome"
+          @fetchPublications="__fetchPost"
         />
       </section>
     </div>
