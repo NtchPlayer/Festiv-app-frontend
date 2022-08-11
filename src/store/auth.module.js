@@ -55,7 +55,6 @@ export const auth = {
   mutations: {
     loginSuccess (state, user) {
       state.status.loggedIn = true
-      console.log(user)
       state.user = user
     },
     loginFailure (state) {
