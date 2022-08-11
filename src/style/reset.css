@@ -70,7 +70,8 @@ input{
 a:active,
 a:focus,
 i:active,
-i:focus{
+i:focus,
+input:focus{
   outline: none;
 }
 

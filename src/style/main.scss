@@ -263,16 +263,43 @@ form{
 .input{
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  min-font-size: 100%;
+  background: transparent;
+}
+
+.input-shaping{
   border: 1px solid var(--grey-light);
   border-radius: 5px;
-  transition: var(--transition-duration) border;
+  transition-duration: var(--transition-duration);
+  transition-property: background-color, border;
+  background-color: var(--grey-light);
+  overflow: hidden;
   &:hover{
-    border-color: var(--grey-dark);
+    border-color: var(--border-color);
+  }
+  &:focus,
+  &:focus-visible,
+  &:focus-within{
+    background-color: var(--background-color);
   }
   &:disabled{
     background-color: var(--grey-light);
     border-color: var(--grey-light);
+  }
+  &-button{
+    display: flex;
+    .button-round{
+      background: transparent;
+      padding: 4px;
+      &-icon{
+        height: 34px;
+        min-height: 34px;
+        width: 34px;
+        min-width: 34px;
+        font-size: 1rem;
+      }
+    }
   }
 }
 
