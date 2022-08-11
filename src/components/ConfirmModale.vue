@@ -1,5 +1,5 @@
 <template>
-  <section class="container-modal">
+  <section class="container-modal" @click.self="$emit('cancel')">
     <div class="modale item-container confirm-modale">
       <p class="confirm-modale-text" v-text="message" />
       <p class="container-modal-container-button">
