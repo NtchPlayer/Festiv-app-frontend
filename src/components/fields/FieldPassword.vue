@@ -15,7 +15,7 @@
     >
     <template v-if="errorChecker">
       <p
-        v-if="checkType !== 'new'"
+        v-if="passwordToCheck"
         v-show="!isValid && this.modelValue !== ''"
         class="warning container-warning-field"
       >
