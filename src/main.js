@@ -26,7 +26,7 @@ app.config.globalProperties.$filters = {
     const minutes = publicationTime.getMinutes() < 10 ? `0${publicationTime.getMinutes()}` : publicationTime.getMinutes()
     const exactTime = !withHour ? `${hours}:${minutes} • ` : ''
 
-    return `${exactTime}${publicationTime.getDay()} ${month} ${years}`
+    return `${exactTime}${publicationTime.getDate()} ${month} ${years}`
   }
 }
 
