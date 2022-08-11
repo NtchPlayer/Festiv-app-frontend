@@ -84,7 +84,7 @@
             :error-checker="true"
             check-type="confirm"
             :password-to-check="newPassword"
-            label="Confirmer nouveau mot de passe"
+            label="Confirmation nouveau mot de passe"
             @isValid="confirmNewPasswordIsValid = $event"
           />
         </fieldset>
