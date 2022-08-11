@@ -3,12 +3,23 @@
     <label class="label" for="hashtags">
       Quelles sont les hashtags pour identifier votre festival ?
     </label>
-    <div class="tags-input">
+    <div class="tags-input input-shaping">
+      <span
+        v-for="(tag, index) in tags"
+        :key="tag.content" class="tag"
+        :class="{
+          duplicate: tag.content === duplicate
+        }">
+        {{ tag.content }}
+        <button type="button" class="delete" @click="removeTag(index)">
+          <font-awesome-icon icon="fa-solid fa-xmark" />
+        </button>
+      </span>
       <input
         id="hashtags"
         v-model.trim="newTag"
         type="text"
-        class="input input-shaping"
+        class="input"
         placeholder="#Solidays"
         maxlength="50"
         @keydown.enter.prevent="addTag(newTag)"
@@ -16,21 +27,7 @@
         @keydown.prevent.tab="addTag(newTag)"
         @focusout.prevent="addTag(newTag)"
         @keydown.delete="newTag.length || removeTag(tags.length - 1)"
-        :style="{ 'padding-left': `${paddingLeft}px` }"
       />
-      <ul class="tags" ref="tagsUl">
-        <li
-          v-for="(tag, index) in tags"
-          :key="tag.content" class="tag"
-          :class="{
-            duplicate: tag.content === duplicate
-          }">
-          {{ tag.content }}
-          <button type="button" class="delete" @click="removeTag(index)">
-            <font-awesome-icon icon="fa-solid fa-xmark" />
-          </button>
-        </li>
-      </ul>
     </div>
     <div v-show="error" class="container-warning-field">
       <span class="color-red">
@@ -66,7 +63,6 @@ export default {
     const tags = ref(props.modelValue)
     const newTag = ref('')
     const paddingLeft = ref(10)
-    const tagsUl = ref(null)
     const error = ref(false)
 
     const addTag = (tag) => {
@@ -74,9 +70,11 @@ export default {
       if (!tag) {
         return
       }
-      if (tags.value.includes(tag)) {
-        handleDuplicate(tag)
-        return
+      for (const tagObject of tags.value) {
+        if (tag === tagObject.content) {
+          handleDuplicate(tag)
+          return
+        }
       }
       if (!/^\B(#[0-z]+\b)(?!;)$/g.test(tag) || tag.length > 50) {
         handleInvalid(tag)
@@ -91,13 +89,6 @@ export default {
     }
 
     const onTagsChange = () => {
-      // set left padding
-      const extraCushion = 15
-      paddingLeft.value = tagsUl.value.clientWidth + extraCushion
-
-      // scroll tags ul to end
-      tagsUl.value.scrollTo(tagsUl.value.scrollWidth, 0)
-
       // emit tags
       emit('update:modelValue', tags.value)
     }
@@ -123,7 +114,6 @@ export default {
       tags,
       newTag,
       paddingLeft,
-      tagsUl,
       duplicate,
       error,
       addTag,
@@ -136,71 +126,69 @@ export default {
 
 <style lang="scss">
 .tags-input{
-  position: relative;
-  input{
-    width: 100%;
-    padding: 10px;
+  .input{
+    padding: 0;
+    margin: 3px;
+    height: 28px;
+    width: 230px;
   }
-  .tags {
-    list-style: none;
+  position: relative;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 6px 12px;
+  flex-wrap: wrap;
+  .tag{
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 10px;
-    max-width: 80%;
-    overflow-x: auto;
-    .tag{
-      background: var(--blue-light-color);
-      padding: 2px 5px;
-      border-radius: 3px;
-      color: white;
-      white-space: nowrap;
-      transition: 0.1s ease background;
+    background: var(--blue-light-color);
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: white;
+    white-space: nowrap;
+    transition: 0.1s ease background;
+    margin: 3px;
+  }
+  .delete {
+    color: white;
+    background: none;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 3px 5px;
+    margin-left: 5px;
+    transition-duration: var(--transition-duration);
+    font-size: .8rem;
+    &:hover{
+      color: var(--red-color);
     }
-    .delete {
-      color: white;
-      background: none;
-      outline: none;
-      cursor: pointer;
-      border: none;
-      padding: 3px;
-      transition-duration: var(--transition-duration);
-      font-size: .8rem;
-      &:hover{
-        color: var(--red-color);
-      }
+  }
+  @keyframes shake {
+    10%,
+    90% {
+      transform: scale(0.9) translate3d(-1px, 0, 0);
     }
-    @keyframes shake {
-      10%,
-      90% {
-        transform: scale(0.9) translate3d(-1px, 0, 0);
-      }
 
-      20%,
-      80% {
-        transform: scale(0.9) translate3d(2px, 0, 0);
-      }
-
-      30%,
-      50%,
-      70% {
-        transform: scale(0.9) translate3d(-4px, 0, 0);
-      }
-
-      40%,
-      60% {
-        transform: scale(0.9) translate3d(4px, 0, 0);
-      }
+    20%,
+    80% {
+      transform: scale(0.9) translate3d(2px, 0, 0);
     }
-    .tag.duplicate {
-      background: var(--red-color);
-      animation: shake 1s;
+
+    30%,
+    50%,
+    70% {
+      transform: scale(0.9) translate3d(-4px, 0, 0);
     }
+
+    40%,
+    60% {
+      transform: scale(0.9) translate3d(4px, 0, 0);
+    }
+  }
+  .tag.duplicate {
+    background: var(--red-color);
+    animation: shake 1s;
   }
 }
 </style>
