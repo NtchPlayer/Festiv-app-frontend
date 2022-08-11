@@ -21,7 +21,7 @@ class AuthService {
 
   logout () {
     localStorage.removeItem('user')
-    delete axiosInstance.defaults.headers.common.Authorization
+    return delete axiosInstance.defaults.headers.common.Authorization
   }
 
   register (user) {
