@@ -63,8 +63,8 @@
             v-for="publication of publications"
             :key="publication.id"
             :publication="publication"
-            @fetchPublications="__fetchUserPost(this.userData.username)"
-            @deletePublication="__fetchUserPost(this.userData.username)"
+            @fetchPublications="__fetchUserPost"
+            @deletePublication="__fetchUserPost"
           />
         </section>
         <LoaderItem v-else-if="isLoading" />
@@ -158,7 +158,7 @@ export default {
         .then((res) => {
           this.initLoading = false
           this.userData = res.data
-          this.__fetchUserPost(res.data.name)
+          this.__fetchUserPost()
         })
         .catch(() => {
           this.$router.push({ name: 'home' })
@@ -168,9 +168,9 @@ export default {
           })
         })
     },
-    __fetchUserPost (name) {
+    __fetchUserPost () {
       this.isLoading = true
-      return this.axios.get(`publications/user/${name}`)
+      return this.axios.get(`publications/user/${this.userData.name}`)
         .then((res) => {
           this.isLoading = false
           this.publications = res.data
