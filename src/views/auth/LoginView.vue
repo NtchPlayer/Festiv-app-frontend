@@ -59,8 +59,9 @@ export default {
         })
         .catch((error) => {
           this.isLoading = false
+          console.log(error)
           this.$store.dispatch('notifications/emitNotification', {
-            content: error.message,
+            content: error.response.data.message,
             style: 'red'
           })
         })
