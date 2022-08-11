@@ -14,6 +14,7 @@
     <figure class="publication-media-thumb" @click.prevent="$emit('galerie', { url: image.url, alt: image.alt })">
       <img
         class="publication-media-image"
+        loading="lazy"
         :src="image.url"
         :alt="image.alt"
       />
