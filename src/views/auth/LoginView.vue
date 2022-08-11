@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     async __submitLogin () {
-      if (!this.email && !this.password) {
+      if (!this.email || !this.password) {
         return
       }
       this.isLoading = true
