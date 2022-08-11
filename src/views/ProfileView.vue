@@ -64,6 +64,7 @@
             :key="publication.id"
             :publication="publication"
             @fetchPublications="__fetchUserPost(this.userData.username)"
+            @deletePublication="__fetchUserPost(this.userData.username)"
           />
         </section>
         <LoaderItem v-else-if="isLoading" />
