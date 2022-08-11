@@ -68,7 +68,7 @@
           v-for="comment of publication?.comments"
           :key="comment.id"
           :publication="comment"
-          @deletePublication="__backToHome"
+          @deletePublication="__fetchPost"
           @fetchPublications="__fetchPost"
         />
       </section>
