@@ -114,7 +114,7 @@ export default {
       emailIsUse: false,
       birthdayIsValid: true,
       oldPassword: '',
-      oldPasswordIsValid: false,
+      oldPasswordIsValid: true,
       newPassword: '',
       newPasswordIsValid: false,
       confirmNewPassword: '',
