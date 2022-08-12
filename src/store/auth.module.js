@@ -20,19 +20,11 @@ export const auth = {
         }
       )
     },
-    checkUserSession ({ commit, dispatch }) {
+    checkUserSession ({ commit }) {
       return AuthService.getCurrentUser()
-        .then((e) => {
-          commit('setUser', {
-            name: e.user.name,
-            avatar: e.user.avatar?.url,
-            id: e.user.id,
-            accessToken: e.user.accessToken
-          })
-        })
         .catch(() => {
           AuthService.logout()
-          dispatch('logout')
+          commit('logout')
         })
     },
     logout ({ commit }) {
