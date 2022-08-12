@@ -35,8 +35,6 @@ body{
   margin-right: auto;
   margin-left: auto;
   min-height: calc(100vh - 129px);
-  //border-left: 1px solid var(--grey-light);
-  //border-right: 1px solid var(--grey-light);
   display: flex;
   flex-direction: column;
 }
@@ -407,9 +405,18 @@ a{
   position: relative;
 }
 
+.parent-publication{
+  .publication-answer{
+    margin: 20px 0;
+  }
+}
+
 .publication-answer{
-  margin: 20px 0;
+  margin: 10px 0;
   color: var(--grey-dark);
+  & a{
+    color: inherit;
+  }
   &-lane{
     display: block;
     width: 2px;
