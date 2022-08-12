@@ -15,7 +15,7 @@
       type="text"
       :disabled="disabled"
       name="Field username"
-      placeholder="IcePlayer"
+      placeholder="Pickle"
       :autocomplete="autocomplete"
       minlength="2"
       maxlength="32"

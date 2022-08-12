@@ -11,7 +11,7 @@
         :type="errorChecker ? 'email' : 'text'"
         :disabled="disabled"
         name="Field Email"
-        placeholder="E-mail"
+        placeholder="exemple@mail.xyz"
         :autocomplete="autocomplete"
       >
       <font-awesome-icon v-show="isUse" class="input-warning-icon color-red" icon="fa-solid fa-circle-exclamation" />

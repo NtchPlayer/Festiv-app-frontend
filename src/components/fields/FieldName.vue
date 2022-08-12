@@ -16,7 +16,7 @@
         type="text"
         :disabled="disabled"
         name="Field name"
-        placeholder="NtchPlayer"
+        placeholder="thePickle_1"
         :autocomplete="autocomplete"
         minlength="2"
         maxlength="32"
