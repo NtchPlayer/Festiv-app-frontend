@@ -2,11 +2,14 @@ import { axiosInstance } from '@/axios'
 
 class AuthService {
   login (user) {
+    axiosInstance.defaults.headers.common.Authorization = false
     delete axiosInstance.defaults.headers.common.Authorization
     return axiosInstance
       .post('auth/login', {
         email: user.email,
         password: user.password
+      }, {
+        headers: null
       })
       .then(response => {
         if (response.data.accessToken) {
@@ -22,6 +25,7 @@ class AuthService {
 
   logout () {
     localStorage.removeItem('user')
+    axiosInstance.defaults.headers.common.Authorization = false
     return delete axiosInstance.defaults.headers.common.Authorization
   }
 
