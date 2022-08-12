@@ -132,6 +132,11 @@ export default {
         this.emailIsUse = true
       } else if (error.statusCode === 422 && error.message.includes('Name')) {
         this.nameIsUse = true
+      } else if (error.statusCode === 422 && error.message.includes('nom')) {
+        this.$store.dispatch('notifications/emitNotification', {
+          content: error.message,
+          style: 'red'
+        })
       } else {
         this.$store.dispatch('notifications/emitNotification', {
           content: 'Oops, une erreur c\'est produite ! Veuillez ressayer plus tard.',
