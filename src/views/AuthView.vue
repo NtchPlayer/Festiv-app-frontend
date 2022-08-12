@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'AuthView'
+  name: 'AuthView',
+  mounted () {
+    delete this.axios.defaults.headers.common.Authorization
+  }
 }
 </script>
 
