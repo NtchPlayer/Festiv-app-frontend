@@ -35,6 +35,11 @@
           />
         </header>
         <main>
+          <p v-if="publication.parentPublication && !isComment && !isParent" class="publication-answer">
+            <router-link :to="{ name: 'profile-publication', params: { name: this.publication.parentPublication.name, publicationId: this.publication.parentPublication.id } }">
+              En réponse à <span class="color-blue">@{{ publication.parentPublication.username }}</span>
+            </router-link>
+          </p>
           <div
             class="publication-main"
             v-html="contentFormatted"
@@ -96,6 +101,7 @@ export default {
   },
   props: {
     publication: { type: Object, required: true },
+    isComment: { type: Boolean, default: false },
     isParent: { type: Boolean, default: false }
   },
   computed: {
