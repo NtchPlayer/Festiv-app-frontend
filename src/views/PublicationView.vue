@@ -68,6 +68,7 @@
           v-for="comment of publication?.comments"
           :key="comment.id"
           :publication="comment"
+          :is-comment="true"
           @deletePublication="__fetchPost"
           @fetchPublications="__fetchPost"
         />
