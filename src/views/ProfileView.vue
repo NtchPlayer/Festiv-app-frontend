@@ -141,8 +141,7 @@ export default {
       await this.$store
         .dispatch('auth/logout')
         .then(() => {
-          this.axios.defaults.headers.common.Authorization = ''
-          delete this.axios.defaults.headers.common.Authorization
+          delete this.axios.defaults.headers.Authorization
           this.$router.push({ name: 'login' })
         })
     },
