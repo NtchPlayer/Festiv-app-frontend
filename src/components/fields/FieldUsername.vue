@@ -31,11 +31,6 @@
           class="item-list-warning"
           v-text="'Doit avoir entre 2 et 36 caractère.'"
         />
-        <li
-          v-show="usernameHasSpace"
-          class="item-list-warning"
-          v-text="'Ne doit pas contenir d\'espace'"
-        />
       </ul>
     </div>
   </div>
@@ -56,14 +51,11 @@ export default {
     usernameLengthMeet () {
       return this.username.trim().length < 2
     },
-    usernameHasSpace () {
-      return (/\s+/.test(this.username.toString()))
-    },
     nameIsValid () {
       return (!this.error && this.username !== '')
     },
     error () {
-      return (this.usernameHasSpace || this.usernameLengthMeet) && this.username !== ''
+      return (this.usernameLengthMeet) && this.username !== ''
     }
   },
   watch: {
