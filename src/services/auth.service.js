@@ -10,10 +10,9 @@ class AuthService {
         headers: null
       })
       .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data))
-          axiosInstance.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`
-        }
+        localStorage.setItem('user', JSON.stringify(response.data))
+        delete axiosInstance.defaults.headers.common.Authorization
+        axiosInstance.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`
         return response.data
       })
       .catch((e) => {
@@ -39,11 +38,9 @@ class AuthService {
 
   getCurrentUser () {
     return axiosInstance.get('profile')
-      .then((res) => {
-        return res.data
-      })
       .catch(() => {
-        delete axiosInstance.defaults.headers.common.Authorization
+        console.log('getCurrentUser')
+        delete axiosInstance.defaults.headers.Authorization
       })
   }
 }
