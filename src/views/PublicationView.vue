@@ -162,9 +162,6 @@ export default {
           })
         })
     },
-    __backToHome () {
-      this.$router.push({ name: 'home' })
-    },
     __likePublication () {
       const action = this.isLike ? 'delete' : 'post'
       this.likeIsLoading = true
